@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;AppStore;AdHoc_PQA;AdHoc_QA;AdHoc_PROD;AdHoc_Staging</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PQA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PQA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PROD|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PROD;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_QA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_QA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_Staging|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_Staging;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AppStore;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Cognizant.Hackathon.StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognizant.Hackathon.RestClient">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.RestClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\10.1.3.7\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\StandardAppConfig.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controls\Web\WebViewer.cs" />
+    <Compile Remove="Controls\Collections\PagedObservableCollection.cs" />
+    <Compile Remove="Controls\Collections\PagedObservableCollectionItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controls\CustomPopupDrawer\MultipleInputSectionPopup.xaml.cs">
+      <DependentUpon>MultipleInputSectionPopup.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cognizant.Hackathon\Cognizant.Hackathon.Core\Cognizant.Hackathon.Core.csproj" />
+    <ProjectReference Include="..\Cognizant.Hackathon.Shared.Mobile.Core\Cognizant.Hackathon.Shared.Mobile.Core.csproj" />
+  </ItemGroup>
+</Project>

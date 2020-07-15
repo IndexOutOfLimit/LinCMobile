@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;Ad-Hoc;AppStore;AdHoc_PQA;AdHoc_QA;AdHoc_PROD;AdHoc_Staging</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PQA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PQA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PROD|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PROD;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_QA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_QA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_Staging|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_Staging;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AppStore;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cognizant.Hackathon\Cognizant.Hackathon.Core\Cognizant.Hackathon.Core.csproj" />
+    <ProjectReference Include="..\..\Cognizant.Hackathon\Cognizant.Hackathon.RestClient\Cognizant.Hackathon.RestClient.csproj" />
+    <ProjectReference Include="..\Cognizant.Hackathon.Shared.Mobile.Models\Cognizant.Hackathon.Shared.Mobile.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Cognizant.Hackathon.StandardAppConfig">
+      <HintPath>..\..\..\..\..\StandardAppConfig\src\Lib\Cognizant.Hackathon.StandardAppConfig\bin\Release\netstandard2.0\Cognizant.Hackathon.StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognizant.Hackathon.StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognizant.Hackathon.RestClient">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.RestClient.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\StandardAppConfig.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\Request\" />
+    <Folder Include="Services\Response\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Interfaces\INativeBrowserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Unity.Container" Version="5.11.4" />
+  </ItemGroup>
+</Project>

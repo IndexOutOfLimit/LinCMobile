@@ -1,0 +1,177 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;Ad-Hoc;AppStore;AdHoc_PQA;AdHoc_QA;AdHoc_PROD;AdHoc_Staging</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PQA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PQA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_QA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_QA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_Staging|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_Staging;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PROD|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath></OutputPath>
+    <OutputPath></OutputPath>
+    <DefineConstants>TRACE;AdHoc_PROD;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AppStore;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="PCLStorage.Standard" Version="1.0.0" />
+    <PackageReference Include="SharpSerializer" Version="3.0.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="IdentityModel" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Cognizant.Hackathon.StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognizant.Hackathon.RestClient">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.RestClient.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\StandardAppConfig.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Common\Helpers\AsyncHelpers.cs" />
+    <Compile Remove="Common\Helpers\AttributeHelper.cs" />
+    <Compile Remove="Common\Helpers\CommandHelpers.cs" />
+    <Compile Remove="Common\Helpers\CountryHelpers.cs" />
+    <Compile Remove="Common\Helpers\CountryPhoneCodes.cs" />
+    <Compile Remove="Common\Helpers\DateHelper.cs" />
+    <Compile Remove="Common\Helpers\DefaultConstants.cs" />
+    <Compile Remove="Common\Helpers\EventHelpers.cs" />
+    <Compile Remove="Common\Helpers\ExpressionHelper.cs" />
+    <Compile Remove="Common\Helpers\FileHelper.cs" />
+    <Compile Remove="Common\Helpers\GeolocationHelpers.cs" />
+    <Compile Remove="Common\Helpers\ImageHelpers.cs" />
+    <Compile Remove="Common\Helpers\MathHelpers.cs" />
+    <Compile Remove="Common\Helpers\MediaHelpers.cs" />
+    <Compile Remove="Interface\IMessageQueue.cs" />
+    <Compile Remove="Common\Infrastructure\InMemoryMessageQueue.cs" />
+    <Compile Remove="Common\Helpers\MessageWrapper.cs" />
+    <Compile Remove="Common\Enum\EnumExtensions.cs" />
+    <Compile Remove="Common\Helpers\MiscHelpers.cs" />
+    <Compile Remove="Common\Helpers\ObjectHelpers.cs" />
+    <Compile Remove="Common\Helpers\Paging.cs" />
+    <Compile Remove="Common\Paging.cs" />
+    <Compile Remove="Common\Interfaces\IPaging.cs" />
+    <Compile Remove="Common\Helpers\ReflectionHelpers.cs" />
+    <Compile Remove="Common\Infrastructure\PushNotification.cs" />
+    <Compile Remove="Common\Helpers\RoleHelper.cs" />
+    <Compile Remove="Common\Helpers\TaskHelper.cs" />
+    <Compile Remove="Common\Helpers\TraceHelpers.cs" />
+    <Compile Remove="Common\Infrastructure\Serialisers\BinarySerialiser.cs" />
+    <Compile Remove="Common\Infrastructure\Serialisers\DataContractSerialiser.cs" />
+    <Compile Remove="Common\Infrastructure\Serialisers\JsonConcreteConverter.cs" />
+    <Compile Remove="Common\Infrastructure\Serialisers\MemoryStreamJsonConverter.cs" />
+    <Compile Remove="Common\Interfaces\IApplicationDomain.cs" />
+    <Compile Remove="Common\Infrastructure\ApplicationDomain.cs" />
+    <Compile Remove="Common\Infrastructure\Exceptions.cs" />
+    <Compile Remove="Common\Infrastructure\FakeNotificationHub.cs" />
+    <Compile Remove="Common\Interfaces\IDebugService.cs" />
+    <Compile Remove="Common\Interfaces\IGeoCoordinate.cs" />
+    <Compile Remove="Common\Interfaces\IGeoLocation.cs" />
+    <Compile Remove="Common\Interfaces\IMessenger.cs" />
+    <Compile Remove="Common\Interfaces\IParallelHelper.cs" />
+    <Compile Remove="Common\Interfaces\IResolver.cs" />
+    <Compile Remove="Common\Interfaces\ISerialiser.cs" />
+    <Compile Remove="Common\Json\DictionaryAsArrayResolver.cs" />
+    <Compile Remove="Common\Model\Credential.cs" />
+    <Compile Remove="Common\Model\EmailEntry.cs" />
+    <Compile Remove="Common\Model\ObjectDifference.cs" />
+    <Compile Remove="Common\Model\PhoneEntry.cs" />
+    <Compile Remove="Configuration\Constants\TempConstant.cs" />
+    <Compile Remove="Common\Constant.cs" />
+    <Compile Remove="Common\Location.cs" />
+    <Compile Remove="Common\MyParallel.cs" />
+    <Compile Remove="Configuration\Constants\Constant.cs" />
+    <Compile Remove="Configuration\Constants\ConstantMobile.cs" />
+    <Compile Remove="Interface\ICacheUpdater.cs" />
+    <Compile Remove="Configuration\Extensions.cs" />
+    <Compile Remove="Interface\IContext.cs" />
+    <Compile Remove="Interface\IDatabaseFactory.cs" />
+    <Compile Remove="Interface\IDbEntry.cs" />
+    <Compile Remove="Interface\IRepository.cs" />
+    <Compile Remove="Interface\IUnitOfWork.cs" />
+    <Compile Remove="Interface\IDBSet.cs" />
+    <Compile Remove="Interface\IIdentityProvider.cs" />
+    <Compile Remove="Interface\ILocalAuthenticationManager.cs" />
+    <Compile Remove="Interface\ILocationManager.cs" />
+    <Compile Remove="Interface\ILogManager.cs" />
+    <Compile Remove="Interface\INotificationHub.cs" />
+    <Compile Remove="Interface\IObjectDifferenceCalculation.cs" />
+    <Compile Remove="Interface\IServerState.cs" />
+    <Compile Remove="Interface\IUserIdentity.cs" />
+    <Compile Remove="Interface\IUserRole.cs" />
+    <Compile Remove="Service\Interface\IMediaFileInfoService.cs" />
+    <Compile Remove="Service\Interface\IMemberServiceBase.cs" />
+    <Compile Remove="Model\Attributes\ForeignEntityKeyAttribute.cs" />
+    <Compile Remove="Model\Attributes\ManyToManyCollectionAttribute.cs" />
+    <Compile Remove="Model\Attributes\ParentEntityAttribute.cs" />
+    <Compile Remove="Model\Attributes\TypeConstraintAttribute.cs" />
+    <Compile Remove="Model\Converters\GuidJsonConverter.cs" />
+    <Compile Remove="Model\Enums\AuthenticationProvider.cs" />
+    <Compile Remove="Model\Helpers\ModelHelper.cs" />
+    <Compile Remove="Service\Interface\IStorageService.cs" />
+    <Compile Remove="Requests\ImageRequest.cs" />
+    <Compile Remove="Model\Interface\IMediaFileInfo.cs" />
+    <Compile Remove="Model\MediaFileInfo.cs" />
+    <Compile Remove="Requests\RequestBase.cs" />
+    <Compile Remove="Model\Internal\RegisterExternalBinding.cs" />
+    <Compile Remove="Model\Internal\LocaleData.cs" />
+    <Compile Remove="Model\Internal\ExternalLogin.cs" />
+    <Compile Remove="Model\Internal\DataUpdate.cs" />
+    <Compile Remove="Service\Interface\IAuthenticationService.cs" />
+    <Compile Remove="Service\Interface\IDataUpdateService.cs" />
+    <Compile Remove="Service\GlobalisationService.cs" />
+    <Compile Remove="Service\Interface\IGlobalisationService.cs" />
+    <Compile Remove="Service\Interface\ILocaleService.cs" />
+    <Compile Remove="Service\Interface\IMessenger.cs" />
+    <Compile Remove="Service\Interface\IPushNotifier.cs" />
+    <Compile Remove="Service\Requests\AuthIdentifierRequest.cs" />
+    <Compile Remove="Service\Requests\SignUpRequest.cs" />
+    <Compile Remove="Service\Requests\DataUpdateRequest.cs" />
+    <Compile Remove="Common\Attributes\OTPAttribute.cs" />
+    <Compile Remove="Common\Attributes\PersonNameAttribute.cs" />
+    <Compile Remove="Common\Attributes\StringValue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Attributes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Common\Newtonsoft.Json.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cognizant.Hackathon.RestClient\Cognizant.Hackathon.RestClient.csproj" />
+  </ItemGroup>
+</Project>

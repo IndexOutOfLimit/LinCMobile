@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<infrastructure:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:infrastructure="clr-namespace:LinC.Infrastructure;assembly=LinC"
+             mc:Ignorable="d"
+             BindingContext="{Binding LoginPage, Mode=TwoWay, Source={StaticResource Locator}}"
+             x:Class="LinC.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled" BackgroundColor="{StaticResource BlueContentColor}">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand"  BackgroundColor="{StaticResource BlueContentColor}">
+            <!--<ScrollView VerticalOptions="FillAndExpand"> -->
+                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  BackgroundColor="{StaticResource BlueContentColor}">
+                    <Image VerticalOptions="Center" HorizontalOptions="Center" Source="AppSplash.png" HeightRequest="120" WidthRequest="120" />
+                   </StackLayout>
+            <!--</ScrollView> -->
+        </StackLayout>
+    </ContentPage.Content>
+</infrastructure:BaseContentPage>

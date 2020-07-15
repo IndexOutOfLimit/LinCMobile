@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Padding="0"
+             x:Class="Cognizant.Hackathon.Shared.Mobile.Shared.Controls.AlertViews.MessageAlertOkCancelView"
+             xmlns:controls="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared">
+    <ContentView.Content>
+        <controls:CustomFrame
+            x:Name="FrameView"
+            Margin="0"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="5"
+            HasShadow="false"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="286">
+            <Grid RowSpacing="10" Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Margin="0,15,0,0" Grid.Row="0"
+                            x:Name="TitleLabel"
+                            HorizontalOptions="StartAndExpand"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource MessageOkAlertTitleStyle}"
+                            Text="Title" />
+                <ScrollView Grid.Row="1" Padding="0" VerticalOptions="CenterAndExpand">
+                    <StackLayout
+                        Padding="0"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            x:Name="MessageLabel"
+                            HorizontalOptions="StartAndExpand"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource MessageOkAlertMessageStyle}"
+                            Text="Message" VerticalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </ScrollView>
+                <StackLayout Grid.Row="2" Margin="0,5,0,5" Orientation="Horizontal" VerticalOptions="EndAndExpand" BackgroundColor="#E8E8E8" Spacing="0">
+                    <Button x:Name="CancelButton" Text="Cancel" TextColor="{StaticResource backgroundColor}" FontFamily="{StaticResource NunitoBold}" 
+                                    BackgroundColor="White" VerticalOptions="End" HorizontalOptions="FillAndExpand" Margin="0,0.25,0.25,0" 
+                                    CornerRadius="0">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS" Value="42" />
+                                <On Platform="Android" Value="42" />
+                            </OnPlatform>
+                        </Button.HeightRequest>
+                    </Button>
+
+                    <Button x:Name="OkButton" Text="Save" TextColor="{StaticResource backgroundColor}" BackgroundColor="White" FontFamily="{StaticResource NunitoBold}" 
+                                    VerticalOptions="End" HorizontalOptions="FillAndExpand" Margin="0.25,0.25,0,0" 
+                                    CornerRadius="0">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS" Value="42" />
+                                <On Platform="Android" Value="42" />
+                            </OnPlatform>
+                        </Button.HeightRequest>
+                    </Button>
+                </StackLayout>
+            </Grid>
+        </controls:CustomFrame>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="TabBarViewRef"
+             xmlns:template="clr-namespace:LinC.Template"
+             x:Class="LinC.Template.TabBarTemplate" HeightRequest="50">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="TabCell">
+
+
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+       
+        <Grid BackgroundColor="White" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.33*"/>
+                    <ColumnDefinition Width="0.33*"/>
+                    <ColumnDefinition Width="0.33*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>-->
+
+            <StackLayout Grid.Column="0" HorizontalOptions="CenterAndExpand">
+                <Label Text="{x:Static template:FontAwesomeIcons.TachometerAlt}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{Binding DashBoardSelectedColor}" />
+                <Label Text="Dashboard" HorizontalTextAlignment="Center"  TextColor="Black"></Label>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"  CommandParameter="0"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Grid.Column="1" HorizontalOptions="CenterAndExpand">
+                <Label Text="{x:Static template:FontAwesomeIcons.UserCircle}" FontFamily="{StaticResource FontAwesomeRegular}" TextColor="{Binding ProfileSelectedColor}" />
+                <Label Text="Profile" HorizontalTextAlignment="Center"></Label>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"  CommandParameter="1"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout Grid.Column="2" HorizontalOptions="CenterAndExpand">
+                <Label Text="{x:Static template:FontAwesomeIcons.EllipsisH}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{Binding MoreSelectedColor}" />
+                <Label Text="More" HorizontalTextAlignment="Center"></Label>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"   CommandParameter="2"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+                   
+
+    </ContentView.Content>
+</ContentView>
+

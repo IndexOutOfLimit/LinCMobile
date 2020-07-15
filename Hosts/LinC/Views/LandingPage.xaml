@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infrastructure:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d"
+    xmlns:infrastructure="clr-namespace:LinC.Infrastructure;assembly=LinC"
+    BackgroundColor="{StaticResource ScreenBackgroundColor}"
+    x:Name="LandingPageRef"
+    BindingContext="{Binding LandingPage, Source={StaticResource Locator}}"
+    x:Class="LinC.Views.LandingPage">
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+             <StackLayout Grid.Row="0" HeightRequest="50" BackgroundColor="{StaticResource BlueContentColor}" VerticalOptions="Center">
+                <Label FontSize="18" FontFamily="{StaticResource NunitoExtraBold}" Text="LinC Services" TextColor="#FFFFFF" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Margin="10,20,10,0" Spacing="20">
+                <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="REGISTRATION"
+                            Command="{Binding Path=BindingContext.RegisterButtonTappedCommand, Source={x:Reference LandingPageRef}}"
+                            TextColor="{StaticResource WhiteColor}" Margin="0" />
+
+                <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="SUPPLIER CATALOUGE"
+                            Command="{Binding Path=BindingContext.SupplierCatButtonTappedCommand, Source={x:Reference LandingPageRef}}"
+                            TextColor="{StaticResource WhiteColor}" Margin="0" />
+
+                <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="PRODUCT CATALOUGE"
+                            Command="{Binding Path=BindingContext.ProductCatButtonTappedCommand, Source={x:Reference LandingPageRef}}"
+                            TextColor="{StaticResource WhiteColor}" Margin="0" />
+
+                <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="User Map"
+                            Command="{Binding Path=BindingContext.MapButtonTappedCommand, Source={x:Reference LandingPageRef}}"
+                            TextColor="{StaticResource WhiteColor}" Margin="0" />
+
+                <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="CHAT"
+                            Command="{Binding Path=BindingContext.ChatButtonTappedCommand, Source={x:Reference LandingPageRef}}"
+                            TextColor="{StaticResource WhiteColor}" Margin="0" />
+
+            </StackLayout>
+            
+        </Grid>
+    </ContentPage.Content>
+</infrastructure:BaseContentPage>

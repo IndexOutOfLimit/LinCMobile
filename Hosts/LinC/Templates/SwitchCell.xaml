@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="SwitchView"
+             xmlns:localBehaviors="clr-namespace:LinC.Behaviors"
+             xmlns:localConverter="clr-namespace:LinC.Converters"
+             x:Class="LinC.Templates.SwitchTemplate">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <localConverter:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <StackLayout x:Name="switchTemplate" Padding="0" Spacing="0" Orientation="Horizontal" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsVisible}">
+            <Label Text="{Binding Title}" FontFamily="{StaticResource NunitoRegular}" FontSize="14" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
+            <Switch IsToggled="{Binding IsSwitchEnabled}" BackgroundColor="Transparent" OnColor="{DynamicResource backgroundColor}"  VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand" >
+                <Switch.Behaviors>
+                    <localBehaviors:EventToCommandBehavior EventName="Toggled"
+                        Command="{Binding ParentContext.SwitchToggledCommand, Source={x:Reference SwitchView}}"
+                        CommandParameter="{Binding .}"
+                        Converter="{StaticResource SelectedItemConverter}"  
+                       />
+                </Switch.Behaviors>
+            </Switch>
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                     Binding="{Binding Source={x:Reference switchTemplate},
+                                       Path=IsVisible}"
+                     Value="False">
+                    <Setter Property="HeightRequest" Value="0" />
+                </DataTrigger>
+            </StackLayout.Triggers>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

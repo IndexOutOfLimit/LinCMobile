@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:trgControls="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+             xmlns:common="clr-namespace:Cognizant.Hackathon.Mobile.Core.Common.Utils;assembly=Cognizant.Hackathon.Mobile.Core"
+             xmlns:helper="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Helpers;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+             xmlns:control="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+             AutomationId="MultipleInputSectionPopup"
+             
+             x:Class="Cognizant.Hackathon.Shared.Mobile.Shared.Controls.CustomPopupDrawer.MultipleInputSectionPopup">
+    <ContentView.Margin>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android">0,0,0,0</On>
+            <On Platform="iOS">0,0,0,-40</On>
+        </OnPlatform>
+    </ContentView.Margin>
+    <ContentView.Content>
+        <Grid VerticalOptions="EndAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" BackgroundColor="Transparent" Orientation="Horizontal" Margin="20,0,0,0" >
+                <Label x:Name="LblHeader" Text="" FontFamily="{StaticResource NunitoExtraBold}" FontSize="16" TextColor="{StaticResource WhiteColor}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Button Text="{x:Static helper:FontAwesomeIcons.Times}" Clicked="CancelButton_Clicked" BackgroundColor="Transparent"  FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="{StaticResource WhiteColor}" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" >
+
+                </Button>
+            </StackLayout>
+
+            <control:CustomFrame CornerRadius="20,20,0,0"  BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1" HasShadow="False" Padding="10">
+                <Grid BackgroundColor="{StaticResource WhiteColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView
+                                    VerticalScrollBarVisibility="Never"
+                                    x:Name="InputSelectionListView"
+                                    Margin="16,0,16,10"
+                                    RowHeight="70"
+                                    SeparatorVisibility="None">
+                        <ListView.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS">180</On>
+                            </OnPlatform>
+                        </ListView.HeightRequest>
+                        <ListView.ItemTemplate>
+
+                            <OnPlatform x:TypeArguments="DataTemplate">
+
+                                <On Platform="Android">
+                                    <DataTemplate>
+                                        <trgControls:TouchAnimatedViewCell common:ViewCellAttachedProperties.IsDefaultOnTouchEffectEnabled="False" SelectedItemBackgroundColor="Transparent">
+                                            <control:CustomFrame CornerRadius="10" Margin="2,5,2,5" Padding="0">
+                                                <StackLayout Orientation="Horizontal"  >
+                                                    <Label Text="{Binding ImageName}" FontSize="18" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{DynamicResource backgroundColor}" Margin="16,0,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                                    <Label Text="{Binding Text}" TextColor="{DynamicResource backgroundColor}" VerticalOptions="Center" FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                                                </StackLayout>
+                                            </control:CustomFrame>
+                                        </trgControls:TouchAnimatedViewCell>
+                                    </DataTemplate>
+                                </On>
+
+                                <On Platform="iOS">
+                                    <DataTemplate>
+                                        <trgControls:TouchAnimatedViewCell common:ViewCellAttachedProperties.IsDefaultOnTouchEffectEnabled="False" SelectedItemBackgroundColor="Transparent">
+                                            <control:CustomShadowFrame CornerRadius="10" Padding="0">
+                                                <control:CustomShadowFrame.Margin>
+                                                    <OnIdiom x:TypeArguments="Thickness" Phone="2,5,2,5" Tablet="2,5,2,5" />
+                                                </control:CustomShadowFrame.Margin>
+                                                <StackLayout Orientation="Horizontal"  >
+                                                    <Label Text="{Binding ImageName}" FontSize="18" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource backgroundColor}" Margin="16,0,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                                    <Label Text="{Binding Text}" TextColor="{StaticResource backgroundColor}" VerticalOptions="Center"   FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                                                </StackLayout>
+                                            </control:CustomShadowFrame>
+                                        </trgControls:TouchAnimatedViewCell>
+                                    </DataTemplate>
+                                </On>
+
+                            </OnPlatform>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </control:CustomFrame>
+        </Grid>
+        <!-- </On>
+            
+            <On Platform="iOS">
+                <Grid VerticalOptions="EndAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Row="0" BackgroundColor="Transparent" Orientation="Horizontal" Margin="20,0,20,0" >
+                        <Label Text="More Menu" FontFamily="{StaticResource NunitoExtraBold}" FontSize="16" TextColor="{StaticResource WhiteColor}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                        <Button Text="{x:Static helper:FontAwesomeIcons.Times}" Clicked="CancelButton_Clicked" BackgroundColor="Transparent"  FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="{StaticResource WhiteColor}" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" >
+
+                        </Button>
+                    </StackLayout>
+
+                    <control:CustomFrame CornerRadius="20,20,0,0"  BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1" HasShadow="False" Padding="10">
+                        <Grid BackgroundColor="{StaticResource WhiteColor}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ListView
+                                    x:Name="InputSelectionListView"
+                                    Margin="16,0,16,10"
+                                    HeightRequest="180"
+                                    RowHeight="70"
+                                    SeparatorVisibility="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <trgControls:TouchAnimatedViewCell common:ViewCellAttachedProperties.IsDefaultOnTouchEffectEnabled="False">
+                                            <control:CustomShadowFrame CornerRadius="10"  Elevation="4" Margin="0,5,0,5" Padding="0">
+                                                <StackLayout Orientation="Horizontal"  >
+                                                    <Label Text="{Binding ImageName}" FontSize="18" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" Margin="16,0,0,0" VerticalOptions="Center" HorizontalOptions="Start" />
+                                                    <Label Text="{Binding Text}" TextColor="{StaticResource BlueContentColor}" VerticalOptions="Center"   FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                                                </StackLayout>
+                                            </control:CustomShadowFrame>
+                                        </trgControls:TouchAnimatedViewCell>
+
+                                    </DataTemplate>
+
+                                </ListView.ItemTemplate>
+
+                            </ListView>
+                        </Grid>
+                    </control:CustomFrame>
+
+                </Grid>
+            </On>
+
+            
+        </OnPlatform>-->
+    </ContentView.Content>
+</ContentView>

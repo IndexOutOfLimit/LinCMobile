@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LinC.App"
+             xmlns:controls="clr-namespace:LinC.Controls;assembly=LinC"
+             xmlns:converter="clr-namespace:LinC.Converters;assembly=LinC"
+             xmlns:extensions="clr-namespace:LinC.Extensions;assembly=LinC"
+             xmlns:helpers="clr-namespace:LinC.Helpers"
+             xmlns:templates="clr-namespace:LinC.Templates;assembly=LinC"
+             xmlns:viewModels="clr-namespace:LinC.ViewModels;assembly=LinC"
+             xmlns:commonConverter="clr-namespace:Cognizant.Hackathon.Mobile.Core.Converters;assembly=Cognizant.Hackathon.Mobile.Core">
+    <Application.Resources>
+        <ResourceDictionary>
+            <viewModels:ViewModelLocator x:Key="Locator" />
+            <converter:LogoImageConverter x:Key="LogoImageConverter" />
+            <converter:BoldTextOnSelectionConverter x:Key="BoldTextOnSelectionConverter" />
+            <converter:StringCaseConverter x:Key="StringCaseConverter" />
+            <converter:TextColorChangedOnSelectionConverter x:Key="TextColorChangedOnSelectionConverter" />
+            <converter:BoolToExpandIndicatorConverter x:Key="BoolToExpandIndicatorConverter" />
+            <converter:StringToBoolConverter x:Key="StringToBoolConverter"/>
+            <commonConverter:InverseBooleanConverter x:Key="inverseBooleanConv" />
+
+            <!-- Colors -->
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="WhiteBackgroundColor">#FAFAFA</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="MessageOkAlertButtonColor">#EE4B4B</Color>
+            <Color x:Key="MessageOkAlertButtonBorderColor">#979797</Color>
+            <Color x:Key="FrameBorderColor">#e6e6e6</Color>
+            <Color x:Key="BlueContentColor">#005595</Color>
+            <Color x:Key="TextDefaultColor">#252D3C</Color>
+            <Color x:Key="AppSplashBackgroundColor">#1A7BDA</Color>
+            <Color x:Key="AppDisabledColor">#E8E8E8</Color>
+            <Color x:Key="AccentColor">#D0021B</Color>
+            <Color x:Key="ScreenBackgroundColor">#becae4</Color>
+            <!-- ffffff c6cbcd add8e6 e9f5f8 cacaca c5ced2 d6ffff becae4 -->
+            <d:FileImageSource x:Key="CompanyImage"></d:FileImageSource>
+            <!--  Fonts family  -->
+            <OnPlatform x:Key="FontFamilyDense" x:TypeArguments="x:String">
+                <On Platform="Android" Value="DINCondensedBold.ttf#DIN Condensed" />
+                <On Platform="iOS" Value="DIN Condensed" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontFamilyDefault" x:TypeArguments="x:String">
+                <On Platform="Android" Value="SFProTextRegular.otf#SF Pro Text" />
+                <On Platform="iOS" Value="SF Pro Text" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontFamilySemiBold" x:TypeArguments="x:String">
+                <On Platform="Android" Value="SFProDisplaySemibold.otf#SF Pro Display" />
+                <On Platform="iOS" Value="SF Pro Display" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoBlack" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-Black.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-Black" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoBlack-Itallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-BlackItalic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-BlackItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoBold" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-Bold.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-Bold" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoBold-Itallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-BoldItalic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-BoldItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoExtraBold" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-ExtraBold.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-ExtraBold" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoExtraBold-Itallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-ExtraBoldItalic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-ExtraBoldItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoExtraLight" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-ExtraLight.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-ExtraLight" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoExtraLight-Itallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-ExtraLightItalic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-ExtraLightItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoItallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-Italic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-Italic" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoLight" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-Light.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-Light" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoLight-Itallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-LightItalic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-LightItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoRegular" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-Regular.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-Regular" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoSemiBold" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-SemiBold.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-SemiBold" />
+            </OnPlatform>
+            <OnPlatform x:Key="NunitoSemiBold-Itallic" x:TypeArguments="x:String">
+                <On Platform="Android" Value="Nunito-SemiBoldItalic.ttf#Nunito" />
+                <On Platform="iOS" Value="Nunito-SemiBoldItalic" />
+            </OnPlatform>
+            <OnPlatform x:Key="CheckMarkSolid" x:TypeArguments="x:String">
+                <On Platform="Android" Value="FontAwesome5Solid.otf#Regular" />
+                <On Platform="iOS" Value="FontAwesome5Free-Solid" />
+            </OnPlatform>
+
+            <!--  Font size  -->
+            <x:Double x:Key="FontSizeMedium">15</x:Double>
+            <x:Double x:Key="FontSizeLarge">18</x:Double>
+            <x:Double x:Key="FontSizeButton">16</x:Double>
+            <x:Double x:Key="FontSizeMenu">21</x:Double>
+            <x:Double x:Key="FontSizeTooLarge">36</x:Double>
+
+            <OnPlatform x:Key="FontSizeTitle" x:TypeArguments="x:Double">
+                <On Platform="Android" Value="{x:Static helpers:FontSizeHelpers.TitleFontSize}" />
+                <On Platform="iOS" Value="{x:Static helpers:FontSizeHelpers.TitleFontSize}" />
+            </OnPlatform>
+
+            <x:Double x:Key="FontSizeType">19</x:Double>
+
+            <!--  Page style  -->
+            <Style ApplyToDerivedTypes="True" TargetType="ContentPage" />
+            <!--  Control template  -->
+            <controls:HeaderControlTemplate x:Key="HeaderControlTemplate" />
+
+            <!--  Message Ok alert pop up style  -->
+            <Style x:Key="MessageOkAlertTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource FontFamilyDense}" />-->
+                <Setter Property="FontFamily" Value="{StaticResource NunitoBold}"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Padding" Value="20,0,20,0"/>
+            </Style>
+            <Style x:Key="MessageOkAlertMessageStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoRegular}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource FontFamilyDefault}" />-->
+                <!--<Setter Property="Opacity" Value="0.5" />-->
+                <Setter Property="Padding" Value="20,10,20,0"/>
+            </Style>
+            <Style x:Key="MessageOkAlertButtonStyle" TargetType="Button">
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <!--<Setter Property="FontFamily" Value="{StaticResource FontFamilySemiBold}" />-->
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource BlueContentColor}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
+                <Setter Property="HeightRequest" Value="45" />
+            </Style>
+            <Style x:Key="ListHeaderLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoExtraBold}"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style x:Key="ListSubHeaderLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoRegular}"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style x:Key="ListSubHeader1LabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoBold}"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}"/>
+                <Setter Property="FontSize" Value="9"/>
+
+            </Style>
+            <Style x:Key="ListSubHeader2LabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoRegular}"/>
+                <Setter Property="TextColor" Value="#6C7586"/>
+                <Setter Property="FontAttributes" Value="None"/>
+                <Setter Property="FontSize" Value="9"/>
+            </Style>
+            <Style x:Key="ListPriceLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoBold}"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style x:Key="HeaderLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoExtraBold}"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDefaultColor}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+            <Style x:Key="TabButtonBold12" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource NunitoBold}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="12"/>
+
+            </Style>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="FontAwesomeBrands">
+                <On Platform="Android" 
+          Value="FontAwesome5Brands.otf#Regular" />
+                <On Platform="iOS" 
+          Value="FontAwesome5Brands-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/FontAwesome5Brands.otf#Font Awesome 5 Brands" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="FontAwesomeSolid">
+                <On Platform="Android" 
+          Value="FontAwesome5Solid.otf#Regular" />
+                <On Platform="iOS" 
+          Value="FontAwesome5Free-Solid" />
+                <On Platform="UWP" 
+          Value="/Assets/FontAwesome5Solid.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="FontAwesomeRegular">
+                <On Platform="Android" 
+          Value="FontAwesome5Regular.otf#Regular" />
+                <On Platform="iOS" 
+          Value="FontAwesome5Free-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/FontAwesome5Regular.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+            <Color x:Key="backgroundColor">#005595</Color>
+            <x:String x:Key="ColorScheme">Blue</x:String>
+            <x:String x:Key="backgroundColorString">#005595</x:String>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CF7F118-9CE4-4C3F-8425-D33EAEF60B16}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{89a4fe7c-635d-49c9-8d8c-5cd363c0d68d}</TemplateGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>LinC.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>TitleSnap.iOS</AssemblyName>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <ProvisioningType>manual</ProvisioningType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchLink>None</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <CodesignKey>Apple Development: Tarun Chatterjee (QP82KASVJJ)</CodesignKey>
+    <CodesignEntitlements>
+    </CodesignEntitlements>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <CodesignProvision>Title!Snap_Dev</CodesignProvision>
+    <MtouchVerbosity>2</MtouchVerbosity>
+    <OnDemandResourcesPrefetchOrder>
+    </OnDemandResourcesPrefetchOrder>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;RELEASE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignKey>Apple Development: Tarun Chatterjee (QP82KASVJJ)</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignEntitlements>
+    </CodesignEntitlements>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <CodesignProvision>Title!Snap_Dev</CodesignProvision>
+    <MtouchVerbosity>2</MtouchVerbosity>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;RELEASE;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignKey>Apple Distribution: Title Resource Group, LLC (57LH6H2Y58)</CodesignKey>
+    <CodesignEntitlements>
+    </CodesignEntitlements>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DeviceSpecificBuild>
+    </DeviceSpecificBuild>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
+    <OutputPath>bin\iPhone\Ad-Hoc\</OutputPath>
+    <CodesignExtraArgs />
+    <CodesignResourceRules />
+    <CodesignEntitlements />
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>Title!Snap Ad Hoc</CodesignProvision>
+    <Optimize>true</Optimize>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhone'">
+    <OutputPath>bin\AppStore</OutputPath>
+    <DefineConstants>AppStore;</DefineConstants>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <LangVersion>Default</LangVersion>
+    <CodesignProvision>Title!Snap Production</CodesignProvision>
+    <BuildIpa>true</BuildIpa>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+    <EnvironmentVariables>
+      <Variable name="ENTITLEMENTS_REQUIRED" value="YES" />
+    </EnvironmentVariables>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_QA|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\AdHoc_QA</OutputPath>
+    <DefineConstants>AdHoc_QA;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchLink>SdkOnly</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_QA|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\AdHoc_QA</OutputPath>
+    <DefineConstants>AdHoc_QA;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignProvision>Title!SnapAdHoc</CodesignProvision>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PQA|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\AdHoc_PQA</OutputPath>
+    <DefineConstants>AdHoc_PQA;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchLink>SdkOnly</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PQA|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\AdHoc_PQA</OutputPath>
+    <DefineConstants>AdHoc_PQA;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignProvision>Title!SnapAdHoc</CodesignProvision>
+    <BuildIpa>true</BuildIpa>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_Staging|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\AdHoc_Staging</OutputPath>
+    <DefineConstants>AdHoc_Staging;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchLink>SdkOnly</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_Staging|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\AdHoc_Staging</OutputPath>
+    <DefineConstants>AdHoc_Staging;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignProvision>Title!SnapAdHoc</CodesignProvision>
+    <BuildIpa>true</BuildIpa>
+<AssemblyName>LinC.iOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PROD|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\AdHoc_PROD</OutputPath>
+    <DefineConstants>AdHoc_PROD;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <RunWithWarnings>true</RunWithWarnings>
+    <MtouchDebug></MtouchDebug>
+    <MtouchFastDev></MtouchFastDev>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PROD|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\AdHoc_PROD</OutputPath>
+    <DefineConstants>AdHoc_PROD;</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignProvision>Title!SnapAdHoc</CodesignProvision>
+<MtouchHttpClientHandler></MtouchHttpClientHandler>
+<AssemblyName>LinC.iOS</AssemblyName>
+<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <None Include="Entitlements.plist" />
+    <None Include="Info.plist" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderer\AlertButtonRenderer.cs" />
+    <Compile Include="Renderer\CustomFrameRenderer.cs" />
+    <Compile Include="Renderer\MyShellItemRenderer.cs" />
+    <Compile Include="Renderer\ShadowFrameRenderer.cs" />
+    <Compile Include="Renderer\CompanyAreaFrameRenderer.cs" />
+    <Compile Include="Platforms\DownloadServiceiOS.cs" />
+    <BundleResource Include="Resources\FontAwesome5Regular.otf" />
+    <BundleResource Include="Resources\FontAwesome5Brands.otf" />
+    <Compile Include="Renderer\MyShellRenderer.cs" />
+    <Compile Include="Renderer\CustomShadowFrameRenderer.cs" />
+    <Compile Include="Renderer\BorderlessMaterialEntryRenderer.cs" />
+    <Compile Include="Renderer\CustomPickerRenderer.cs" />
+    <Compile Include="Renderer\CustomDatePickerRenderer.cs" />
+    <Compile Include="Renderer\CustomCornerFrameRenderer.cs" />
+    <Compile Include="Renderer\CustomViewCellRenderer.cs" />
+    <Compile Include="Platforms\TouchEffect.cs" />
+    <Compile Include="TouchRecognizer.cs" />
+    <Compile Include="Platforms\AnalyticsService.cs" />
+    <Compile Include="Platforms\ContactServiceiOS.cs" />
+    <Compile Include="Renderer\CustomEditorRenderer.cs" />
+    <Compile Include="Platforms\PhotoServiceiOS.cs" />
+    <None Include="..\LinC\App.config">
+      <Link>App.config</Link>
+    </None>
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AddProfileImage.imageset\Plus.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AddProfileImage.imageset\Plus@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AddProfileImage.imageset\Plus@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <BundleResource Include="Resources\tab_about.png" />
+    <BundleResource Include="Resources\tab_about%402x.png" />
+    <BundleResource Include="Resources\tab_about%403x.png" />
+    <BundleResource Include="Resources\tab_feed.png" />
+    <BundleResource Include="Resources\tab_feed%402x.png" />
+    <BundleResource Include="Resources\tab_feed%403x.png" />
+    <BundleResource Include="Resources\xamarin_logo.png" />
+    <BundleResource Include="Resources\xamarin_logo%402x.png" />
+    <BundleResource Include="Resources\xamarin_logo%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AddProfileImage.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Profile.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Profile.imageset\Profile.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Profile.imageset\Profile@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Profile.imageset\Profile@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ImageLoading.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LoadingError.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LoadingError.imageset\error.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TS_Logo.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <BundleResource Include="Resources\Nunito-ExtraBoldItalic.ttf" />
+    <BundleResource Include="Resources\Nunito-ExtraBold.ttf" />
+    <BundleResource Include="Resources\Nunito-ExtraLightItalic.ttf" />
+    <BundleResource Include="Resources\Nunito-Light.ttf" />
+    <BundleResource Include="Resources\Nunito-Regular.ttf" />
+    <BundleResource Include="Resources\Nunito-SemiBold.ttf" />
+    <BundleResource Include="Resources\Nunito-Bold.ttf" />
+    <BundleResource Include="Resources\Nunito-BoldItalic.ttf" />
+    <BundleResource Include="Resources\Nunito-Black.ttf" />
+    <BundleResource Include="Resources\Nunito-ExtraLight.ttf" />
+    <BundleResource Include="Resources\Nunito-SemiBoldItalic.ttf" />
+    <BundleResource Include="Resources\Nunito-BlackItalic.ttf" />
+    <BundleResource Include="Resources\OFL.txt" />
+    <BundleResource Include="Resources\Nunito-Italic.ttf" />
+    <BundleResource Include="Resources\Nunito-LightItalic.ttf" />
+    <BundleResource Include="Resources\FontAwesome5Solid.otf" />
+    <ImageAsset Include="Assets.xcassets\TabLeft_Blue.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Blue.imageset\TabLeft_Blue.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Blue.imageset\TabLeft_Blue-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Blue.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Blue.imageset\TabRight_Blue.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Blue.imageset\TabRight_Blue-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Green.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Green.imageset\TabLeft_Green.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Green.imageset\TabLeft_Green-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Green.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Green.imageset\TabRight_Green.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Green.imageset\TabRight_Green-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Black.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Black.imageset\TabLeft_Black.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabLeft_Black.imageset\TabLeft_Black-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Black.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Black.imageset\TabRight_Black.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\TabRight_Black.imageset\TabRight_Black-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\DropdownArrow.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\DropdownArrow.imageset\DropdownArrow.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\DropdownArrow.imageset\DropdownArrow%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\DropdownArrow.imageset\DropdownArrow%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon%403x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ExpandedPlusIcon.imageset\ExpandedPlusIcon%402x-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon%402x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon%403x-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\CollapseMinusIcon.imageset\CollapseMinusIcon%402x-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Blue.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Blue.imageset\QuotesTab_Blue.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Blue.imageset\QuotesTab_Blue-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Blue.imageset\QuotesTab_Blue-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Green.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Green.imageset\QuotesTab_Green.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Green.imageset\QuotesTab_Green-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\QuotesTab_Green.imageset\QuotesTab_Green-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppSplash120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppSplash180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppSplash76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppSplash152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppSplash167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppSplash1024.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash2x-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash3x-1.png" />
+    <ImageAsset Include="Assets.xcassets\TS_Logo.imageset\Logo Top-1.png" />
+    <ImageAsset Include="Assets.xcassets\TS_Logo.imageset\Logo Top%402x-1.png" />
+    <ImageAsset Include="Assets.xcassets\TS_Logo.imageset\Logo Top%403x-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash2x.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash3x.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash2x-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppSplash.imageset\AppSplash2x-3.png" />
+    <ImageAsset Include="Assets.xcassets\AppLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppLogo.imageset\AppSplash.png" />
+    <ImageAsset Include="Assets.xcassets\AppLogo.imageset\AppSplash2x.png" />
+    <ImageAsset Include="Assets.xcassets\AppLogo.imageset\AppSplash3x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="StandardAppConfig.FileSystemStream">
+      <HintPath>..\..\Lib\DLLs\iOS\StandardAppConfig.FileSystemStream.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig">
+      <HintPath>..\..\Lib\DLLs\iOS\StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig.FileSystemStream.Abstractions">
+      <HintPath>..\..\Lib\DLLs\iOS\StandardAppConfig.FileSystemStream.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>2.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Visual.Material">
+      <Version>4.7.0.1080</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.Views">
+      <Version>1.68.3</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp">
+      <Version>1.68.3</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.Views.Forms">
+      <Version>1.68.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Analytics">
+      <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Core">
+      <Version>6.6.6</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.InstanceID">
+      <Version>4.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.Crashlytics">
+      <Version>3.14.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Unity.Container">
+      <Version>5.11.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Core\Cognizant.Hackathon.Shared.Mobile.Core.csproj">
+      <Project>{A14CEE7B-122F-445F-BE22-BFCDE6CB0934}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Cognizant.Hackathon\Cognizant.Hackathon.Core\Cognizant.Hackathon.Core.csproj">
+      <Project>{500B6E5F-8638-471A-872E-F2F6B050E24A}</Project>
+      <Name>Cognizant.Hackathon.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Cognizant.Hackathon\Cognizant.Hackathon.Mobile.Core\Cognizant.Hackathon.Mobile.Core.csproj">
+      <Project>{44DDA70F-034F-49A6-A55B-2C4DA0E12550}</Project>
+      <Name>Cognizant.Hackathon.Mobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Bootstrap\Cognizant.Hackathon.Shared.Mobile.Bootstrap.csproj">
+      <Project>{9120925E-F9A3-4615-AA16-8F1591A398B9}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Models\Cognizant.Hackathon.Shared.Mobile.Models.csproj">
+      <Project>{9DDB5E56-A02B-4904-969C-F81734A5BD0B}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Shared\Cognizant.Hackathon.Shared.Mobile.Shared.csproj">
+      <Project>{9AAD936D-3249-4C10-A078-5ED939BAF008}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LinC\LinC.csproj">
+      <Project>{3A31A506-2AE1-4416-AFA1-605F82E4FB68}</Project>
+      <Name>LinC</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\CollapseMinusIcon.imageset\" />
+    <Folder Include="Assets.xcassets\DropdownArrow.imageset\" />
+    <Folder Include="Assets.xcassets\Error.imageset\" />
+    <Folder Include="Assets.xcassets\ExpandedPlusIcon.imageset\" />
+    <Folder Include="Assets.xcassets\QuotesTab_Black.imageset\" />
+    <Folder Include="Assets.xcassets\QuotesTab_Blue.imageset\" />
+    <Folder Include="Assets.xcassets\QuotesTab_Green.imageset\" />
+    <Folder Include="Assets.xcassets\TabLeft_Black.imageset\" />
+    <Folder Include="Assets.xcassets\TabLeft_Blue.imageset\" />
+    <Folder Include="Assets.xcassets\TabLeft_Green.imageset\" />
+    <Folder Include="Assets.xcassets\TabRight_Black.imageset\" />
+    <Folder Include="Assets.xcassets\TabRight_Blue.imageset\" />
+    <Folder Include="Assets.xcassets\TabRight_Green.imageset\" />
+    <Folder Include="Assets.xcassets\AppLogo.imageset\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

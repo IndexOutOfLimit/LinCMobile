@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LinC.Template.DateCell">
+    <ContentView.Content>
+        <StackLayout x:Name="dateTemplate1" Padding="0" Spacing="0" IsVisible="{Binding IsVisible}" >
+            <Label Text="{Binding Title}" />
+            <DatePicker Date="{Binding DefaultValue}" />
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout"
+                     Binding="{Binding Source={x:Reference dateTemplate1},
+                                       Path=IsVisible}"
+                     Value="False">
+                    <Setter Property="HeightRequest" Value="0" />
+                </DataTrigger>
+            </StackLayout.Triggers>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infrastructure:BaseContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d"
+    x:Name="MapPageRef"
+    xmlns:infrastructure="clr-namespace:LinC.Infrastructure;assembly=LinC"
+    BindingContext="{Binding MapPage, Source={StaticResource Locator}}"
+    xmlns:template="clr-namespace:LinC.Template"
+    Title="Products" BackgroundColor="{StaticResource ScreenBackgroundColor}"
+    x:Class="LinC.Views.MapPage"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps">
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+             <StackLayout Grid.Row="0" HeightRequest="50" BackgroundColor="{StaticResource BlueContentColor}" VerticalOptions="Center">
+                <Label FontSize="18" FontFamily="{StaticResource NunitoExtraBold}" Text="LinC Map" TextColor="#FFFFFF" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Margin="10,20,10,0" Spacing="20">
+                <maps:Map x:Name="map" IsShowingUser="true"  HeightRequest="400"  WidthRequest="300"/>
+            </StackLayout>
+         </Grid>
+    </ContentPage.Content>
+</infrastructure:BaseContentPage>

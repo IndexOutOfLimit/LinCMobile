@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             AutomationId="MoreOptionPopup"
+             BackgroundColor="Transparent"
+             x:Class="Cognizant.Hackathon.Shared.Mobile.Shared.Controls.CustomPopupDrawer.MoreOptionPopup"
+             xmlns:template="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Helpers;assembly=Cognizant.Hackathon.Shared.Mobile.Shared">
+    
+    <!--<pages:PopupPage.Animation>
+        <animations:MoveAnimation  
+            PositionIn="Bottom"
+            PositionOut="Bottom"
+            DurationIn="400"
+            DurationOut="300" 
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>-->
+
+    <ContentView.Content>
+
+        <StackLayout Padding="0,0,0,0" 
+                     VerticalOptions="FillAndExpand" >
+            <!--<Label Text="This is More option section!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <Button Text="Close" Clicked="TapClose"/>-->
+            <StackLayout  Opacity="0.1" VerticalOptions="Start">
+
+            </StackLayout>
+            <Grid VerticalOptions="EndAndExpand" x:Name="MovableView" Margin="0,0,0,-35" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid  Grid.Row="0" Margin="22,0,22,0" BackgroundColor="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="33*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="More Menu" FontFamily="{StaticResource NunitoExtraBold}" TextColor="{StaticResource BlackColor}" FontSize="16" VerticalOptions="Start" Grid.Column="0"/>
+                    <Button Text="{x:Static template:FontAwesomeIcons.Cross}" WidthRequest="16" HeightRequest="16"
+                            FontFamily="{StaticResource FontAwesomeSolid}" Clicked="TapClose"
+                           Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand" />
+                </Grid>
+
+                <Grid BackgroundColor="{StaticResource WhiteColor}" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="0" HasShadow="True" CornerRadius="10" WidthRequest="110" HeightRequest="30" Margin="22,19,22,0" >
+                        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static template:FontAwesomeIcons.UserFriends}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlackColor}" VerticalOptions="Start" HorizontalOptions="Start"/>
+                            <Label Text="Teams" TextColor="{StaticResource BlackColor}" FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="1" HasShadow="True" CornerRadius="10" WidthRequest="110" HeightRequest="30" Margin="22,19,22,0">
+                        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static template:FontAwesomeIcons.Building}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlackColor}" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Text="Change Company" TextColor="{StaticResource BlackColor}" FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="2" HasShadow="True" CornerRadius="10" WidthRequest="110" HeightRequest="30" Margin="22,19,22,0">
+                        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static template:FontAwesomeIcons.LockAlt}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlackColor}" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Text="Privacy Policy" TextColor="{StaticResource BlackColor}" FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Grid.Row="3" HasShadow="True" CornerRadius="10" WidthRequest="110" HeightRequest="30" Margin="22,19,22,19">
+                        <StackLayout Orientation="Horizontal" BackgroundColor="White" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static template:FontAwesomeIcons.SignOutAlt}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlackColor}" VerticalOptions="Start" HorizontalOptions="Start" />
+                            <Label Text="Logout" TextColor="{StaticResource BlackColor}" FontFamily="{StaticResource NunitoBold}" FontSize="14"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

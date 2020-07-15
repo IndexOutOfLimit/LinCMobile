@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;AppStore;AdHoc_PQA;AdHoc_QA;AdHoc_PROD;AdHoc_Staging</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PQA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PQA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_PROD|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_PROD;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_QA|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_QA;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc_Staging|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AdHoc_Staging;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    <DebugType></DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;AppStore;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.3" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+    <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cognizant.Hackathon.Core\Cognizant.Hackathon.Core.csproj" />
+    <ProjectReference Include="..\Cognizant.Hackathon.RestClient\Cognizant.Hackathon.RestClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Cognizant.Hackathon.StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="Cognizant.Hackathon.RestClient">
+      <HintPath>..\..\DLLs\Common\Cognizant.Hackathon.RestClient.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig">
+      <HintPath>..\..\DLLs\Common\StandardAppConfig.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Common\Enums\AppLiveStatus.cs" />
+    <Compile Remove="Common\Enums\LogSeverity.cs" />
+    <Compile Remove="Common\Enums\ActivityStatus.cs" />
+    <Compile Remove="Common\Enums\LogSeverity.cs" />
+    <Compile Remove="Common\Json\CharEnumConverter.cs" />
+    <Compile Remove="Common\Json\DictionaryConverter.cs" />
+    <Compile Remove="Common\Json\EmptyArrayToObjectConverter.cs" />
+    <Compile Remove="Common\Json\EmptyObjectToListConverter.cs" />
+    <Compile Remove="Common\Json\StringToDecimalConverter.cs" />
+    <Compile Remove="Common\Json\StringToIntConverter.cs" />
+    <Compile Remove="Converters\BoolToColorConverter.cs" />
+    <Compile Remove="Converters\CurrencyConverter.cs" />
+    <Compile Remove="Converters\BytesToImageSourceConverter.cs" />
+    <Compile Remove="Converters\HtmlSourceConverter.cs" />
+    <Compile Remove="Converters\IntToBoolConverter.cs" />
+    <Compile Remove="Converters\IsEvenConverter.cs" />
+    <Compile Remove="Converters\IsOddConverter.cs" />
+    <Compile Remove="Converters\IsStreamObjectNullConverter.cs" />
+    <Compile Remove="Converters\LabelDateTimeValueConverter.cs" />
+    <Compile Remove="Converters\StringToImageSourceConverter.cs" />
+    <Compile Remove="Converters\UnixTimeToDateTimeStringConverter.cs" />
+    <Compile Remove="Converters\UtcToLocalTimeConverter.cs" />
+    <Compile Remove="Converters\ValidDateToStringConverter.cs" />
+    <Compile Remove="Extensions\ColorExtensions.cs" />
+    <Compile Remove="Extensions\ImageBytesExtension.cs" />
+    <Compile Remove="Extensions\ObservableExtension.cs" />
+    <Compile Remove="Extensions\TypesExtension.cs" />
+    <Compile Remove="Validation\CreditCardAttribute.cs" />
+    <Compile Remove="Validation\EmailValidationAttribute.cs" />
+    <Compile Remove="Validation\PhoneNumberValidationAttribute.cs" />
+    <Compile Remove="Validation\RequiredValidationAttribute.cs" />
+    <Compile Remove="Validation\StrongPasswordValidationAttribute.cs" />
+  </ItemGroup>
+</Project>

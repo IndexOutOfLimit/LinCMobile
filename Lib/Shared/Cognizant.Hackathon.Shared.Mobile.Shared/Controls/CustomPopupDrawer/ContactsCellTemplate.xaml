@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<control:CustomShadowFrame xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cognizant.Hackathon.Shared.Mobile.Shared.Controls.CustomPopupDrawer.ContactsCellTemplate"
+             xmlns:control="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+             x:Name="ContactsTemplateVwRef"
+                           CornerRadius="10" Elevation="4" Margin="0,5,0,5" Padding="0">
+    <control:CustomShadowFrame.Content>
+        <OnPlatform x:TypeArguments="View">
+            <On Platform="Android">
+                <Frame Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                    <Grid ColumnSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="65"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="85*"/>
+                        </Grid.ColumnDefinitions>
+                        <Frame IsVisible="{Binding IsSelected}" Grid.Row="0" Grid.Column="0" CornerRadius="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="{DynamicResource backgroundColor}"/>
+                        <StackLayout Padding="0"  Spacing="0" Grid.Row="0" Grid.Column="1">
+                            <Label Margin="10,0,0,0" Text="{Binding Name}" TextColor="{StaticResource backgroundColor}"  FontFamily="{StaticResource NunitoExtraBold}"  VerticalOptions="CenterAndExpand"/>
+                            <Label Margin="10,0,0,0" Text="{Binding EmailId}" TextColor="{StaticResource backgroundColor}"  FontFamily="{StaticResource NunitoExtraBold}"  VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                        <BoxView Grid.ColumnSpan="2" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <BoxView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ParentContext.ContactSelectedCommand, Source={x:Reference ContactsTemplateVwRef}}"
+                                                CommandParameter="{Binding .}" />
+                            </BoxView.GestureRecognizers>
+                        </BoxView>
+                    </Grid>
+                </Frame>
+            </On>
+            <On Platform="iOS">
+                <Frame Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                    <StackLayout>
+                        <Grid ColumnSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="65"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="85*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame IsVisible="{Binding IsSelected}" Grid.Row="0" Grid.Column="0" CornerRadius="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="{DynamicResource backgroundColor}"/>
+                            <StackLayout Spacing="0" Padding="0" Grid.Row="0" Grid.Column="1">
+                                <Label Margin="10,0,0,0" Padding="0" Text="{Binding Name}" TextColor="{StaticResource backgroundColor}"  FontFamily="{StaticResource NunitoExtraBold}"  VerticalOptions="CenterAndExpand"/>
+                                <Label Margin="10,0,0,0" Padding="0" Text="{Binding EmailId}" TextColor="{StaticResource backgroundColor}"  FontFamily="{StaticResource NunitoRegular}"  VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                            <BoxView Grid.ColumnSpan="2" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <BoxView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ParentContext.ContactSelectedCommand, Source={x:Reference ContactsTemplateVwRef}}"
+                                                CommandParameter="{Binding .}" />
+                                </BoxView.GestureRecognizers>
+                            </BoxView>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+            </On>
+        </OnPlatform>
+    </control:CustomShadowFrame.Content>
+</control:CustomShadowFrame>

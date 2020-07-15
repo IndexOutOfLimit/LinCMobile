@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:template="clr-namespace:LinC.Template"
+       mc:Ignorable="d"
+       xmlns:local="clr-namespace:LinC.Views"
+       Title="LinC"
+       x:Class="LinC.AppShell"
+       x:Name="TheShell"       
+       BindingContext="{Binding AppShell, Source={StaticResource Locator}}"
+       Shell.NavBarIsVisible="False"
+       Shell.FlyoutBehavior="Disabled"
+       Navigated="OnShellNavigated"
+       Navigating="OnShellNavigating">
+
+    <!-- 
+        Styles and Resources 
+    -->
+    <Shell.Resources>
+        <ResourceDictionary>
+
+           <Color x:Key="NavigationPrimary">#FFFFFA</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Gray"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{DynamicResource backgroundColor}"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <!-- Your Pages Starts-->
+    <ShellItem Title="Landing" Route="root">
+        <ShellSection Route="landingsection">
+            <ShellContent Route="landing">
+                <local:LandingPage/>
+            </ShellContent>
+        </ShellSection>
+    </ShellItem>
+    <!--<ShellItem Title="Registration" Route="root">
+        <ShellSection Route="registrationsection">
+            <ShellContent Route="registration">
+                <local:RegistrationPage/>
+            </ShellContent>
+        </ShellSection>
+    </ShellItem>-->
+    <!--<ShellItem Title="Chat" Route="root">
+        <ShellSection Route="chatsection">
+            <ShellContent Route="chat">
+                <local:ChatPage/>
+            </ShellContent>
+        </ShellSection>
+    </ShellItem>-->
+    <!--<ShellItem Title="Login" Route="root">
+        <ShellSection Route="authsection">
+            <ShellContent Route="auth">
+                <local:ChatPage/>
+            </ShellContent>
+        </ShellSection>
+    </ShellItem>-->
+    <!-- Your Pages Ends--> 
+
+    <!-- Your TabBar Starts -->
+    
+     <TabBar Route="root">
+        <Tab Route="Dashboard" Title="Dashboard" Icon="tab_feed.png">
+            <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        </Tab>
+        <Tab Route="Profile" Title="Profile" Icon="tab_about.png">
+            <ShellContent Route="MyPage1" ContentTemplate="{DataTemplate local:LoginPage}" />
+        </Tab>
+        <Tab Route="More" Title="More" Icon="tab_about.png">
+            <ShellContent Route="MyPage2" ContentTemplate="{DataTemplate local:LoginPage}" />
+        </Tab>
+    </TabBar>
+    <!-- Your TabBar Ends --> 
+
+</Shell>

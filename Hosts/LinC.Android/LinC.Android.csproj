@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3E8D025-95F7-42FA-A07E-7ADBCD002AD5}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>LinC.Droid</RootNamespace>
+    <AssemblyName>LinC.Android</AssemblyName>
+    <Deterministic>True</Deterministic>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>/Users/admin/Desktop/hackathon/MobileApp/Xamarin/LinCMobile/LinC/Hosts/LinC.Android/AndroidKeystore/AndroidKeystore.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>password</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>AndroidKeystore</AndroidSigningKeyAlias>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="StandardAppConfig.FileSystemStream">
+      <HintPath>..\..\Lib\DLLs\Android\StandardAppConfig.FileSystemStream.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig">
+      <HintPath>..\..\Lib\DLLs\Android\StandardAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardAppConfig.FileSystemStream.Abstractions">
+      <HintPath>..\..\Lib\DLLs\Android\StandardAppConfig.FileSystemStream.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>2.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics">
+      <Version>2.9.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Crashlytics.Core">
+      <Version>2.6.3.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Core.Utils">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.CustomTabs">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Design">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v4">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.ViewPager">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.Analytics">
+      <Version>71.1630.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.Analytics.Impl">
+      <Version>71.1630.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Visual.Material">
+      <Version>4.7.0.1080</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.CurrentActivity">
+      <Version>2.1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Unity.Container">
+      <Version>5.11.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helper\MaterialHelper.cs" />
+    <Compile Include="Helper\PermissionUtil.cs" />
+    <Compile Include="Platforms\AnalyticsService.cs" />
+    <Compile Include="Platforms\ContactServiceDroid.cs" />
+    <Compile Include="Platforms\CustomTypefaceSpan.cs" />
+    <Compile Include="Platforms\DownloadServiceDroid.cs" />
+    <Compile Include="Platforms\StatusBarColorDroid.cs" />
+    <Compile Include="Platforms\TouchEffect.cs" />
+    <Compile Include="Renderer\AlertButtonRenderer.cs" />
+    <Compile Include="Renderer\BorderlessMaterialEntryRenderer.cs" />
+    <Compile Include="Renderer\CompanyAreaFrameRenderer.cs" />
+    <Compile Include="Renderer\CustomCornerFrameRenderer.cs" />
+    <Compile Include="Renderer\CustomDatePickerRenderer.cs" />
+    <Compile Include="Renderer\CustomEditorRenderer.cs" />
+    <Compile Include="Renderer\CustomFrameRenderer.cs" />
+    <Compile Include="Renderer\CustomPickerRenderer.cs" />
+    <Compile Include="Renderer\CustomViewCellRenderer.cs" />
+    <Compile Include="Renderer\MyShellItemRenderer.cs" />
+    <Compile Include="Renderer\MyShellRenderer.cs" />
+    <Compile Include="Platforms\LocationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Plus.png" />
+    <None Include="AndroidKeystore\AndroidKeystore.keystore" />
+    <None Include="AndroidKeystore\AndroidKeystore.keyInfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Tabbar.xml" />
+    <AndroidResource Include="Resources\layout\Toolbar.xml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\DropdownArrow.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\AppSplash3x.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\DropdownArrow.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxhdpi\AppSplash2x.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xxhdpi\DropdownArrow.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-xhdpi\AppSplash.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\appicon.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\Check.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\CollapseMinusIcon.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\DefaultButtonShape.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\DropdownArrow.svg">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\RoundCornerEntry.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\tab_about.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\tab_feed.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\TabButton.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\xamarin_logo.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\splash_background.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\xml\file_paths.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\xml\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LinC\LinC.csproj">
+      <Project>{3A31A506-2AE1-4416-AFA1-605F82E4FB68}</Project>
+      <Name>LinC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Bootstrap\Cognizant.Hackathon.Shared.Mobile.Bootstrap.csproj">
+      <Project>{9120925E-F9A3-4615-AA16-8F1591A398B9}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Core\Cognizant.Hackathon.Shared.Mobile.Core.csproj">
+      <Project>{A14CEE7B-122F-445F-BE22-BFCDE6CB0934}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Shared\Cognizant.Hackathon.Shared.Mobile.Shared.csproj">
+      <Project>{9AAD936D-3249-4C10-A078-5ED939BAF008}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Cognizant.Hackathon\Cognizant.Hackathon.Mobile.Core\Cognizant.Hackathon.Mobile.Core.csproj">
+      <Project>{44DDA70F-034F-49A6-A55B-2C4DA0E12550}</Project>
+      <Name>Cognizant.Hackathon.Mobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Cognizant.Hackathon\Cognizant.Hackathon.Core\Cognizant.Hackathon.Core.csproj">
+      <Project>{500B6E5F-8638-471A-872E-F2F6B050E24A}</Project>
+      <Name>Cognizant.Hackathon.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lib\Shared\Cognizant.Hackathon.Shared.Mobile.Models\Cognizant.Hackathon.Shared.Mobile.Models.csproj">
+      <Project>{9DDB5E56-A02B-4904-969C-F81734A5BD0B}</Project>
+      <Name>Cognizant.Hackathon.Shared.Mobile.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\FontAwesome5Brands.otf" />
+    <AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
+    <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
+    <AndroidAsset Include="Assets\Nunito-Black.ttf" />
+    <AndroidAsset Include="Assets\Nunito-BlackItalic.ttf" />
+    <AndroidAsset Include="Assets\Nunito-Bold.ttf" />
+    <AndroidAsset Include="Assets\Nunito-BoldItalic.ttf" />
+    <AndroidAsset Include="Assets\Nunito-ExtraBold.ttf" />
+    <AndroidAsset Include="Assets\Nunito-ExtraBoldItalic.ttf" />
+    <AndroidAsset Include="Assets\Nunito-ExtraLight.ttf" />
+    <AndroidAsset Include="Assets\Nunito-ExtraLightItalic.ttf" />
+    <AndroidAsset Include="Assets\Nunito-Italic.ttf" />
+    <AndroidAsset Include="Assets\Nunito-Light.ttf" />
+    <AndroidAsset Include="Assets\Nunito-LightItalic.ttf" />
+    <AndroidAsset Include="Assets\Nunito-Regular.ttf" />
+    <AndroidAsset Include="Assets\Nunito-SemiBold.ttf" />
+    <AndroidAsset Include="Assets\Nunito-SemiBoldItalic.ttf" />
+    <AndroidAsset Include="..\LinC\App.config">
+      <Link>Assets\App.config</Link>
+    </AndroidAsset>
+  </ItemGroup>
+ <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

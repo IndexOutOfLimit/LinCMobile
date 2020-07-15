@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="entryTemplate"
+             Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True"
+             xmlns:commonControls="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+             IsVisible="{Binding IsVisible}"
+             x:Class="LinC.Templates.EntryTemplate"
+       xmlns:localBehaviors="clr-namespace:LinC.Behaviors">
+    <!-- -->
+
+    <commonControls:BorderlessMaterialEntry Visual="Material" FontSize="14" x:Name="SalesPriceTxtFld"
+                            IsNegativeAllowed="{Binding AllowNegative}"
+                            FontFamily="{StaticResource NunitoBold}" IsReadOnly="{Binding IsEditable, Converter={StaticResource inverseBooleanConv}}"
+                            ReturnType="Done"  PlaceholderColor="Gray" 
+                            Placeholder="{Binding Title}" FontAttributes="Bold"                            
+                            Text="{Binding DefaultValue}" IsVisible="{Binding IsVisible}"
+                            IsNumericKeyboard="{Binding AllowAlphaNumeric, Converter={StaticResource inverseBooleanConv}}"
+                            HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+        <commonControls:BorderlessMaterialEntry.TextColor>
+            <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+        </commonControls:BorderlessMaterialEntry.TextColor>
+        <commonControls:BorderlessMaterialEntry.Behaviors>
+            <localBehaviors:EventToCommandBehavior
+                                Command="{Binding Path=ParentContext.EntryCellFieldFocusedCommand,Source={x:Reference entryTemplate}}"
+                                CommandParameter="{Binding .}" EventName="Focused" />
+            <localBehaviors:EventToCommandBehavior EventName="Unfocused"
+                                Command="{Binding Path=ParentContext.EntryCellFieldUnfocusedCommand, Source={x:Reference entryTemplate}}"
+                                CommandParameter="{Binding .}"/>
+            <localBehaviors:EventToCommandBehavior EventName="TextChanged"
+                                Command="{Binding Path=ParentContext.EntryTextChangedCommand, Source={x:Reference entryTemplate}}"
+                                CommandParameter="{Binding .}"/>
+        </commonControls:BorderlessMaterialEntry.Behaviors>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Disabled">
+                    <VisualState.Setters>
+                        <Setter Property="PlaceholderColor" Value="Black" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+    </commonControls:BorderlessMaterialEntry>
+
+    <Frame.Triggers>
+        <DataTrigger TargetType="Frame"
+                    Binding="{Binding Source={x:Reference entryTemplate}, Path=IsVisible}"
+                    Value="False">
+            <Setter Property="HeightRequest" Value="0" />
+        </DataTrigger>
+    </Frame.Triggers>
+</Frame>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cognizant.Hackathon.Shared.Mobile.Shared.Controls.AlertViews.InputTextOkCancelView"
+             xmlns:commonControls="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared" Margin="20,0,20,0">
+    <ContentView.Content>
+        <Frame
+            x:Name="FrameView"
+            BackgroundColor="White"
+            CornerRadius="12"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center"
+            Padding="5">
+            <StackLayout Spacing="10" BackgroundColor="White" Padding="0,10,0,0">
+                <Label Padding="20,0,0,0"
+                    x:Name="TitleLabel"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    Text="Rename"
+                    TextColor="{StaticResource TextDefaultColor}" />
+                <Label Padding="20,0,20,0"
+                    x:Name="ValidationLabel"
+                    FontSize="Micro"
+                    IsVisible="False"
+                    Text="You can't leave this field empty!"
+                    TextColor="Red" />
+                <StackLayout Padding="20,10,20,0" Spacing="10">
+                    <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                        <commonControls:BorderlessMaterialEntry Visual="Material" x:Name="InputTextEntry" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="Gray"
+                                                            Placeholder="Type here..." FontAttributes="Bold"
+                                                            Keyboard="Default"
+                                                            IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                             <commonControls:BorderlessMaterialEntry.TextColor>
+                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                    </commonControls:BorderlessMaterialEntry.TextColor>
+                        </commonControls:BorderlessMaterialEntry>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" BackgroundColor="#E8E8E8" Spacing="0">
+                    <Button x:Name="CancelButton" Text="Cancel" TextColor="{StaticResource backgroundColor}" FontFamily="{StaticResource NunitoBold}" 
+                                    BackgroundColor="White" VerticalOptions="End" HorizontalOptions="FillAndExpand" Margin="0,0.25,0.25,0" 
+                                    CornerRadius="0">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS" Value="42" />
+                                <On Platform="Android" Value="52" />
+                            </OnPlatform>
+                        </Button.HeightRequest>
+                    </Button>
+
+                    <Button x:Name="OkButton" Text="Save" TextColor="{StaticResource backgroundColor}" BackgroundColor="White" FontFamily="{StaticResource NunitoBold}" 
+                                    VerticalOptions="End" HorizontalOptions="FillAndExpand" Margin="0.25,0.25,0,0" 
+                                    CornerRadius="0">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS" Value="42" />
+                                <On Platform="Android" Value="52" />
+                            </OnPlatform>
+                        </Button.HeightRequest>
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+       
+    </ContentView.Content>
+</ContentView>

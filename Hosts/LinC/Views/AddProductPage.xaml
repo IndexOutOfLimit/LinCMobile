@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infrastructure:BaseContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d"
+    xmlns:infrastructure="clr-namespace:LinC.Infrastructure;assembly=LinC"
+    x:Name="AddProductPageRef"
+    BindingContext="{Binding AddProductPage, Source={StaticResource Locator}}"
+    x:Class="LinC.Views.AddProductPage"
+    xmlns:localBehaviors="clr-namespace:LinC.Behaviors"
+    xmlns:localConverter="clr-namespace:LinC.Converters"
+    xmlns:controls="clr-namespace:LinC.Controls;assembly=LinC"
+    xmlns:commonControls="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+    xmlns:template="clr-namespace:LinC.Template" BackgroundColor="{StaticResource ScreenBackgroundColor}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <localConverter:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,20" BackgroundColor="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" HeightRequest="50" BackgroundColor="{StaticResource BlueContentColor}" VerticalOptions="Center">
+                <Label FontSize="18" FontFamily="{StaticResource NunitoExtraBold}" Text="Add Product" TextColor="#FFFFFF" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+             <ScrollView x:Name="scrollVw" Grid.Row="1" Padding="0" Margin="0">
+                 <StackLayout Padding="15,0,15,0" Spacing="10" >
+                     <Grid Padding="0" RowSpacing="20" BackgroundColor="Transparent" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                            <controls:CustomPicker ItemsSource="{Binding ProductTypes.ControlValues}"
+                                                    ItemDisplayBinding="{Binding Value}" SelectedItem="{Binding ProductTypes.DefaultItem}"
+                                                    SelectedIndex="{Binding SelectedIndex}"
+                                                    Title="{Binding ProductTypes.Title}" CenterTitle="{Binding ProductTypes.Title}" FinishTitle="Done" 
+                                                    TitleColor="{StaticResource BlackColor}" FontSize="16"
+                                                    FontFamily="{StaticResource NunitoBold}"
+                                                    BackgroundColor="Transparent" TextColor="Transparent"
+                                                    HorizontalOptions="FillAndExpand" Visual="Material">
+                                <controls:CustomPicker.Behaviors>
+                                    <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                        Command="{Binding PickerCellCommand}"
+                                        CommandParameter="ProductType" 
+                                        Converter="{StaticResource SelectedItemConverter}"                 
+                                        />
+                                </controls:CustomPicker.Behaviors>
+                            </controls:CustomPicker>
+                        </Frame>
+                        <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="0,0,0,0" Spacing="0" HorizontalOptions="FillAndExpand">
+                            <Frame HorizontalOptions="FillAndExpand" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <controls:CustomPicker x:Name="ProductNamePicker" ItemsSource="{Binding DefaultProductName.ControlValues}"
+                                                        ItemDisplayBinding="{Binding Value}" SelectedItem="{Binding DefaultProductName}"
+                                                        SelectedIndex="{Binding DefaultProductName.SelectedIndex}"
+                                                        Title="{Binding DefaultProductName.Title}" CenterTitle="{Binding DefaultProductName.Title}" FinishTitle="Done"
+                                                        TitleColor="{StaticResource TextDefaultColor}" FontSize="16"
+                                                        FontFamily="{StaticResource NunitoBold}"
+                                                        BackgroundColor="Transparent" TextColor="Transparent"
+                                                        HorizontalOptions="FillAndExpand" Visual="Material">
+                                        <controls:CustomPicker.Behaviors>
+                                            <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                Command="{Binding PickerCellCommand}"
+                                                CommandParameter="ProductName" 
+                                                Converter="{StaticResource SelectedItemConverter}" />
+                                        </controls:CustomPicker.Behaviors>
+                                    </controls:CustomPicker>
+                            </Frame>
+                            <Button BackgroundColor="White" Text="{x:Static template:FontAwesomeIcons.PlusCircle}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"  CornerRadius="12" BorderColor="White" BorderWidth="2" Margin="1,7,5,0" Padding="2" HeightRequest="25" WidthRequest="25"
+                                        VerticalOptions="Start" HorizontalOptions="Center"  Command="{Binding AddNewProductNameCommand}"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" IsVisible="{Binding ProductNameEntryVisibility}" Orientation="Horizontal" Padding="0,0,0,0" Spacing="0" HorizontalOptions="FillAndExpand">
+                            <Frame HorizontalOptions="FillAndExpand" Padding="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
+                                <commonControls:BorderlessMaterialEntry FontSize="12" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                Placeholder="Product Name" FontAttributes="Bold"
+                                                                Text="{Binding NewProductName, Mode=TwoWay}" Keyboard="Default"
+                                                                IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                    <commonControls:BorderlessMaterialEntry.TextColor>
+                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                    </commonControls:BorderlessMaterialEntry.TextColor>
+                                </commonControls:BorderlessMaterialEntry>
+                            </Frame>
+                            <Button BackgroundColor="White" Margin="2,15,0,0"  Text="{x:Static template:FontAwesomeIcons.Save}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"  CornerRadius="12" BorderColor="White" BorderWidth="2"
+                                    Padding="2" HeightRequest="25" WidthRequest="25"
+                                        VerticalOptions="Start" HorizontalOptions="End" Command="{Binding SaveNewProductNameCommand}"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" Orientation="Horizontal" Padding="0,0,0,0" Spacing="0" HorizontalOptions="FillAndExpand">
+                            <Frame  WidthRequest="100" Padding="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
+                                <commonControls:BorderlessMaterialEntry FontSize="16" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                Placeholder="Quantity" FontAttributes="Bold"
+                                                                Text="{Binding Product.Quantity}" Keyboard="Numeric"
+                                                                IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                    <commonControls:BorderlessMaterialEntry.TextColor>
+                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                    </commonControls:BorderlessMaterialEntry.TextColor>
+                                </commonControls:BorderlessMaterialEntry>
+                            </Frame>
+                            <Button Margin="15,15,10,0" BackgroundColor="White"  Text="{x:Static template:FontAwesomeIcons.PlusCircle}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"  CornerRadius="12" BorderColor="White" BorderWidth="2"  Padding="2" HeightRequest="25" WidthRequest="25"
+                                        VerticalOptions="Start" HorizontalOptions="Center" Command="{Binding AdjustQuantityCommand}" CommandParameter="Plus"/>
+                             <Button Margin="1,15,5,0" BackgroundColor="White"  Text="{x:Static template:FontAwesomeIcons.MinusCircle}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"  CornerRadius="12" BorderColor="White" BorderWidth="2"  Padding="2" HeightRequest="25" WidthRequest="25"
+                                        VerticalOptions="Start" HorizontalOptions="Center" Command="{Binding AdjustQuantityCommand}"
+                                     CommandParameter="Minus"/>
+                        </StackLayout>
+                         <Frame Grid.Row="4" Padding="1" HeightRequest="100" BorderColor="Transparent" CornerRadius="12" Visual="Material" HasShadow="True">
+                            <commonControls:CustomEditor  Visual="Material" HeightRequest="150"  BorderColor="Transparent" BackgroundColor="Transparent"
+                                         Text="{Binding Product.Description, Mode=TwoWay}" Placeholder="Description" 
+                                        FontFamily="{StaticResource NunitoBold}" FontSize="Medium"  PlaceholderColor="{StaticResource TextDefaultColor}" Keyboard="Text"
+                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <commonControls:CustomEditor.TextColor>
+                                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                </commonControls:CustomEditor.TextColor>                                
+                            </commonControls:CustomEditor>
+                        </Frame>
+                        <StackLayout Grid.Row="5" VerticalOptions="FillAndExpand">
+                            <Button x:Name="BtnNext" FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                             HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="ADD TO PRODUCT LIST"
+                                            Command="{Binding Path=NextButtonTappedCommand}"
+                                            TextColor="{StaticResource WhiteColor}" Margin="0" >                                
+                            </Button>
+                        </StackLayout>
+                     </Grid>
+                 </StackLayout>
+             </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</infrastructure:BaseContentPage>

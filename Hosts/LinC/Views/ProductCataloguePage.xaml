@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infrastructure:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d"
+    xmlns:infrastructure="clr-namespace:LinC.Infrastructure;assembly=LinC"
+    BackgroundColor="{StaticResource ScreenBackgroundColor}"   
+    x:Class="LinC.Views.ProductCataloguePage"
+    x:Name="ProductCataloguePageRef"
+    BindingContext="{Binding ProductCataloguePage, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,20">
+             <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" HeightRequest="50" BackgroundColor="{StaticResource BlueContentColor}" VerticalOptions="Center">
+                <Label FontSize="18" FontFamily="{StaticResource NunitoExtraBold}" Text="Product Catalogue" TextColor="#FFFFFF" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <Grid Grid.Row="1" VerticalOptions="EndAndExpand" Padding="10,5,10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="Auto" />
+                    <RowDefinition  Height="*" />
+                </Grid.RowDefinitions>
+                <Frame Grid.Row="0" Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                       Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                    <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>                        
+                        <SearchBar Grid.Row="0" Placeholder="Search product"
+                                   Text="{Binding SearchTextProductName}"/>
+                       
+                        <StackLayout Grid.Row="1" HorizontalOptions="EndAndExpand" Orientation="Horizontal" Padding="0,5,5,5">
+                            <!--<Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                Text="RESET" TextColor="{StaticResource WhiteColor}" Margin="0" 
+                                Command="{Binding Path=ResetButtonTappedCommand}"/>-->
+                            <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                Text="SEARCH" Margin="0" TextColor="{StaticResource WhiteColor}"
+                                Command="{Binding Path=SearchButtonTappedCommand}" />
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <ListView Grid.Row="1" x:Name="listView"  ItemsSource ="{Binding Products}" CachingStrategy="RecycleElement"
+                            HasUnevenRows="True" SelectionMode="None" Margin="0,10,0,5" SeparatorVisibility="Default">                    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Frame Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                                Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                                        <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="120"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Margin="5,0,0,0" Padding="0" Spacing="0" HorizontalOptions="FillAndExpand">
+                                                <Label Text="{Binding ProductName, StringFormat='Product Name: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
+                                                <Label Text="{Binding Name, StringFormat='Store Name: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
+                                                <Label Text="{Binding ProductType, StringFormat='Product Type: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                <Label Text="{Binding Area, StringFormat='Area: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                <Label Text="Supplier Deliverable:" FontFamily="{StaticResource NunitoExtraBold}" />
+                                                <Label Text="Add Tool:" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                
+                                           </StackLayout>                                            
+                                        </Grid>
+                                    </Frame>
+                                    <BoxView HeightRequest="2" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</infrastructure:BaseContentPage>
