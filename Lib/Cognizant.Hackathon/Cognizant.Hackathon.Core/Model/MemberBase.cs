@@ -45,16 +45,16 @@ namespace Cognizant.Hackathon.Core.Model
         /// </summary>
         public string MiddleName { get; set; }
 
-        [JsonSerialise(UserRole.None)]
-        public virtual string NewPassword { get; set; }
+        //[JsonSerialise(UserRole.None)]
+        //public virtual string NewPassword { get; set; }
 
         /// <inheritdoc />
         /// <summary>
         ///     Gets or sets Password.
         ///     This is only used for fake repository use and repository population, not production!
         /// </summary>
-        [JsonSerialise(UserRole.None)]
-        public virtual string Password { get; set; }
+        //[JsonSerialise(UserRole.None)]
+        //public virtual string Password { get; set; }
 
         /// <summary>
         ///     Gets or sets Title.

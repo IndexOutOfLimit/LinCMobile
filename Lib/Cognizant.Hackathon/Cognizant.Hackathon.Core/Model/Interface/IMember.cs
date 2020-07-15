@@ -13,12 +13,12 @@ namespace Cognizant.Hackathon.Core.Model.Interface
         /// <summary>
         ///     Gets or sets NewPassword.
         /// </summary>
-        string NewPassword { get; set; }
+        //string NewPassword { get; set; }
 
         /// <summary>
         ///     Gets or sets Password.
         /// </summary>
-        string Password { get; set; }
+        //string Password { get; set; }
 
         /// <summary>
         ///     Gets or sets Text.

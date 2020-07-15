@@ -20,9 +20,14 @@ namespace LinC.ViewModels
         public bool IsOtherSectionVisible { get; set; }
         public string RegisterTypeText { get; set; }
         public bool IsOrgVisible { get; set; }
+        public bool ShouldUseCurrentLocation { get; set; }
 
         public List<Organization> OrgMasterData { get; set; }
         public Organization DefaultOrganization { get; set; }
+        public List<Country> CountryMasterData { get; set; }
+        public Country DefaultCountry { get; set; }
+        public List<State> StateMasterData { get; set; }
+        public State DefaultState { get; set; }
 
         public CustomDelegateCommand<object> UserTypeSelectionCommand { get; }
         public CustomDelegateCommand<object> UseLocationSelectionCommand { get; }
@@ -58,15 +63,42 @@ namespace LinC.ViewModels
             {
                 OrgMasterData = App.MasterData.OrgMaster;
                 DefaultOrganization = OrgMasterData[0];
+
+                CountryMasterData = App.MasterData.CountryMaster;
+                DefaultCountry = CountryMasterData[0];
+
+                StateMasterData = App.MasterData.StateMaster;
+                DefaultState = StateMasterData[0];
             }
         }
 
         private void PickerTapped(object item)
         {
-            if (DefaultOrganization != null)
+            string param = item as string;
+            switch (param)
             {
-                UserDetails.Organization = DefaultOrganization.OrgCode.ToString();
+                case "State":
+                    if (DefaultState != null)
+                    {
+                        UserDetails.State = DefaultState.StateCode;
+                    }
+                    break;
+                case "Country":
+                    if (DefaultCountry != null)
+                    {
+                        UserDetails.Country = DefaultCountry.CountryCode;
+                    }
+                    break;
+                case "Organization":
+                    if (DefaultOrganization != null)
+                    {
+                        UserDetails.Organization = DefaultOrganization.OrgCode;
+                    }
+                    break;
+                default:
+                    break;
             }
+            
         }
 
         private void ServiceTypeSelectionAction(object selectionType)
@@ -107,7 +139,7 @@ namespace LinC.ViewModels
             {
                 LinCUserRegisterType type = (LinCUserRegisterType)selectionType;
                 UserDetails.RegisterType = type.ToString();
-                IsOrgVisible = UserDetails.RegisterType.Contains("Individual");
+                IsOrgVisible = !UserDetails.RegisterType.Contains("Individual");
                 UserDetails.Organization = "";
             }
             catch (Exception)
@@ -122,10 +154,12 @@ namespace LinC.ViewModels
             {
                 LinCLogicalType type = (LinCLogicalType)selectionType;
                 UserDetails.UseCurrentLocation = bool.Parse(type.ToString());
+                ShouldUseCurrentLocation = UserDetails.UseCurrentLocation;
             }
             catch (Exception)
             {
                 UserDetails.UseCurrentLocation = false;
+                ShouldUseCurrentLocation = false;
             }
         }
 
@@ -164,8 +198,29 @@ namespace LinC.ViewModels
         private async Task NextButtonTapped()
         {
             try
-            {               
+            {
+                if (!IsOrgVisible)
+                {
+                    UserDetails.Organization = string.Empty;
+                }
+
+                switch (LinCAppUserType)
+                {
+                    case LinCUserType.Consumer:
+                        UserDetails.Organization = string.Empty;
+                        UserDetails.RegisterType = string.Empty;
+                        break;
+                    default:
+                        break;
+                }
+
                 AppSpinner.ShowLoading();
+
+                if (ShouldUseCurrentLocation)
+                {
+                    var location = await GetUserLocation();
+                }
+                
 
                 if(UserDetails.UseCurrentLocation)
                 {

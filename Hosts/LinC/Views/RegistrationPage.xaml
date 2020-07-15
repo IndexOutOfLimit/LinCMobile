@@ -62,7 +62,7 @@
                                              Command="{Binding UserRegistrationSelectionCommand}" CommandParameter="{x:Static enums:LinCUserRegisterType.Org}"/>
                                 </StackLayout>
                             </StackLayout>
-                             <Frame IsVisible="{Binding IsOrgVisible, Converter={StaticResource inverseBooleanConv}}" Padding="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
+                             <Frame IsVisible="False" Padding="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
 
                                 <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
                                                                 Placeholder="Organization" FontAttributes="Bold"
@@ -73,7 +73,7 @@
                                     </commonControls:BorderlessMaterialEntry.TextColor>
                                 </commonControls:BorderlessMaterialEntry>
                             </Frame>
-                            <Frame IsVisible="{Binding IsOrgVisible}" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                            <Frame IsVisible="True" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
                                 <controls:CustomPicker ItemsSource="{Binding OrgMasterData}" SelectedItem="{Binding DefaultOrganization}"
                                                         ItemDisplayBinding="{Binding OrgName}" 
                                                         Title="Organization" CenterTitle="Organization" FinishTitle="Done" 
@@ -84,9 +84,8 @@
                                     <controls:CustomPicker.Behaviors>
                                         <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
                                             Command="{Binding BindingContext.PickerCellCommand, Source={x:Reference RegistrationPageRef}}"
-                                            CommandParameter="{Binding .}" 
-                                            Converter="{StaticResource SelectedItemConverter}"                 
-                                            />
+                                            CommandParameter="Organization" 
+                                            Converter="{StaticResource SelectedItemConverter}" />
                                     </controls:CustomPicker.Behaviors>
                                 </controls:CustomPicker>
                             </Frame>
@@ -118,6 +117,16 @@
                             </Frame>
                             <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
                                 <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                Placeholder="Password" FontAttributes="Bold"
+                                                                Text="{Binding UserDetails.UserSecret, Mode=TwoWay}" Keyboard="Default"
+                                                                IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                    <commonControls:BorderlessMaterialEntry.TextColor>
+                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                    </commonControls:BorderlessMaterialEntry.TextColor>
+                                </commonControls:BorderlessMaterialEntry>
+                            </Frame>
+                            <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
                                                                 Placeholder="Phone (*)" FontAttributes="Bold"
                                                                 Text="{Binding UserDetails.Phone, Mode=TwoWay}" Keyboard="Default"
                                                                 IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
@@ -135,64 +144,99 @@
                                                  Command="{Binding UseLocationSelectionCommand}" CommandParameter="{x:Static enums:LinCLogicalType.False}"/>
                                 </StackLayout>
                             </StackLayout>
-                            <StackLayout>
+                            <StackLayout IsVisible="{Binding ShouldUseCurrentLocation, Converter={StaticResource inverseBooleanConv}}">
+                                <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                    Placeholder="Address Line 1" FontAttributes="Bold"
+                                                                    Text="{Binding UserDetails.AddressLine1, Mode=TwoWay}" Keyboard="Default"
+                                                                    IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                        <commonControls:BorderlessMaterialEntry.TextColor>
+                                            <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                        </commonControls:BorderlessMaterialEntry.TextColor>
+                                    </commonControls:BorderlessMaterialEntry>
+                                </Frame>
+                                <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                    Placeholder="Address Line 2" FontAttributes="Bold"
+                                                                    Text="{Binding UserDetails.AddressLine2, Mode=TwoWay}" Keyboard="Default"
+                                                                    IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                        <commonControls:BorderlessMaterialEntry.TextColor>
+                                            <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                        </commonControls:BorderlessMaterialEntry.TextColor>
+                                    </commonControls:BorderlessMaterialEntry>
+                                </Frame>
+                                <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                    Placeholder="Pin" FontAttributes="Bold"
+                                                                    Text="{Binding UserDetails.Pin, Mode=TwoWay}" Keyboard="Numeric"
+                                                                    IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                        <commonControls:BorderlessMaterialEntry.TextColor>
+                                            <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                        </commonControls:BorderlessMaterialEntry.TextColor>
+                                    </commonControls:BorderlessMaterialEntry>
+                                </Frame>
+                                <!--<Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                    Placeholder="State" FontAttributes="Bold"
+                                                                    Text="{Binding UserDetails.State, Mode=TwoWay}" Keyboard="Default"
+                                                                    IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                        <commonControls:BorderlessMaterialEntry.TextColor>
+                                            <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                        </commonControls:BorderlessMaterialEntry.TextColor>
+                                    </commonControls:BorderlessMaterialEntry>
+                                </Frame>-->
 
+                                <Frame Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <controls:CustomPicker ItemsSource="{Binding CountryMasterData}" SelectedItem="{Binding DefaultCountry}"
+                                                            ItemDisplayBinding="{Binding CountryName}" 
+                                                            Title="Country" CenterTitle="Country" FinishTitle="Done" 
+                                                            TitleColor="{StaticResource BlackColor}" FontSize="16"
+                                                            FontFamily="{StaticResource NunitoBold}"
+                                                            BackgroundColor="Transparent" TextColor="Transparent"
+                                                            HorizontalOptions="FillAndExpand" Visual="Material">
+                                        <controls:CustomPicker.Behaviors>
+                                            <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                Command="{Binding BindingContext.PickerCellCommand, Source={x:Reference RegistrationPageRef}}"
+                                                CommandParameter="Country" 
+                                                Converter="{StaticResource SelectedItemConverter}"                 
+                                                />
+                                        </controls:CustomPicker.Behaviors>
+                                    </controls:CustomPicker>
+                                </Frame>
+                            
+                                <!--<Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                    Placeholder="Country" FontAttributes="Bold"
+                                                                    Text="{Binding UserDetails.Country, Mode=TwoWay}" Keyboard="Default"
+                                                                    IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                        <commonControls:BorderlessMaterialEntry.TextColor>
+                                            <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                        </commonControls:BorderlessMaterialEntry.TextColor>
+                                    </commonControls:BorderlessMaterialEntry>
+                                </Frame>-->
+
+                                <Frame Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                                    <controls:CustomPicker ItemsSource="{Binding StateMasterData}" SelectedItem="{Binding DefaultState}"
+                                                            ItemDisplayBinding="{Binding StateName}" 
+                                                            Title="State" CenterTitle="State" FinishTitle="Done" 
+                                                            TitleColor="{StaticResource BlackColor}" FontSize="16"
+                                                            FontFamily="{StaticResource NunitoBold}"
+                                                            BackgroundColor="Transparent" TextColor="Transparent"
+                                                            HorizontalOptions="FillAndExpand" Visual="Material">
+                                        <controls:CustomPicker.Behaviors>
+                                            <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                Command="{Binding BindingContext.PickerCellCommand, Source={x:Reference RegistrationPageRef}}"
+                                                CommandParameter="State" 
+                                                Converter="{StaticResource SelectedItemConverter}"                 
+                                                />
+                                        </controls:CustomPicker.Behaviors>
+                                    </controls:CustomPicker>
+                                </Frame>
                             </StackLayout>
-                            <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
-                                <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
-                                                                Placeholder="Address Line 1" FontAttributes="Bold"
-                                                                Text="{Binding UserDetails.AddressLine1, Mode=TwoWay}" Keyboard="Default"
-                                                                IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
-                                    <commonControls:BorderlessMaterialEntry.TextColor>
-                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
-                                    </commonControls:BorderlessMaterialEntry.TextColor>
-                                </commonControls:BorderlessMaterialEntry>
-                            </Frame>
-                            <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
-                                <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
-                                                                Placeholder="Address Line 2" FontAttributes="Bold"
-                                                                Text="{Binding UserDetails.AddressLine2, Mode=TwoWay}" Keyboard="Default"
-                                                                IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
-                                    <commonControls:BorderlessMaterialEntry.TextColor>
-                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
-                                    </commonControls:BorderlessMaterialEntry.TextColor>
-                                </commonControls:BorderlessMaterialEntry>
-                            </Frame>
-                            <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
-                                <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
-                                                                Placeholder="Pin" FontAttributes="Bold"
-                                                                Text="{Binding UserDetails.Pin, Mode=TwoWay}" Keyboard="Numeric"
-                                                                IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
-                                    <commonControls:BorderlessMaterialEntry.TextColor>
-                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
-                                    </commonControls:BorderlessMaterialEntry.TextColor>
-                                </commonControls:BorderlessMaterialEntry>
-                            </Frame>
-                            <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
-                                <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
-                                                                Placeholder="State" FontAttributes="Bold"
-                                                                Text="{Binding UserDetails.State, Mode=TwoWay}" Keyboard="Default"
-                                                                IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
-                                    <commonControls:BorderlessMaterialEntry.TextColor>
-                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
-                                    </commonControls:BorderlessMaterialEntry.TextColor>
-                                </commonControls:BorderlessMaterialEntry>
-                            </Frame>
-                                <!--<Entry Text="{Binding UserDetails.Country, Mode=TwoWay}" FontSize="14"
-                                       Visual="Material" Placeholder="Country" PlaceholderColor="Black" BackgroundColor="White" />-->
-                            <Frame Padding="1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
-                                <commonControls:BorderlessMaterialEntry Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
-                                                                Placeholder="Country" FontAttributes="Bold"
-                                                                Text="{Binding UserDetails.Country, Mode=TwoWay}" Keyboard="Default"
-                                                                IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
-                                    <commonControls:BorderlessMaterialEntry.TextColor>
-                                        <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
-                                    </commonControls:BorderlessMaterialEntry.TextColor>
-                                </commonControls:BorderlessMaterialEntry>
-                            </Frame>
 
                         </StackLayout>
-                        <StackLayout Grid.Row="2" IsVisible="{Binding IsOtherSectionVisible}">
+
+                        <StackLayout Grid.Row="2" IsVisible="False"> <!-- {Binding IsOtherSectionVisible} --> 
                             <StackLayout Orientation="Vertical" Margin="0" Padding="0" Spacing="5">
                                 <Label Text="ServiceType" TextColor="{StaticResource TextDefaultColor}" FontFamily="{StaticResource NunitoBold}" FontSize="16"/>
                                 <FlexLayout Wrap="Wrap" Direction="Row" 
