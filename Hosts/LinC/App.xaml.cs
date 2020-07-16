@@ -1,7 +1,10 @@
-﻿using Cognizant.Hackathon.Shared.Mobile.Bootstrap;
+﻿using System.Threading.Tasks;
+using Cognizant.Hackathon.Shared.Mobile.Bootstrap;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 using LinC.Helpers;
 using LinC.ViewModels;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Unity;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
@@ -103,14 +106,12 @@ namespace LinC
             try
             {
                 _ = BootStrapper.Container?.Resolve<IMainViewModel>().OnStart();
-
             }
             catch (System.Exception ex)
             {
                 ViewModelLocator.Init();
                 _ = BootStrapper.Container?.Resolve<IMainViewModel>().OnStart();
-            }
-
+            }            
         }
 
         protected override void OnSleep()

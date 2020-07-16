@@ -23,7 +23,7 @@ namespace Cognizant.Hackathon.Core.Model.Interface
         /// <summary>
         ///     Gets or sets Text.
         /// </summary>
-        string Username { get; set; }
+        string UserName { get; set; }
        
         /// <summary>
         /// Gets or sets the first name.

@@ -9,7 +9,10 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
 
         [JsonProperty(PropertyName = "stateCode")]
         public string StateCode { get; set; }
-       
+
+        [JsonProperty(PropertyName = "stateId")]
+        public string StateId { get; set; }
+
         [JsonProperty(PropertyName = "stateName")]
         public string StateName
         {

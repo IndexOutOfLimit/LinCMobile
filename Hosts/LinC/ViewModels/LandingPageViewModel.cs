@@ -5,6 +5,8 @@ using Cognizant.Hackathon.Mobile.Core.Infrastructure;
 using Cognizant.Hackathon.Shared.Mobile.Core.Interfaces;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 using LinC.Views;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 
 namespace LinC.ViewModels
@@ -35,16 +37,21 @@ namespace LinC.ViewModels
             await base.OnShellNavigatingIn(sender, args);
         }
 
-        private async Task GetMasterData()
+        public async Task GetMasterData()
         {
             try
             {
+                AppSpinner.ShowLoading();
                 var lookUpData = await _services.MasterDataService.GetMasterData();
-                App.MasterData = lookUpData.Data;
+                App.MasterData = lookUpData.Data;                
             }
             catch (Exception ex)
             {
 
+            }
+            finally
+            {
+                AppSpinner.HideLoading();
             }
         }
 
@@ -94,9 +101,9 @@ namespace LinC.ViewModels
 
         private async Task RegisterAction()
         {
-            AppSpinner.ShowLoading();
-            await GetMasterData();
-            AppSpinner.HideLoading();
+            //AppSpinner.ShowLoading();
+            //await GetMasterData();
+            //AppSpinner.HideLoading();
 
             ThreadingHelpers.InvokeOnMainThread(async () =>
                 await AppNavigationService.GoToAsync(nameof(RegistrationPage).ToLower(),

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Cognizant.Hackathon.Core.Common.Enum;
 using Cognizant.Hackathon.Core.Model.Attributes;
 using Cognizant.Hackathon.Core.Model.Interface;
+using Newtonsoft.Json;
 
 namespace Cognizant.Hackathon.Core.Model.Internal
 {
@@ -17,29 +18,34 @@ namespace Cognizant.Hackathon.Core.Model.Internal
         /// <value>
         ///     From object  id.
         /// </value>
+        [JsonIgnore]
         [Key]
         public virtual Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the created.
         /// </summary>
+        [JsonIgnore]
         public DateTime Created { get; set; }
 
         /// <summary>
         /// Gets or sets the memberId that created this object
         /// </summary>
+        [JsonIgnore]
         [JsonSerialise(UserRole.Realogy)]
         public Guid? CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the member username that created this object
         /// </summary>
+        [JsonIgnore]
         [JsonSerialise(UserRole.Realogy)]
         public string CreatedByUsername { get; set; }
 
         /// <summary>
         /// Gets or sets the updated.
         /// </summary>
+        [JsonIgnore]
         [JsonSerialise(UserRole.Realogy)]
         public DateTime? Updated { get; set; }
 

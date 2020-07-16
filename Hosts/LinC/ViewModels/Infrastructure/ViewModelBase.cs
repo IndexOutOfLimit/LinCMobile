@@ -16,6 +16,8 @@ using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 using Cognizant.Hackathon.Shared.Mobile.Bootstrap;
 using Cognizant.Hackathon.Shared.Mobile.Models;
 using Cognizant.Hackathon.Shared.Mobile.Core.Enums;
+using Plugin.Permissions.Abstractions;
+using Plugin.Permissions;
 
 namespace LinC.ViewModels
 {
@@ -218,7 +220,8 @@ namespace LinC.ViewModels
 
         public async Task<Xamarin.Essentials.Location> GetUserLocation()
         {
-            var userLocation = await Xamarin.Essentials.Geolocation.GetLocationAsync();
+            var request = new Xamarin.Essentials.GeolocationRequest(Xamarin.Essentials.GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
+            var userLocation = await Xamarin.Essentials.Geolocation.GetLocationAsync(request);
 
             return userLocation;
         }
@@ -298,6 +301,69 @@ namespace LinC.ViewModels
                 await global::Xamarin.Forms.DependencyService.Get<global::LinC.Platforms.ILocationService>().OpenSettings();
                 await Task.Delay(500);
             }
+        }
+
+        public async Task<PermissionStatus> CheckPermission(Permission permission)
+        {
+            var status = PermissionStatus.Unknown;
+            if (Xamarin.Forms.Device.RuntimePlatform == global::Xamarin.Forms.Device.Android)
+            {
+                status = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+                if (status != PermissionStatus.Granted)
+                {
+                    status = await CheckPermissionsAsync(Permission.Location);
+                }
+                //if (status == PermissionStatus.Granted)
+                //{
+                //    var location = await GetUserLocation();
+                //    if (App.UserDetails == null)
+                //    {
+                //        App.UserDetails = new LinCUser();
+                //    }
+                //    App.UserDetails.Latitude = location?.Latitude.ToString();
+                //    App.UserDetails.Longitude = location?.Longitude.ToString();
+                //}
+            }
+
+            return status;
+        }
+
+        public static async Task<PermissionStatus> CheckPermissionsAsync(Permission permission)
+        {
+            var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+            bool request = false;
+            if (request || permissionStatus != PermissionStatus.Granted)
+            {
+                var newStatus = await CrossPermissions.Current.RequestPermissionsAsync(permission);
+                // denied
+                if (!newStatus.ContainsKey(permission))
+                {
+                    return permissionStatus;
+                }
+                permissionStatus = newStatus[permission];
+
+                /*if (newStatus[permission] != PermissionStatus.Granted)
+                {
+                    permissionStatus = newStatus[permission];
+                    var title = $"{permission} Permission";
+                    var question = $"LinC requires {permission} permission.";
+                    var positive = "Settings";
+                    var negative = "Cancel";
+                    var task = Application.Current?.MainPage?.DisplayAlert(title, question, positive, negative);
+                    if (task == null)
+                    {
+                        return permissionStatus;
+                    }
+
+                    var result = await task;
+                    if (result)
+                    {
+                        CrossPermissions.Current.OpenAppSettings();
+                    }
+                    return permissionStatus;
+                }*/
+            }
+            return permissionStatus;
         }
 
         private string GetCurrentRoute()

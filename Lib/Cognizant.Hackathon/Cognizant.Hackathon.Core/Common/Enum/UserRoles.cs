@@ -12,10 +12,10 @@ namespace Cognizant.Hackathon.Core.Common.Enum
         None = 0,      
         Realogy = 1 << 0,        
         Consumer = 1 << 2,
-        Unregistered = 1 << 3,      
+        Unregistered = 1 << 3,
         [ParentUserRole(Realogy)]
         System = 1 << 4,
-        
+
         [ParentUserRole(Realogy)]
         RealogyMasterAdmin = 1 << 5,
         [ParentUserRole(Realogy)]

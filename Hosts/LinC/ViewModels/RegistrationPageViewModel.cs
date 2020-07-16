@@ -8,6 +8,7 @@ using Cognizant.Hackathon.Shared.Mobile.Core.Enums;
 using Cognizant.Hackathon.Shared.Mobile.Core.Interfaces;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 using LinC.Views;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 
 namespace LinC.ViewModels
@@ -21,6 +22,10 @@ namespace LinC.ViewModels
         public string RegisterTypeText { get; set; }
         public bool IsOrgVisible { get; set; }
         public bool ShouldUseCurrentLocation { get; set; }
+
+        public List<UserType> UserTypeMaster { get; set; }
+        public List<ProductType> ProductTypeMaster { get; set; }
+        //public Organization DefaultOrganization { get; set; }
 
         public List<Organization> OrgMasterData { get; set; }
         public Organization DefaultOrganization { get; set; }
@@ -47,29 +52,37 @@ namespace LinC.ViewModels
             PickerCellCommand = new CustomDelegateTimerCommand<object>((item) => PickerTapped(item), item => true);
 
             UserDetails = new LinCUser();
-            UserDetails.UserType = string.Empty;
-            UserDetails.ServiceType = string.Empty;
+            UserDetails.UserTypeId = string.Empty;
+            UserDetails.ProductTypeIds = string.Empty;
             IsOrgVisible = true;
 
-            NextButtonTappedCommand = new CustomDelegateTimerCommand(async () => await NextButtonTapped(), () => true);
-            SectionVisibilityAction(LinCUserType.Supplier);
+            NextButtonTappedCommand = new CustomDelegateTimerCommand(async () => await NextButtonTapped(), () => true);            
         }
 
         protected override async Task OnShellNavigatingIn(string sender, ShellNavigatingEventArgs args)
         {
             await base.OnShellNavigatingIn(sender, args);
 
-            if(App.MasterData != null && App.MasterData.OrgMaster != null && App.MasterData.OrgMaster.Count > 0)
+            //if(App.MasterData != null && App.MasterData.OrgMaster != null && App.MasterData.OrgMaster.Count > 0)
+            if (App.MasterData != null)
             {
-                OrgMasterData = App.MasterData.OrgMaster;
-                DefaultOrganization = OrgMasterData[0];
+                //OrgMasterData = App.MasterData.OrgMaster;
+                //DefaultOrganization = OrgMasterData[0];
 
                 CountryMasterData = App.MasterData.CountryMaster;
                 DefaultCountry = CountryMasterData[0];
 
                 StateMasterData = App.MasterData.StateMaster;
                 DefaultState = StateMasterData[0];
+
+                UserTypeMaster = App.MasterData.UserTypeMaster;
+                UserTypeMaster[0].IsSelected = true;
+                SectionVisibilityAction(UserTypeMaster[0]);
+
+                ProductTypeMaster = App.MasterData.ProductTypeMaster;
             }
+
+            UseLocationSelectionAction(LinCLogicalType.True);
         }
 
         private void PickerTapped(object item)
@@ -80,20 +93,20 @@ namespace LinC.ViewModels
                 case "State":
                     if (DefaultState != null)
                     {
-                        UserDetails.State = DefaultState.StateCode;
+                        UserDetails.StateId = DefaultState.StateId;
                     }
                     break;
                 case "Country":
                     if (DefaultCountry != null)
                     {
-                        UserDetails.Country = DefaultCountry.CountryCode;
+                        UserDetails.CountryId = DefaultCountry.CountryId;
                     }
                     break;
                 case "Organization":
-                    if (DefaultOrganization != null)
-                    {
-                        UserDetails.Organization = DefaultOrganization.OrgCode;
-                    }
+                    //if (DefaultOrganization != null)
+                    //{
+                    //    UserDetails.Organization = DefaultOrganization.OrgCode;
+                    //}
                     break;
                 default:
                     break;
@@ -105,37 +118,32 @@ namespace LinC.ViewModels
         {
             try
             {
-                LinCServiceType type = (LinCServiceType)selectionType;
-                string itemToAdd = type.ToString() + "|"; ;
+                //LinCServiceType type = (LinCServiceType)selectionType;
+                ProductType type = (ProductType)selectionType;
+                string itemToAdd = type.ProductTypeId.ToString();
 
-                var arrServiceTypes = UserDetails.ServiceType.Split('|');
-                arrServiceTypes = arrServiceTypes.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-
-                if (arrServiceTypes.Length == 0)
+                var lstServiceTypes = UserDetails.ProductTypeIds.Split(',').ToList();
+                if(lstServiceTypes.Contains(itemToAdd))
                 {
-                    UserDetails.ServiceType += itemToAdd;
+                    lstServiceTypes.Remove(type.ProductTypeId.ToString());
                 }
                 else
                 {
-                    if(!arrServiceTypes.Contains(type.ToString()))
-                    {
-                        UserDetails.ServiceType += itemToAdd;
-                    }
-                    else
-                    {
-                        UserDetails.ServiceType = UserDetails.ServiceType.Replace(itemToAdd, string.Empty);
-                    }
+                    lstServiceTypes.Add(type.ProductTypeId.ToString());
                 }
+                lstServiceTypes = lstServiceTypes.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+                UserDetails.ProductTypeIds = string.Join(",", lstServiceTypes);
+
             }
             catch (Exception)
             {
-                UserDetails.ServiceType = string.Empty;
+                UserDetails.ProductTypeIds = string.Empty;
             }
         }
 
         private void UseRegistrationSelectionAction(object selectionType)
         {
-            try
+            /*try
             {
                 LinCUserRegisterType type = (LinCUserRegisterType)selectionType;
                 UserDetails.RegisterType = type.ToString();
@@ -145,7 +153,7 @@ namespace LinC.ViewModels
             catch (Exception)
             {
                 UserDetails.RegisterType = string.Empty;
-            }
+            }*/
         }
 
         private void UseLocationSelectionAction(object selectionType)
@@ -167,19 +175,19 @@ namespace LinC.ViewModels
         {
             try
             {
-                LinCUserType type = (LinCUserType)userType;
-                LinCAppUserType = type;
-                UserDetails.UserType = type.ToString();
-                switch (type)
+                UserType usrType = userType as UserType;
+                
+                UserDetails.UserTypeId = usrType.UserTypeId.ToString();
+                switch (UserDetails.UserTypeId)
                 {
-                    case LinCUserType.Consumer:
+                    case "2": //LinCUserType.Consumer:
                         IsOtherSectionVisible = false;
                         break;
-                    case LinCUserType.Supplier:
+                    case "1":// LinCUserType.Supplier:
                         IsOtherSectionVisible = true;
                         RegisterTypeText = "Supplier Type";
                         break;
-                    case LinCUserType.Volunteer:
+                    case "3":// LinCUserType.Volunteer:
                         IsOtherSectionVisible = true;
                         RegisterTypeText = "Volunteer Type";
                         break;
@@ -194,48 +202,134 @@ namespace LinC.ViewModels
             }
            
         }
+        private async Task<bool> ValidateFields()
+        {
+            if(string.IsNullOrWhiteSpace(UserDetails.UserName))
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter user name", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.UserSecret))
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter password", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.FirstName))
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter first name", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.Email))
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter email", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.Phone))
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter phone", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.AddressLine1) && !ShouldUseCurrentLocation)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter address", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.Pin) && !ShouldUseCurrentLocation)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter pin code", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.StateId) && !ShouldUseCurrentLocation)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select state", "OK");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserDetails.CountryId) && !ShouldUseCurrentLocation)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select country", "OK");
+                return false;
+            }
+
+            if (!UserDetails.UserTypeId.Equals("2") && string.IsNullOrEmpty(UserDetails.ProductTypeIds))
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select one service type", "OK");
+                return false;
+            }
+
+            return true;
+        }
 
         private async Task NextButtonTapped()
         {
             try
             {
-                if (!IsOrgVisible)
+                if(!await ValidateFields())
                 {
-                    UserDetails.Organization = string.Empty;
+                    return;
                 }
 
-                switch (LinCAppUserType)
-                {
-                    case LinCUserType.Consumer:
-                        UserDetails.Organization = string.Empty;
-                        UserDetails.RegisterType = string.Empty;
-                        break;
-                    default:
-                        break;
-                }
+                //if (!IsOrgVisible)
+                //{
+                //    UserDetails.Organization = string.Empty;
+                //}
+
+                //switch (LinCAppUserType)
+                //{
+                //    case LinCUserType.Consumer:
+                //        UserDetails.Organization = string.Empty;
+                //        UserDetails.RegisterType = string.Empty;
+                //        break;
+                //    default:
+                //        break;
+                //}
 
                 AppSpinner.ShowLoading();
 
                 if (ShouldUseCurrentLocation)
                 {
-                    var location = await GetUserLocation();
-                }
-                
-
-                if(UserDetails.UseCurrentLocation)
-                {
-                    var userLocation = await Xamarin.Essentials.Geolocation.GetLocationAsync();
-
-                    if(userLocation != null)
+                    var status = await CheckPermission(Permission.Location);
+                    if (status == PermissionStatus.Granted)
                     {
-                        UserDetails.Latitude = userLocation.Latitude.ToString();
-                        UserDetails.Longitude = userLocation.Longitude.ToString();
+                        var location = await GetUserLocation();
+                        if(location != null)
+                        {
+                            UserDetails.Latitude = location.Latitude.ToString();
+                            UserDetails.Longitude = location.Longitude.ToString();
+                            var placemark = await GetUserAddressFromLatLong(location.Latitude, location.Longitude);
+
+                            UserDetails.Pin = placemark.PostalCode;
+                            UserDetails.AddressLine1 = $"{placemark.FeatureName}, {placemark.SubLocality}, {placemark.Locality}";
+                            UserDetails.CountryId = CountryMasterData.Where(l => l.CountryCode.Equals(placemark.CountryCode)).FirstOrDefault()?.CountryId;
+                            UserDetails.StateId = StateMasterData.Where(l => l.StateName.Contains(placemark.AdminArea)).FirstOrDefault()?.StateId;
+                        }                        
                     }
+                }
+
+                if(!UserDetails.UserTypeId.Equals("2"))
+                {
+                    if(!string.IsNullOrEmpty(UserDetails.ProductTypeIds))
+                    {
+                        UserDetails.ProductTypeIds = "[" + UserDetails.ProductTypeIds + "]";
+                    }
+                }
+                else
+                {
+                    UserDetails.ProductTypeIds = string.Empty;
                 }
 
                 App.UserDetails = UserDetails;
 
                 // Create User
+
+                var response = await _services.UserService.CreateUserAsync(null, null, UserDetails);
 
                 //ThreadingHelpers.InvokeOnMainThread(async () =>
                 //    await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),

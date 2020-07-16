@@ -37,8 +37,15 @@ namespace LinC.Droid
         private static IUnityContainer _container;
 
         private static readonly string[] _initialPermissions ={
-              Manifest.Permission.AccessFineLocation,
+             Manifest.Permission.AccessFineLocation,
               Manifest.Permission.AccessCoarseLocation,
+              Manifest.Permission.AccessNotificationPolicy,
+              Manifest.Permission.Camera,
+              Manifest.Permission.ReadContacts,
+              Manifest.Permission.WriteContacts,
+              Manifest.Permission.CallPhone,
+              Manifest.Permission.RecordAudio,
+              Manifest.Permission.ReadExternalStorage
             };
 
         public static Context context;
@@ -51,6 +58,12 @@ namespace LinC.Droid
 
             //base.SetTheme(Resource.Style.MainTheme);
             base.OnCreate(savedInstanceState);
+
+            //To check wheather the android version is Marshmallow(Version 6.0) or above to ask permission for using location service
+            if (Android.OS.Build.VERSION.SdkInt > Android.OS.BuildVersionCodes.LollipopMr1)
+            {
+                RequestPermissions(_initialPermissions, 1337);
+            }
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -122,11 +135,6 @@ namespace LinC.Droid
         {
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             var ignore = typeof(SvgCachedImage);
-
-            if (Android.OS.Build.VERSION.SdkInt > Android.OS.BuildVersionCodes.LollipopMr1)
-            {
-                RequestPermissions(_initialPermissions, 1550);
-            }
         }
 
         private void AndroidEnvironmentOnUnhandledException(object sender, RaiseThrowableEventArgs e)

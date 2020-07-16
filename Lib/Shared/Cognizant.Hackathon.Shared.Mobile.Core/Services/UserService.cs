@@ -44,7 +44,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             {
                 Message = new RequestMessege<UserReqBody>
                 {
-                    Header = RequestHeaderCreator.GetRequestHeader(deviceDensity, deviceType, newUser.CompanyCode, newUser.UserCode, newUser.UserId),
+                    //Header = RequestHeaderCreator.GetRequestHeader(deviceDensity, deviceType, newUser.CompanyCode, newUser.UserCode, newUser.UserId),
                     Body = new UserReqBody
                     {
                         UserInfo = newUser
@@ -52,11 +52,11 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                 }
             };
             var response = await _restClient
-               .ExecuteAsync<string, RequestInfo<UserReqBody>>(
+               .ExecuteAsync<string, LinCUser>(
                    HttpVerb.POST,
                    action: "UserDetailsSave",
                    paramMode: HttpParamMode.BODY,
-                   requestBody: reqObject,
+                   requestBody: newUser,
                    headers: headers,
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
