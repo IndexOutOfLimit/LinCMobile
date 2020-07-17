@@ -61,10 +61,10 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
 
             if (UserResponse.Message.Body.UserCode.Equals("Error:0000"))
             {
-                return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null, message: "Error:0000", errorMessage: "User data not saved.");
+                return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null, message: "Error:0000", errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "User data not saved.");
             }
 
-            return new ServiceResponse<LinCUser>(ServiceStatus.Success, data: UserResponse.Message.Body);
+            return new ServiceResponse<LinCUser>(ServiceStatus.Success, data: UserResponse.Message.Body, errorCode: LinCTrasactionStatus.Success.ToString());
 
         }
 

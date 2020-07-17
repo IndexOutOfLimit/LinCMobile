@@ -88,8 +88,8 @@ namespace LinC.ViewModels
                 {
                     vm.UserDetails = UserDetails;
                     vm.ProductList = Products;
-                    vm.Product = null;
-                    vm.ProductTypes = null;
+                    vm.Product = new Product();
+                    vm.ProductTypes = App.MasterData.ProductTypeMaster;
                     vm.IsAddProduct = true;
                 });
 

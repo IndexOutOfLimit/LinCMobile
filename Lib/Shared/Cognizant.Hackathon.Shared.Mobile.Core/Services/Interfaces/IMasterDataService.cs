@@ -7,5 +7,6 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Interfaces
     public interface IMasterDataService
     {
         Task<ServiceResponse<MasterData>> GetMasterData();
+        Task<ServiceResponse<MasterData>> GetProductCategoryByUser(string userId);
     }
 }

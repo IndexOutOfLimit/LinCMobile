@@ -39,7 +39,8 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Helpers
             {
                 { "APPVER", Xamarin.Essentials.AppInfo.VersionString },
                 { "MDVER","1" },
-                { "x-requested-with", "XMLHttpRequest" }
+                { "x-requested-with", "XMLHttpRequest" }//,
+               // { "Accept","text/plain;charset=UTF-8" }
             };
 
             return headers;

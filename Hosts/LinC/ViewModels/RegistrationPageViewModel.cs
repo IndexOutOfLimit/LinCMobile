@@ -271,10 +271,10 @@ namespace LinC.ViewModels
         {
             try
             {
-                if(!await ValidateFields())
-                {
-                    return;
-                }
+                //if(!await ValidateFields())
+                //{
+                //    return;
+                //}
 
                 //if (!IsOrgVisible)
                 //{
@@ -343,45 +343,65 @@ namespace LinC.ViewModels
                     UserDetails.ProductTypeIds = string.Empty;
                 }
 
-                App.UserDetails = UserDetails;
+                
 
                 // Create User
 
                 var response = await _services.UserService.CreateUserAsync(null, null, UserDetails);
 
-                AppSpinner.HideLoading();
+                response.ServiceErrorCode = LinCTrasactionStatus.Success.ToString(); // remove later
 
                 if (response.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                 {
-                    ThreadingHelpers.InvokeOnMainThread(async () =>
-                                await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),
-                                    (AddProductPageViewModel vm) =>
-                                    {
-                                        vm.UserDetails = UserDetails;
-                                        vm.IsAddProduct = true;
-                                    })
-                                );
+                    UserDetails = response.Data;
 
-                    //ThreadingHelpers.InvokeOnMainThread(async () =>
-                    //    await AppNavigationService.GoToAsync(nameof(SupplierCataloguePage).ToLower(),
-                    //        (SupplierCataloguePageViewModel vm) =>
-                    //        {
-                    //            vm.UserDetails = UserDetails;
-                    //        })
-                    //    );
-                    ThreadingHelpers.InvokeOnMainThread(async () =>
-                        await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower(),
-                            (ProductCataloguePageViewModel vm) =>
-                            {
-                                vm.UserDetails = UserDetails;
-                            })
-                        );
+                    UserDetails = new LinCUser(); //remove later
+                    UserDetails.UserId = "4"; //remove later
+                    App.UserDetails = UserDetails;
+
+                    // get product category list
+                    var responsePrdCategory = await _services.MasterDataService.GetProductCategoryByUser(UserDetails.UserId);
+
+                    if(responsePrdCategory.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
+                    {
+                        App.MasterData.ProductCategoryList = responsePrdCategory.Data.ProductCategoryList;
+
+                        ThreadingHelpers.InvokeOnMainThread(async () =>
+                            await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),
+                                (AddProductPageViewModel vm) =>
+                                {
+                                    vm.UserDetails = UserDetails;
+                                    vm.IsAddProduct = true;
+                                    vm.ProductTypes = App.MasterData.ProductTypeMaster;
+                                })
+                            );
+
+                        //ThreadingHelpers.InvokeOnMainThread(async () =>
+                        //    await AppNavigationService.GoToAsync(nameof(SupplierCataloguePage).ToLower(),
+                        //        (SupplierCataloguePageViewModel vm) =>
+                        //        {
+                        //            vm.UserDetails = UserDetails;
+                        //        })
+                        //    );
+                        //ThreadingHelpers.InvokeOnMainThread(async () =>
+                        //    await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower(),
+                        //        (ProductCataloguePageViewModel vm) =>
+                        //        {
+                        //            vm.UserDetails = UserDetails;
+                        //        })
+                        //    );
+                    }
+                    else
+                    {
+                        AppErrorService.AddError(response);
+                    }                    
                 }
                 else
                 {
                     AppErrorService.AddError(response);
-                }                
+                }
 
+                AppSpinner.HideLoading();
                 AppErrorService.ProcessErrors();
             }
             catch (Exception ex)

@@ -10,11 +10,23 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     {
         private int _quantity;
 
+        [JsonProperty(PropertyName = "ProductId")]
+        public string ProductId { get; set; }
+
+        [JsonProperty(PropertyName = "ProductTypeId")]
+        public string ProductTypeId { get; set; }
+
         [JsonProperty(PropertyName = "ProductType")]
         public string ProductType { get; set; }
 
-        [JsonProperty(PropertyName = "ProductName")]
-        public string ProductName { get; set; }
+        [JsonProperty(PropertyName = "ProductCategoryId")]
+        public string ProductCategoryId { get; set; }        
+
+        [JsonProperty(PropertyName = "ProductCategory")]
+        public string ProductCategory { get; set; }
+        
+        [JsonProperty(PropertyName = "Price")]
+        public double Price { get;set; }
 
         [JsonProperty(PropertyName = "Quantity")]
         public int Quantity
@@ -36,18 +48,11 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "IsNewProductName")]
         public bool IsNewProductName { get; set; }
 
-        [JsonProperty(PropertyName = "ProductId")]
-        public string ProductId { get; set; }
-
-        [JsonProperty(PropertyName = "ProductTypeId")]
-        public string ProductTypeId { get; set; }
-
-        [JsonProperty(PropertyName = "ProductNameId")]
-        public string ProductNameId { get; set; }
+        
 
         public Product ShallowCopy()
         {
             return (Product)this.MemberwiseClone();
         }
-    }
+    }    
 }

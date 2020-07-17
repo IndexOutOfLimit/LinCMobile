@@ -19,16 +19,18 @@ namespace LinC.ViewModels
         private readonly ILinCApiServices _services;
         LinCControl _defaultProductName;
         
-        public LinCControl ProductTypes { get; set; }
-        public List<LinCControl> ProductNames { get; set; }
+        public List<ProductType> ProductTypes { get; set; }
+        public List<ProductCategory> ProductCategories { get; set; }
         public Product Product { get; set; }
         public List<Product> ProductList { get; set; }
+        public ProductType SelectedProductType { get; set; }
+        public ProductCategory SelectedProductCategory { get; set; }
 
         public string NewProductName { get; set; }        
         public bool ProductNameEntryVisibility { get; set; }
         public bool IsAddProduct { get; set; }
 
-        public CustomDelegateTimerCommand<string> PickerCellCommand { get; }
+        public CustomDelegateTimerCommand<object> PickerCellCommand { get; }
         public CustomDelegateTimerCommand NextButtonTappedCommand { get; }
         public CustomDelegateTimerCommand AddNewProductNameCommand { get; }
         public CustomDelegateTimerCommand SaveNewProductNameCommand { get; }
@@ -38,19 +40,30 @@ namespace LinC.ViewModels
         {
             _services = services;
 
-            PickerCellCommand = new CustomDelegateTimerCommand<string>((item) =>  PickerTapped(item), item => true);
+            PickerCellCommand = new CustomDelegateTimerCommand<object>((item) =>  PickerTapped(item), item => true);
             NextButtonTappedCommand = new CustomDelegateTimerCommand(async () => await NextButtonTapped(), () => true);
             AddNewProductNameCommand = new CustomDelegateTimerCommand(() => AddNewProductNameAction(), () => true);
             SaveNewProductNameCommand = new CustomDelegateTimerCommand(() => SaveNewProductNameAction(), () => true);
             AdjustQuantityCommand = new CustomDelegateTimerCommand<string>((item) => AdjustQuantityAction(item), (item) => true);
 
+            Product = new Product();
         }
 
         protected override async Task OnShellNavigated(string sender, ShellNavigatedEventArgs args)
         {
             await base.OnShellNavigated(sender, args);
 
-            if(Product != null)
+            if(!IsAddProduct)
+            {
+                SelectedProductType = ProductTypes.Where(l => l.ProductTypeId.Equals(Product.ProductTypeId)).FirstOrDefault();
+                ProductCategories = App.MasterData.ProductCategoryList.Where(l => l.ProductTypeId.Equals(Product.ProductTypeId)).ToList();
+                SelectedProductCategory = ProductCategories.Where(l => l.ProductCategoryId.Equals(Product.ProductCategoryId)).FirstOrDefault();
+            }
+            else
+            {
+                ProductCategories = null;
+            }
+            /*if(Product != null)
             {
                 ProductTypes.DefaultItem = ProductTypes.ControlValues.Where(x => x.ItemId.Equals(Product.ProductTypeId)).FirstOrDefault();
                 //if(!string.IsNullOrEmpty(Product.ProductNameId))
@@ -67,7 +80,9 @@ namespace LinC.ViewModels
                 ProductNames = productItems.Item2;
                 Product = productItems.Item3;
                 DefaultProductName = productItems.Item2[0];                
-            }
+            }*/
+
+            //ProductCategories = App.MasterData.ProductCategoryList.Where(l => l.ProductTypeId.Equals(ProductTypes[0].ProductTypeId)).ToList();
         }
 
         public LinCControl DefaultProductName
@@ -127,21 +142,21 @@ namespace LinC.ViewModels
             {
                 ThreadingHelpers.InvokeOnMainThread(() =>
                 {                    
-                    LinCComonModel prdNameObj = new LinCComonModel() { Name = NewProductName, Value = NewProductName, ItemId = string.Empty };
+                    //LinCComonModel prdNameObj = new LinCComonModel() { Name = NewProductName, Value = NewProductName, ItemId = string.Empty };
 
-                    var controlValues = DefaultProductName.ControlValues.ToList();
-                    controlValues.Add(prdNameObj);
+                    //var controlValues = DefaultProductName.ControlValues.ToList();
+                    //controlValues.Add(prdNameObj);
 
-                    DefaultProductName.ControlValues.Clear();
-                    DefaultProductName.ControlValues = null;
+                    //DefaultProductName.ControlValues.Clear();
+                    //DefaultProductName.ControlValues = null;
 
-                    DefaultProductName.ControlValues = controlValues;
-                    DefaultProductName.DefaultItem = prdNameObj;
-                    DefaultProductName.SelectedIndex = controlValues.Count - 1;                    
+                    //DefaultProductName.ControlValues = controlValues;
+                    //DefaultProductName.DefaultItem = prdNameObj;
+                    //DefaultProductName.SelectedIndex = controlValues.Count - 1;                    
 
-                    Product.ProductNameId = string.Empty;
-                    Product.ProductName = prdNameObj.Name;
-                    Product.IsNewProductName = true;
+                    //Product.ProductNameId = string.Empty;
+                    //Product.ProductName = prdNameObj.Name;
+                    //Product.IsNewProductName = true;
 
                     NewProductName = string.Empty;
                     ProductNameEntryVisibility = false;
@@ -183,10 +198,12 @@ namespace LinC.ViewModels
                 );
         }
 
-        private void PickerTapped(string item)
+        private void PickerTapped(object item)
         {
             try
             {
+                #region previous code
+                /*
                 switch (item)
                 {
                     case "ProductType":
@@ -215,6 +232,28 @@ namespace LinC.ViewModels
                     default:
                         break;
                 }
+                */
+
+                #endregion
+
+                if(item is ProductType)
+                {
+                    Product.ProductTypeId = ((ProductType)item).ProductTypeId;
+                    Product.ProductType = ((ProductType)item).ProductTypeName;
+
+                    ProductCategories = App.MasterData.ProductCategoryList.Where(l => l.ProductTypeId.Equals(Product.ProductTypeId)).ToList();
+
+                }
+                else if (item is ProductCategory)
+                {
+                    Product.ProductCategoryId = ((ProductCategory)item).ProductCategoryId;
+                    Product.ProductCategory = ((ProductCategory)item).ProductCategoryName;
+                }
+
+                //Product.Quantity = 0;
+                //Product.Price = 0;
+                //Product.Description = string.Empty;
+
             }
             catch (Exception ex)
             {
@@ -230,8 +269,8 @@ namespace LinC.ViewModels
             productObj.ProductType = productItems.Item1.DefaultItem.Name;
             productObj.ProductTypeId = productItems.Item1.DefaultItem.ItemId;
 
-            productObj.ProductName = productItems.Item2?[0].DefaultItem.Name;
-            productObj.ProductNameId = productItems.Item2?[0].DefaultItem.ItemId;
+            //productObj.ProductName = productItems.Item2?[0].DefaultItem.Name;
+            //productObj.ProductNameId = productItems.Item2?[0].DefaultItem.ItemId;
 
             return (productItems.Item1, productItems.Item2, productObj);
         }

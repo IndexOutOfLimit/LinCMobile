@@ -17,11 +17,11 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "countryList")]
         public List<Country> CountryMaster { get; set; }
 
-        [JsonProperty(PropertyName = "productTypes")]
+        [JsonProperty(PropertyName = "productTypeMasterList")]
         public List<ProductType> ProductTypeMaster { get; set; }
 
-        //[JsonProperty(PropertyName = "productCategoryList")]
-        //public List<ProductCategory> ProductCategoryList { get; set; }
+        [JsonProperty(PropertyName = "productCategories")]
+        public List<ProductCategory> ProductCategoryList { get; set; }
 
         //[JsonProperty(PropertyName = "orgMasterList")]
         //public List<Organization> OrgMaster { get; set; }       
@@ -46,24 +46,6 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
 
     public class ProductCategory
     {
-        [JsonProperty(PropertyName = "productCategoryId")]
-        public string ProductCategoryId { get; set; }
-
-        [JsonProperty(PropertyName = "productTypeId")]
-        public string ProductTypeId { get; set; }
-
-        [JsonProperty(PropertyName = "productCategoryName")]
-        public string ProductCategoryName { get; set; }
-
-        [JsonProperty(PropertyName = "productCategoryCode")]
-        public string ProductCategoryCode { get; set; }
-
-        [JsonProperty(PropertyName = "dispaySeq")]
-        public int DispaySeq { get; set; }
-    }
-
-    public class ProductType
-    {
         [JsonProperty(PropertyName = "prdctTypeId")]
         public string ProductTypeId { get; set; }
 
@@ -71,6 +53,33 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         public string ProductTypeCode { get; set; }
 
         [JsonProperty(PropertyName = "prdctTypeName")]
+        public string ProductTypeName { get; set; }
+
+        [JsonProperty(PropertyName = "prdctTypeDispSeq")]
+        public int ProducyTypeDisplaySeq { get; set; }
+
+        [JsonProperty(PropertyName = "prdctCatId")]
+        public string ProductCategoryId { get; set; }
+
+        [JsonProperty(PropertyName = "prdctCatName")]
+        public string ProductCategoryName { get; set; }
+
+        [JsonProperty(PropertyName = "prdctCatCode")]
+        public string ProductCategoryCode { get; set; }
+
+        [JsonProperty(PropertyName = "prdctCatDispSeq")]
+        public int DispaySeq { get; set; }
+    }
+
+    public class ProductType
+    {
+        [JsonProperty(PropertyName = "productTypeMasterId")]
+        public string ProductTypeId { get; set; }
+
+        [JsonProperty(PropertyName = "productCode")]
+        public string ProductTypeCode { get; set; }
+
+        [JsonProperty(PropertyName = "productTypeName")]
         public string ProductTypeName { get; set; }        
 
         [JsonProperty(PropertyName = "prdctTypeDispSeq")]

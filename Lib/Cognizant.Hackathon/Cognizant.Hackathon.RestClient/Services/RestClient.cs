@@ -394,8 +394,15 @@ namespace Cognizant.Hackathon.RestClient.Services
                 {
                     foreach (var header in headers)
                     {
-                        request.Headers.Remove(header.Key);
-                        request.Headers.Add(header.Key, header.Value);
+                        try
+                        {
+                            request.Headers.Remove(header.Key);
+                            request.Headers.Add(header.Key, header.Value);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }                        
                     }
 
                     if (paramMode == HttpParamMode.XFORM || paramMode == HttpParamMode.MULTIPART)
