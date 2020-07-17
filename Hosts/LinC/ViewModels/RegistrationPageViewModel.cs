@@ -307,9 +307,27 @@ namespace LinC.ViewModels
 
                             UserDetails.Pin = placemark.PostalCode;
                             UserDetails.AddressLine1 = $"{placemark.FeatureName}, {placemark.SubLocality}, {placemark.Locality}";
+                            UserDetails.AddressLine2 = string.Empty;
                             UserDetails.CountryId = CountryMasterData.Where(l => l.CountryCode.Equals(placemark.CountryCode)).FirstOrDefault()?.CountryId;
                             UserDetails.StateId = StateMasterData.Where(l => l.StateName.Contains(placemark.AdminArea)).FirstOrDefault()?.StateId;
                         }                        
+                    }
+                }
+                else
+                {
+                    string countryName = CountryMasterData.Where(l => l.CountryId.Equals(UserDetails.CountryId)).FirstOrDefault()?.CountryName;
+                    string stateCode = StateMasterData.Where(l => l.StateId.Equals(UserDetails.StateId)).FirstOrDefault()?.StateCode;
+
+                    string address = $"{UserDetails.AddressLine1} {UserDetails.AddressLine2} {stateCode} {countryName}";
+                    // get location from address
+                    var location = await GetUserLocationFromAddress(address);
+                    if (location != null)
+                    {
+                        UserDetails.Latitude = location.Latitude.ToString();
+                        UserDetails.Longitude = location.Longitude.ToString();
+
+                        //var placemark = await GetUserAddressFromLatLong(location.Latitude, location.Longitude);
+
                     }
                 }
 
@@ -331,33 +349,40 @@ namespace LinC.ViewModels
 
                 var response = await _services.UserService.CreateUserAsync(null, null, UserDetails);
 
-                //ThreadingHelpers.InvokeOnMainThread(async () =>
-                //    await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),
-                //        (AddProductPageViewModel vm) =>
-                //        {
-                //            vm.UserDetails = UserDetails;
-                //            vm.IsAddProduct = true;
-                //        })
-                //    );
-
-                //ThreadingHelpers.InvokeOnMainThread(async () =>
-                //    await AppNavigationService.GoToAsync(nameof(SupplierCataloguePage).ToLower(),
-                //        (SupplierCataloguePageViewModel vm) =>
-                //        {
-                //            vm.UserDetails = UserDetails;
-                //        })
-                //    );
-                ThreadingHelpers.InvokeOnMainThread(async () =>
-                    await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower(),
-                        (ProductCataloguePageViewModel vm) =>
-                        {
-                            vm.UserDetails = UserDetails;
-                        })
-                    );
-
-                AppErrorService.ProcessErrors();  
                 AppSpinner.HideLoading();
 
+                if (response.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
+                {
+                    ThreadingHelpers.InvokeOnMainThread(async () =>
+                                await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),
+                                    (AddProductPageViewModel vm) =>
+                                    {
+                                        vm.UserDetails = UserDetails;
+                                        vm.IsAddProduct = true;
+                                    })
+                                );
+
+                    //ThreadingHelpers.InvokeOnMainThread(async () =>
+                    //    await AppNavigationService.GoToAsync(nameof(SupplierCataloguePage).ToLower(),
+                    //        (SupplierCataloguePageViewModel vm) =>
+                    //        {
+                    //            vm.UserDetails = UserDetails;
+                    //        })
+                    //    );
+                    ThreadingHelpers.InvokeOnMainThread(async () =>
+                        await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower(),
+                            (ProductCataloguePageViewModel vm) =>
+                            {
+                                vm.UserDetails = UserDetails;
+                            })
+                        );
+                }
+                else
+                {
+                    AppErrorService.AddError(response);
+                }                
+
+                AppErrorService.ProcessErrors();
             }
             catch (Exception ex)
             {

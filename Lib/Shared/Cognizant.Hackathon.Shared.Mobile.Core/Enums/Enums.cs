@@ -41,6 +41,12 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Enums
         Others
     }
 
+    public enum LinCTrasactionStatus
+    {
+        Success,
+        Failure
+    }
+
     /// <summary>
     /// DataOperation Enum for CRUD operation status
     /// </summary>

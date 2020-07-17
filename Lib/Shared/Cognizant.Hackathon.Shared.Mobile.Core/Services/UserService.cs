@@ -13,6 +13,7 @@ using Cognizant.Hackathon.Shared.Mobile.Core.Helpers;
 using Cognizant.Hackathon.Shared.Mobile.Core.Services.Response;
 using Cognizant.Hackathon.Shared.Mobile.Models;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
+using Cognizant.Hackathon.Shared.Mobile.Core.Enums;
 
 namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
 {
@@ -36,49 +37,38 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             return response;
         }
 
-        public async Task<ServiceResponse<UserReqBody>> CreateUserAsync(string deviceDensity, string deviceType, LinCUser newUser)
+        public async Task<ServiceResponse<LinCUser>> CreateUserAsync(string deviceDensity, string deviceType, LinCUser newUser)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
-            var reqObject = new RequestInfo<UserReqBody>
-            {
-                Message = new RequestMessege<UserReqBody>
-                {
-                    //Header = RequestHeaderCreator.GetRequestHeader(deviceDensity, deviceType, newUser.CompanyCode, newUser.UserCode, newUser.UserId),
-                    Body = new UserReqBody
-                    {
-                        UserInfo = newUser
-                    }
-                }
-            };
             var response = await _restClient
                .ExecuteAsync<string, LinCUser>(
                    HttpVerb.POST,
-                   action: "UserDetailsSave",
+                   action: "/user/registration",
                    paramMode: HttpParamMode.BODY,
                    requestBody: newUser,
                    headers: headers,
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
             if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
-                return new ServiceResponse<UserReqBody>(ServiceStatus.Error, data: null, errorMessage: "User data not saved.");
+                return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null,errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "User data not saved.");
             var jSonResponse = response.StringData.Substring(1, response.StringData.Length - 2);
             jSonResponse = jSonResponse.Replace(@"\", string.Empty);
 
             ResponseInfo<Error> errorResponse = JsonConvert.DeserializeObject<ResponseInfo<Error>>(jSonResponse);
 
-            var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<UserReqBody>>(jSonResponse);
+            var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<LinCUser>>(jSonResponse);
 
-            if (UserResponse.Message.Body.UserInfo.UserCode.Equals("Error:0000"))
+            if (UserResponse.Message.Body.UserCode.Equals("Error:0000"))
             {
-                return new ServiceResponse<UserReqBody>(ServiceStatus.Error, data: null, message: "Error:0000", errorMessage: "User data not saved.");
+                return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null, message: "Error:0000", errorMessage: "User data not saved.");
             }
 
-            return new ServiceResponse<UserReqBody>(ServiceStatus.Success, data: UserResponse.Message.Body);
+            return new ServiceResponse<LinCUser>(ServiceStatus.Success, data: UserResponse.Message.Body);
 
         }
 
-        public async Task<ServiceResponse<(UserReqBody, bool)>> GetUserAsync(string deviceDensity, string deviceType, string companyCode, string userId, string UserCode)
+        public async Task<ServiceResponse<(LinCUser, bool)>> GetUserAsync(string deviceDensity, string deviceType, string companyCode, string userId, string UserCode)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
@@ -108,20 +98,20 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
             if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
-                return new ServiceResponse<(UserReqBody, bool)>(ServiceStatus.Error, data: (null, false), errorMessage: "Problem in retrieving user data");
+                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorMessage: "Problem in retrieving user data");
 
             var jSonResponse = response.StringData.Substring(1, response.StringData.Length - 2);
             jSonResponse = jSonResponse.Replace(@"\", string.Empty);
             if (jSonResponse.Contains("AppVersionError"))
             {
-                return new ServiceResponse<(UserReqBody, bool)>(ServiceStatus.Success, data: (null, true), errorMessage: "AppVersionError");
+                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (null, true), errorMessage: "AppVersionError");
             }
 
             // var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<UserResponse>>(jSonResponse);
 
-            var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<UserReqBody>>(jSonResponse);
-            var serviceresponse = new ServiceResponse<UserReqBody>(ServiceStatus.Success, data: UserResponse.Message.Body);
-            return new ServiceResponse<(UserReqBody, bool)>(ServiceStatus.Success, data: (UserResponse.Message.Body, false));
+            var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<LinCUser>>(jSonResponse);
+            var serviceresponse = new ServiceResponse<LinCUser>(ServiceStatus.Success, data: UserResponse.Message.Body);
+            return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (UserResponse.Message.Body, false));
             // return new ServiceResponse<User>(ServiceStatus.Error);//, data: null, errorMessage: "No Data");
         }
     }

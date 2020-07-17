@@ -12,7 +12,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Interfaces
     public interface IUserService
     {
         Task<ServiceResponse<LinCUser>> GetOrCreateUser(Guid userId, string accessToken = null);
-        Task<ServiceResponse<UserReqBody>> CreateUserAsync(string deviceDensity, string deviceType, LinCUser newUser);
-        Task<ServiceResponse<(UserReqBody, bool)>> GetUserAsync(string deviceDensity, string deviceType, string companyCode, string userId, string UserCode);        
+        Task<ServiceResponse<LinCUser>> CreateUserAsync(string deviceDensity, string deviceType, LinCUser newUser);
+        Task<ServiceResponse<(LinCUser, bool)>> GetUserAsync(string deviceDensity, string deviceType, string companyCode, string userId, string UserCode);        
     }
 }

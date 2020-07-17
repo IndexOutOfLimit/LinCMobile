@@ -227,6 +227,8 @@ namespace Cognizant.Hackathon.Mobile.Core.Services
                 Severity = error.Severity
             };
 
+            if (string.IsNullOrWhiteSpace(alert.Title)) alert.Title = "Error";
+
             await _popupInputService.ShowMessageOkAlertPopup(alert.Title, alert.Description, "OK");
         }
 
