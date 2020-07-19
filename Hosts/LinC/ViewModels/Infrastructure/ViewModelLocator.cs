@@ -27,6 +27,11 @@ namespace LinC.ViewModels
         public RegistrationPageViewModel RegistrationPage => BootStrapper.Container.Resolve<RegistrationPageViewModel>();
         public AddProductPageViewModel AddProductPage => BootStrapper.Container.Resolve<AddProductPageViewModel>();
         public ProductsPageViewModel ProductsPage => BootStrapper.Container.Resolve<ProductsPageViewModel>();
+        public ReviewProductsPageViewModel ReviewProductsPage => BootStrapper.Container.Resolve<ReviewProductsPageViewModel>();
+        public UserDashboardPageViewModel UserDashboardPage => BootStrapper.Container.Resolve<UserDashboardPageViewModel>();
+
+        public CartPageViewModel CartPage => BootStrapper.Container.Resolve<CartPageViewModel>();
+
         public SupplierCataloguePageViewModel SupplierCataloguePage => BootStrapper.Container.Resolve<SupplierCataloguePageViewModel>();
         public ProductCataloguePageViewModel ProductCataloguePage => BootStrapper.Container.Resolve<ProductCataloguePageViewModel>();
         public LandingPageViewModel LandingPage=> BootStrapper.Container.Resolve<LandingPageViewModel>();
@@ -49,6 +54,11 @@ namespace LinC.ViewModels
             RegisterViewModel<RegistrationPageViewModel, RegistrationPage>();
             RegisterViewModel<AddProductPageViewModel, AddProductPage>();
             RegisterViewModel<ProductsPageViewModel, ProductsPage>();
+            RegisterViewModel<UserDashboardPageViewModel, UserDashboardPage>();
+            RegisterViewModel<ReviewProductsPageViewModel, ReviewProductsPage>();
+
+            RegisterViewModel<CartPageViewModel, CartPage>();
+
             RegisterViewModel<SupplierCataloguePageViewModel, SupplierCataloguePage>();
             RegisterViewModel<ProductCataloguePageViewModel, ProductCataloguePage>();
             RegisterViewModel<LandingPageViewModel, LandingPage>();
@@ -66,9 +76,12 @@ namespace LinC.ViewModels
             // REGISTER ROUTES
 
             RegisterRoute<RegistrationPage>();
-            RegisterRoute<LoginPage>();
+            //RegisterRoute<LoginPage>();
             RegisterRoute<ChatPage>();
             RegisterRoute<AddProductPage>();
+            RegisterRoute<ReviewProductsPage>();
+            RegisterRoute<CartPage>();
+            RegisterRoute<UserDashboardPage>();
             RegisterRoute<ProductsPage>();
             RegisterRoute<SupplierCataloguePage>();
             RegisterRoute<ProductCataloguePage>();

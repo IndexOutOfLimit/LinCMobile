@@ -24,20 +24,13 @@ namespace LinC.Views
             vm = this.BindingContext as LoginPageViewModel;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
-            //base.OnAppearing();
+            base.OnAppearing();
 
             if(vm != null)
             {
-                //if(vm.CheckIfComissionUpdated())
-                //{
-                   // vm.ShowComissionValue();
-                //}
-                //else
-                //{
-                    vm.LoginCommand.Execute();
-                //}                
+                await vm.GetMasterData();            
             }
         }
     }

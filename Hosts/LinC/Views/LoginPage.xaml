@@ -8,14 +8,172 @@
              BindingContext="{Binding LoginPage, Mode=TwoWay, Source={StaticResource Locator}}"
              x:Class="LinC.Views.LoginPage"
              Shell.NavBarIsVisible="False"
-             Shell.FlyoutBehavior="Disabled" BackgroundColor="{StaticResource BlueContentColor}">
+             xmlns:template="clr-namespace:LinC.Template"
+             xmlns:commonControls="clr-namespace:Cognizant.Hackathon.Shared.Mobile.Shared.Controls;assembly=Cognizant.Hackathon.Shared.Mobile.Shared"
+             Shell.FlyoutBehavior="Disabled" BackgroundColor="{StaticResource ScreenBackgroundColor}">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand"  BackgroundColor="{StaticResource BlueContentColor}">
-            <!--<ScrollView VerticalOptions="FillAndExpand"> -->
+        <!--<StackLayout VerticalOptions="FillAndExpand"  BackgroundColor="{StaticResource BlueContentColor}">
+            <ScrollView VerticalOptions="FillAndExpand"> 
                 <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  BackgroundColor="{StaticResource BlueContentColor}">
                     <Image VerticalOptions="Center" HorizontalOptions="Center" Source="AppSplash.png" HeightRequest="120" WidthRequest="120" />
                    </StackLayout>
-            <!--</ScrollView> -->
-        </StackLayout>
+            </ScrollView> 
+        </StackLayout>-->
+        <ScrollView VerticalOptions="FillAndExpand">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!--<Image Source="AppSplash.png" Grid.Row="0" />-->
+
+                <FlexLayout Direction="Column" Grid.Row="0" JustifyContent="Center" AlignItems="Center">
+                    <Label FlexLayout.Grow="0.10" />
+                    <!--LinC IMAGE-->
+                    <Image Source="AppSplash.png" HeightRequest="100" WidthRequest="100" />
+
+                    <!--<Label FlexLayout.Grow="0.1" />-->
+
+                    <!--USERNAME ENTRY-->
+                    <!--<Frame Padding="0" IsClippedToBounds="True" CornerRadius="5" BackgroundColor="Black">-->
+                    <Grid ColumnSpacing="0" WidthRequest="300" Padding="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <!--<Image Source="Username.png" Grid.Column="0" Margin="10,0" />-->
+                        <Label Grid.Column="0" Margin="5,0" FontFamily="{StaticResource FontAwesomeSolid}"
+                               TextColor="{StaticResource BlueContentColor}" FontSize="25" VerticalOptions="Center"
+                               Text="{x:Static template:FontAwesomeIcons.UserCheck}" />
+                        <!--<Frame IsClippedToBounds="True" Grid.Column="1" BackgroundColor="White" CornerRadius="0" Padding="0">
+                            <Entry Style="{StaticResource LoginEntry}" Text="{Binding UserName}" Placeholder="Herc Username" >
+                                <Entry.Behaviors>
+                                    <behaviors:EventToCommandBehavior EventName="Focused" Command="{Binding EntryResetCommand}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Frame>-->
+                        <Frame Padding="1" Grid.Column="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
+                            <commonControls:BorderlessMaterialEntry FontSize="12" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                Placeholder="User Name(*)" FontAttributes="Bold"
+                                                                Text="{Binding UserDetails.UserName, Mode=TwoWay}" Keyboard="Default"
+                                                                IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                <commonControls:BorderlessMaterialEntry.TextColor>
+                                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                </commonControls:BorderlessMaterialEntry.TextColor>
+                            </commonControls:BorderlessMaterialEntry>
+                        </Frame>
+                    </Grid>
+                    <!--</Frame>-->
+
+
+                    <!--PASSWORD ENTRY-->
+                    <!--<StackLayout Orientation="Vertical" Padding="0">
+                    <Frame Padding="0" IsClippedToBounds="True" CornerRadius="5" Margin="0,10,0,0">-->
+                    <Grid ColumnSpacing="0" WidthRequest="300" Padding="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <!--<Image Source="Password.png" Grid.Column="0" Margin="5,0" />-->
+                        <Label Grid.Column="0" Margin="9,0"  FontFamily="{StaticResource FontAwesomeSolid}"
+                                   TextColor="{StaticResource BlueContentColor}" FontSize="25" VerticalOptions="Center"
+                               Text="{x:Static template:FontAwesomeIcons.Key}" />
+                        <!--<Frame IsClippedToBounds="True" Grid.Column="1" BackgroundColor="White" CornerRadius="0" Padding="0">
+                                <Entry Style="{StaticResource LoginEntry}" Text="{Binding Password}" Placeholder="Password" IsPassword="True" x:Name="PasswordEntry">
+                                    <Entry.Triggers>
+                                        <DataTrigger TargetType="Entry" Binding="{Binding Source={x:Reference ValidationMessage},Path=IsVisible}" Value="True">
+                                            <Setter Property="TextColor" Value="Red" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Entry" Binding="{Binding Source={x:Reference ValidationMessage},Path=IsVisible}" Value="False">
+                                            <Setter Property="TextColor" Value="Black" />
+                                        </DataTrigger>
+                                    </Entry.Triggers>
+                                    <Entry.Behaviors>
+                                        <behaviors:EventToCommandBehavior EventName="Focused" Command="{Binding EntryResetCommand}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Frame>-->
+                        <Frame Padding="0" Grid.Column="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
+                            <commonControls:BorderlessMaterialEntry FontSize="12" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                                                Placeholder="Password(*)" FontAttributes="Bold" IsPassword="True"
+                                                                Text="{Binding UserDetails.UserSecret, Mode=TwoWay}" Keyboard="Default"
+                                                                IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
+                                <commonControls:BorderlessMaterialEntry.TextColor>
+                                    <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>
+                                </commonControls:BorderlessMaterialEntry.TextColor>
+                            </commonControls:BorderlessMaterialEntry>
+                        </Frame>
+                    </Grid>
+                    <!--</Frame>-->
+                    <!--VALIDATION MMESSAGE-->
+                    <!--<Label x:Name="ValidationMessage" Text="Incorrect Username or Password" TextColor="Red"
+                   IsVisible="{Binding IsIncorrectCredentials,Mode=TwoWay}" FlexLayout.AlignSelf="Start" />
+                </StackLayout>
+        -->
+                    <Label FlexLayout.Grow="0.020" />
+
+                    <!--LOGIN BUTTON-->
+                    <Grid FlexLayout.AlignSelf="End">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0" Grid.Row="0"  VerticalOptions="FillAndExpand" Padding="10,0,30,5">
+                            <Button WidthRequest="150" FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                            HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="LOGIN"
+                                        Command="{Binding LoginCommand}"
+                                        TextColor="{StaticResource WhiteColor}" Margin="0" >
+                            </Button>
+                        </StackLayout>
+
+                        <!--<Button Text="LOGIN"  WidthRequest="300" Command="{Binding OnLogin}"
+                    CornerRadius="5" Grid.Column="0" Grid.Row="0" />-->
+                        <!--ACTIVITY INDICATOR-->
+                        <ActivityIndicator Color="Black" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                               Margin="65,0,0,0" Scale="0.4" Grid.Column="0" Grid.Row="0" />
+                        <!--LOGIN HELP-->
+                        <!--<StackLayout Orientation="Horizontal" Grid.Row="1">
+                        <Label Text="Trouble logging in?" Style="{StaticResource WhiteMedium13}" />
+                        <Label Text="Click here" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding HelpCommand}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>-->
+                    </Grid>
+
+                    <Label FlexLayout.Grow="0.15" />
+
+                    <!--CUSTOMER SERVICE-->
+
+                    <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,20">
+                        <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal" VerticalOptions="CenterAndExpand" >
+                            <Label Text="Register Here" Margin="0,5,0,0" FontFamily="{StaticResource NunitoBold}" VerticalOptions="Center"/>
+                            
+                            <Label FontFamily="{StaticResource FontAwesomeSolid}"
+                               TextColor="{StaticResource BlueContentColor}" FontSize="35" VerticalOptions="Center"
+                               Text="{x:Static template:FontAwesomeIcons.Registered}" />
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                            </StackLayout.GestureRecognizers>
+
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="Center" Orientation="Horizontal" Margin="10,0,0,0">
+                            
+                            <Label Text="Call Customer Care" VerticalOptions="Center" FontFamily="{StaticResource NunitoBold}"
+                               Margin="0,5,0,0"/>
+                            <Label FontFamily="{StaticResource FontAwesomeSolid}"
+                               TextColor="{StaticResource BlueContentColor}" FontSize="35" VerticalOptions="Center"
+                               Text="{x:Static template:FontAwesomeIcons.Phone}" />
+
+                              <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CallCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+                    </StackLayout>
+                </FlexLayout>
+            </Grid>
+        </ScrollView>
+
     </ContentPage.Content>
 </infrastructure:BaseContentPage>

@@ -8,7 +8,10 @@
     BackgroundColor="{StaticResource ScreenBackgroundColor}"   
     x:Class="LinC.Views.ProductCataloguePage"
     x:Name="ProductCataloguePageRef"
-    BindingContext="{Binding ProductCataloguePage, Source={StaticResource Locator}}">
+    BindingContext="{Binding ProductCataloguePage, Source={StaticResource Locator}}"
+    xmlns:localBehaviors="clr-namespace:LinC.Behaviors"
+    xmlns:template="clr-namespace:LinC.Template"
+    xmlns:controls="clr-namespace:LinC.Controls;assembly=LinC">
     <ContentPage.Content>
         <Grid Padding="0,0,0,20">
              <Grid.RowDefinitions>
@@ -18,6 +21,14 @@
             <StackLayout Grid.Row="0" HeightRequest="50" BackgroundColor="{StaticResource BlueContentColor}" VerticalOptions="Center">
                 <Label FontSize="18" FontFamily="{StaticResource NunitoExtraBold}" Text="Product Catalogue" TextColor="#FFFFFF" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
+            <Button Grid.Row="0" Margin="0,0,10,0" BackgroundColor="{StaticResource BlueContentColor}"
+                    Text="{x:Static template:FontAwesomeIcons.CartPlus}" FontFamily="{StaticResource FontAwesomeSolid}"
+                    TextColor="White"
+                    FontSize="25"
+                    CornerRadius="10" BorderColor="White" BorderWidth="0"  Padding="2"
+                    HeightRequest="30" WidthRequest="30"
+                      VerticalOptions="Center" HorizontalOptions="End" Command="{Binding AddToCartCommand}"/>
+
             <Grid Grid.Row="1" VerticalOptions="EndAndExpand" Padding="10,5,10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="Auto" />
@@ -29,11 +40,28 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>                        
-                        <SearchBar Grid.Row="0" Placeholder="Search product"
-                                   Text="{Binding SearchTextProductName}"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                            <controls:CustomPicker x:Name="PickerPrdType" ItemsSource="{Binding ProductTypes}"
+                                                    ItemDisplayBinding="{Binding ProductTypeName}" SelectedItem="{Binding SelectedProductType}"
+                                                    Title="Product Type" CenterTitle="Product Type" FinishTitle="Done" 
+                                                    TitleColor="{StaticResource BlackColor}" FontSize="16"
+                                                    FontFamily="{StaticResource NunitoBold}"
+                                                    BackgroundColor="Transparent" TextColor="Transparent"
+                                                    HorizontalOptions="FillAndExpand" Visual="Material">
+                                <controls:CustomPicker.Behaviors>
+                                    <!--<localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                        Command="{Binding BindingContext.PickerCellCommand,Source={x:Reference PickerPrdType}}"
+                                        CommandParameter="{Binding SelectedItem,Source={x:Reference PickerPrdType}}" 
+                                        Converter="{StaticResource SelectedItemConverter}"                 
+                                        />-->
+                                </controls:CustomPicker.Behaviors>
+                            </controls:CustomPicker>
+                        </Frame>
+                        <SearchBar Grid.Row="1" Placeholder="Search product"  Text="{Binding SearchTextProductName}"/>
                        
-                        <StackLayout Grid.Row="1" HorizontalOptions="EndAndExpand" Orientation="Horizontal" Padding="0,5,5,5">
+                        <StackLayout Grid.Row="2" HorizontalOptions="EndAndExpand" Orientation="Horizontal" Padding="0,5,5,5">
                             <!--<Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
                                 Text="RESET" TextColor="{StaticResource WhiteColor}" Margin="0" 
                                 Command="{Binding Path=ResetButtonTappedCommand}"/>-->
@@ -56,16 +84,40 @@
                                                 <RowDefinition Height="120"/>
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.9*"/>
+                                                <ColumnDefinition Width="0.1*"/>
                                             </Grid.ColumnDefinitions>
-                                            <StackLayout Margin="5,0,0,0" Padding="0" Spacing="0" HorizontalOptions="FillAndExpand">
+                                            <StackLayout Grid.Row="0" Grid.Column="0" Margin="5,0,0,0" Padding="0" Spacing="0" HorizontalOptions="FillAndExpand">
                                                 <Label Text="{Binding ProductName, StringFormat='Product Name: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
                                                 <Label Text="{Binding Name, StringFormat='Store Name: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
                                                 <Label Text="{Binding ProductType, StringFormat='Product Type: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
-                                                <Label Text="{Binding Area, StringFormat='Area: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                <!--<Label Text="{Binding Area, StringFormat='Area: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>-->
                                                 <Label Text="Supplier Deliverable:" FontFamily="{StaticResource NunitoExtraBold}" />
                                                 <Label Text="Add Tool:" FontFamily="{StaticResource NunitoExtraBold}"/>
                                                 
-                                           </StackLayout>                                            
+                                           </StackLayout>
+                                           <!--<StackLayout Orientation="Vertical" HorizontalOptions="End" BackgroundColor="White" 
+                                                     VerticalOptions="StartAndExpand" Padding="0" Spacing="0" Margin="0,10,5,0"
+                                                     Grid.Row="0" Grid.Column="1"> -->
+                                                <!--<Button BackgroundColor="White" Padding="0" Margin="0" BorderWidth="0" BorderColor="White"
+                                                    FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="25"
+                                                    Text="{x:Static template:FontAwesomeIcons.CartPlus}"
+                                                    Command="{Binding BindingContext.AddToCartCommand, Source={x:Reference listView}}"
+                                                    CommandParameter="{Binding .}"/>-->
+                                                <!--<Label FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="25"
+                                                    Text="{x:Static template:FontAwesomeIcons.CartPlus}" />-->
+
+                                               <CheckBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" HeightRequest="25" WidthRequest="25"
+                                                         Color="{StaticResource BlueContentColor}" VerticalOptions="StartAndExpand">
+                                                    <CheckBox.Behaviors>
+                                                        <localBehaviors:EventToCommandBehavior
+                                                   Command="{Binding BindingContext.ProductSelectionCommand,Source={x:Reference listView}}"
+                                                   CommandParameter="{Binding .}"
+                                                   EventName="CheckedChanged" />
+                                                    </CheckBox.Behaviors>
+                                                </CheckBox>
+
+                                           <!-- </StackLayout>-->
                                         </Grid>
                                     </Frame>
                                     <BoxView HeightRequest="2" />

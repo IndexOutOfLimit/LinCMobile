@@ -28,6 +28,9 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "Price")]
         public double Price { get;set; }
 
+        [JsonProperty(PropertyName = "UnitPrice")]
+        public double UnitPrice { get; set; }
+
         [JsonProperty(PropertyName = "Quantity")]
         public int Quantity
         {
@@ -48,7 +51,13 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "IsNewProductName")]
         public bool IsNewProductName { get; set; }
 
-        
+        public string Status { get; set; }
+
+        public bool ShouldAddToCart { get; set; }
+
+        public bool IsSubmitted { get; set; }
+
+        public bool IsProductApproved { get; set; }
 
         public Product ShallowCopy()
         {

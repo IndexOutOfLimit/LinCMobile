@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infrastructure:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d"
+    xmlns:infrastructure="clr-namespace:LinC.Infrastructure;assembly=LinC"
+    x:Class="LinC.Views.ReviewProductsPage"
+    BindingContext="{Binding ReviewProductsPage, Source={StaticResource Locator}}"
+    xmlns:template="clr-namespace:LinC.Template"
+    x:Name="ReviewProductsPageRef"
+    Title="Review Products" BackgroundColor="{StaticResource ScreenBackgroundColor}">
+    <ContentPage.Content>
+        <Grid Padding="0,0,0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Orientation="Horizontal" HeightRequest="50" BackgroundColor="{StaticResource BlueContentColor}" VerticalOptions="Center">
+                <Label FontSize="18" FontFamily="{StaticResource NunitoExtraBold}" Text="Review Products"
+                       TextColor="{StaticResource WhiteColor}" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <Button Grid.Row="0" Margin="0,0,3,0" BackgroundColor="White"  Text="{x:Static template:FontAwesomeIcons.PlusCircle}" FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"  CornerRadius="12" BorderColor="White" BorderWidth="2"  Padding="2" HeightRequest="25" WidthRequest="25"
+                      VerticalOptions="Center" HorizontalOptions="End" Command="{Binding AddProductCommand}"/>
+            <Grid Grid.Row="1" VerticalOptions="EndAndExpand" Padding="10,5,10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="Auto" />
+                    <!--<RowDefinition  Height="Auto" />-->
+                    <RowDefinition  Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="LblHeader" Grid.Row="0" Text="Your selected products" FontFamily="{StaticResource NunitoExtraBold}" FontSize="16" TextColor="{StaticResource BlackColor}"
+                       VerticalOptions="StartAndExpand" HorizontalOptions="Center"/>
+                <!--<SearchBar x:Name="filterText" Grid.Row="1" Placeholder="Search Product" Text="{Binding SearchText}">
+                </SearchBar>-->
+                <ListView Grid.Row="1" x:Name="listView"  ItemsSource ="{Binding Products}" CachingStrategy="RecycleElement"
+                            HasUnevenRows="True" SelectionMode="None" Margin="0,5,0,5" SeparatorVisibility="Default">
+                    <!--<ListView.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double" iOS="350" Android="300"/>
+                    </ListView.HeightRequest>-->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Frame Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                                Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                                        <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0" Margin="10,1,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="100"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.8*"/>
+                                                <ColumnDefinition Width="0.2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout  VerticalOptions="Start" Padding="0" Spacing="0" Grid.Row="0" Grid.Column="0">
+                                                <Label Text="{Binding ProductCategory, StringFormat='Product Name: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
+                                                <Label Text="{Binding ProductType, StringFormat='Product Type: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
+                                                <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
+                                                <Label Text="{Binding Price, StringFormat='Price: {0}'}" FontFamily="{StaticResource NunitoBold}"/>                                                
+                                                <Label Text="{Binding Description}" LineBreakMode="WordWrap" FontFamily="{StaticResource NunitoBold}"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Vertical" HorizontalOptions="End" BackgroundColor="White" 
+                                                     VerticalOptions="StartAndExpand" Padding="0" Spacing="0" Margin="0,0,0,0"
+                                                     Grid.Row="0" Grid.Column="1">
+                                                <Button  WidthRequest="20" BackgroundColor="White" Padding="0" Margin="0" BorderWidth="0" BorderColor="White"
+                                                    FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="35"
+                                                    Text="{x:Static template:FontAwesomeIcons.Edit}"
+                                                    Command="{Binding BindingContext.EditProductCommand, Source={x:Reference ReviewProductsPageRef}}" CommandParameter="{Binding .}"/>
+                                                <Button  BackgroundColor="White" BorderWidth="0"  BorderColor="Transparent" 
+                                                    FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="35"
+                                                    Text="{x:Static template:FontAwesomeIcons.Trash}"
+                                                    Command="{Binding BindingContext.DeleteProductCommand, Source={x:Reference ReviewProductsPageRef}}" CommandParameter="{Binding .}"/>
+
+                                            </StackLayout>
+                                            <!--<Button Grid.Row="0" Grid.Column="1" BackgroundColor="White"  HorizontalOptions="Start"
+                                                FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="30"
+                                                Text="{x:Static template:FontAwesomeIcons.Edit}"
+                                                Command="{Binding DeleteProductCommand}"/>-->
+                                        </Grid>
+                                    </Frame>
+                                    <BoxView HeightRequest="2" />
+                                </StackLayout>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand" Padding="10,10,10,5" IsVisible="{Binding IsProductAvailable}">
+                <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
+                                    HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="SUBMIT"
+                                Command="{Binding Path=SubmitButtonTappedCommand}"
+                                TextColor="{StaticResource WhiteColor}" Margin="0" >
+                </Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</infrastructure:BaseContentPage>

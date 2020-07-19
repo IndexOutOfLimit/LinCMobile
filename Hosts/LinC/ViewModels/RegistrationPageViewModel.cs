@@ -305,11 +305,14 @@ namespace LinC.ViewModels
                             UserDetails.Longitude = location.Longitude.ToString();
                             var placemark = await GetUserAddressFromLatLong(location.Latitude, location.Longitude);
 
-                            UserDetails.Pin = placemark.PostalCode;
-                            UserDetails.AddressLine1 = $"{placemark.FeatureName}, {placemark.SubLocality}, {placemark.Locality}";
-                            UserDetails.AddressLine2 = string.Empty;
-                            UserDetails.CountryId = CountryMasterData.Where(l => l.CountryCode.Equals(placemark.CountryCode)).FirstOrDefault()?.CountryId;
-                            UserDetails.StateId = StateMasterData.Where(l => l.StateName.Contains(placemark.AdminArea)).FirstOrDefault()?.StateId;
+                            if(placemark != null)
+                            {
+                                UserDetails.Pin = placemark.PostalCode;
+                                UserDetails.AddressLine1 = $"{placemark.FeatureName}, {placemark.SubLocality}, {placemark.Locality}";
+                                UserDetails.AddressLine2 = string.Empty;
+                                UserDetails.CountryId = CountryMasterData.Where(l => l.CountryCode.Equals(placemark.CountryCode)).FirstOrDefault()?.CountryId;
+                                UserDetails.StateId = StateMasterData.Where(l => l.StateName.Contains(placemark.AdminArea)).FirstOrDefault()?.StateId;
+                            }                            
                         }                        
                     }
                 }
@@ -343,9 +346,10 @@ namespace LinC.ViewModels
                     UserDetails.ProductTypeIds = string.Empty;
                 }
 
-                
+
 
                 // Create User
+                string userTypeId = UserDetails.UserTypeId; //remove later
 
                 var response = await _services.UserService.CreateUserAsync(null, null, UserDetails);
 
@@ -356,6 +360,7 @@ namespace LinC.ViewModels
                     UserDetails = response.Data;
 
                     UserDetails = new LinCUser(); //remove later
+                    UserDetails.UserTypeId = userTypeId;
                     UserDetails.UserId = "4"; //remove later
                     App.UserDetails = UserDetails;
 

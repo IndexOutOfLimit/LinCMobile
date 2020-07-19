@@ -38,13 +38,13 @@
     </Shell.Resources>
 
     <!-- Your Pages Starts-->
-    <ShellItem Title="Landing" Route="root">
+    <!--<ShellItem Title="Landing" Route="root">
         <ShellSection Route="landingsection">
             <ShellContent Route="landing">
                 <local:LandingPage/>
             </ShellContent>
         </ShellSection>
-    </ShellItem>
+    </ShellItem>-->
     <!--<ShellItem Title="Registration" Route="root">
         <ShellSection Route="registrationsection">
             <ShellContent Route="registration">
@@ -59,13 +59,13 @@
             </ShellContent>
         </ShellSection>
     </ShellItem>-->
-    <!--<ShellItem Title="Login" Route="root">
+    <ShellItem Title="Login" Route="root">
         <ShellSection Route="authsection">
             <ShellContent Route="auth">
-                <local:ChatPage/>
+                <local:LoginPage/>
             </ShellContent>
         </ShellSection>
-    </ShellItem>-->
+    </ShellItem>
     <!-- Your Pages Ends--> 
 
     <!-- Your TabBar Starts -->

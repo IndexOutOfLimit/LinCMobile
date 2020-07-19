@@ -29,6 +29,7 @@ namespace LinC.ViewModels
         public string NewProductName { get; set; }        
         public bool ProductNameEntryVisibility { get; set; }
         public bool IsAddProduct { get; set; }
+        public string HeaderText { get; set; }
 
         public CustomDelegateTimerCommand<object> PickerCellCommand { get; }
         public CustomDelegateTimerCommand NextButtonTappedCommand { get; }
@@ -55,13 +56,18 @@ namespace LinC.ViewModels
 
             if(!IsAddProduct)
             {
+                HeaderText = "Edit Product";
+
                 SelectedProductType = ProductTypes.Where(l => l.ProductTypeId.Equals(Product.ProductTypeId)).FirstOrDefault();
                 ProductCategories = App.MasterData.ProductCategoryList.Where(l => l.ProductTypeId.Equals(Product.ProductTypeId)).ToList();
                 SelectedProductCategory = ProductCategories.Where(l => l.ProductCategoryId.Equals(Product.ProductCategoryId)).FirstOrDefault();
             }
             else
             {
-                ProductCategories = null;
+                HeaderText = "Add Product";
+                SelectedProductCategory = null;
+                SelectedProductType = ProductTypes[0];
+                //ProductCategories = null;
             }
             /*if(Product != null)
             {
@@ -189,8 +195,8 @@ namespace LinC.ViewModels
             }
             
             ThreadingHelpers.InvokeOnMainThread(async () =>
-                await AppNavigationService.GoToAsync(nameof(ProductsPage).ToLower(),
-                    (ProductsPageViewModel vm) =>
+                await AppNavigationService.GoToAsync(nameof(ReviewProductsPage).ToLower(),
+                    (ReviewProductsPageViewModel vm) =>
                     {
                         vm.UserDetails = UserDetails;
                         vm.Products = ProductList;
