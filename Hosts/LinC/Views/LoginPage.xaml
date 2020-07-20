@@ -54,7 +54,7 @@
                         <Frame Padding="1" Grid.Column="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
                             <commonControls:BorderlessMaterialEntry FontSize="12" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
                                                                 Placeholder="User Name(*)" FontAttributes="Bold"
-                                                                Text="{Binding UserDetails.UserName, Mode=TwoWay}" Keyboard="Default"
+                                                                Text="{Binding UserDetails.Email, Mode=TwoWay}" Keyboard="Default"
                                                                 IsNumericKeyboard="False" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
                                 <commonControls:BorderlessMaterialEntry.TextColor>
                                     <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>

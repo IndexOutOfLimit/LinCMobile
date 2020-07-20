@@ -55,7 +55,7 @@ namespace LinC.ViewModels
                 OrdersHeadingText = "No order has been placed.";
             }
 
-            if(UserDetails.UserTypeId.Equals("2"))
+            if(UserDetails.UserTypeId.Equals(2))
             {
                 IsConsumerUser = true;
             }

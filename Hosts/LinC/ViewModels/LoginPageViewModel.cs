@@ -11,6 +11,7 @@ using Cognizant.Hackathon.Mobile.Core.Infrastructure;
 using Xamarin.Essentials;
 using LinC.Platforms;
 using Cognizant.Hackathon.Shared.Mobile.Core.Interfaces;
+using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 
 namespace LinC.ViewModels
 {
@@ -27,6 +28,8 @@ namespace LinC.ViewModels
             LoginCommand = new CustomDelegateTimerCommand(async () => await Login(), () => true);
             RegisterCommand = new CustomDelegateTimerCommand(() => Register(), () => true);
             CallCommand = new CustomDelegateTimerCommand(() => CallCustomerCare(), () => true);
+
+            UserDetails = new LinCUser();
         }
 
         public async Task GetMasterData()
@@ -54,7 +57,13 @@ namespace LinC.ViewModels
 
         private void CallCustomerCare()
         {
-            throw new NotImplementedException();
+            ThreadingHelpers.InvokeOnMainThread(async () =>
+                 await AppNavigationService.GoToAsync(nameof(ChatPage).ToLower(),
+                     (ChatPageViewModel vm) =>
+                     {
+                         vm.UserDetails = App.UserDetails;
+                     })
+                 );
         }
 
         private void Register()
@@ -72,7 +81,29 @@ namespace LinC.ViewModels
         {
             try
             {
-                AppSpinner.ShowLoading();               
+               //if(UserDetails.Email)
+                AppSpinner.ShowLoading();
+                var response = await _services.UserService.GetUserAsync(null, null, null, UserDetails.Email, UserDetails.UserSecret);
+
+                //Get Products & orders
+                
+                //if (response.Data.Item1 != null)
+                //{
+                    App.UserDetails = response.Data.Item1;
+                    App.UserDetails = new LinCUser(); // remove later
+                    App.UserDetails.UserId = 2; //remove later
+                    App.UserDetails.UserTypeId = 1; //remove later
+
+                ThreadingHelpers.InvokeOnMainThread(async () =>
+                        await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),
+                           (UserDashboardPageViewModel vm) =>
+                           {
+                               vm.UserDetails = App.UserDetails;
+                               //vm.Products = this.Products;
+                               //vm.Orders = Orders.Where(o => o.IsSubmitted).ToList();
+                           })
+                         );
+                //}
 
                 AppSpinner.HideLoading();
                 AppErrorService.ProcessErrors();

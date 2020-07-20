@@ -133,9 +133,7 @@ namespace LinC.ViewModels
                 else
                 {
                     OrderSubmitText = "PLACE ORDER";
-                    OrdersHeadingText = "No order has been placed.";
-                    //RaisePropertyChanged("OrderSubmitText");
-                    //RaisePropertyChanged("OrdersHeadingText");
+                    OrdersHeadingText = "No order has been placed.";                 
                 }
             }
             );

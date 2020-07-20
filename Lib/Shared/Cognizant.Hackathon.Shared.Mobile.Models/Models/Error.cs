@@ -5,13 +5,11 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
 {
     public class Error
     {
-        [JsonProperty]
-        public string ErrorCode { get; set; }
+        [JsonProperty(PropertyName = "errorNo")]
+        public int ErrorNo { get; set; }
 
-        [JsonProperty]
-        public string ErrorDescription { get; set; }
+        [JsonProperty(PropertyName = "errorMessage")]
+        public string ErrorMessage { get; set; }
 
-        [JsonProperty]
-        public string HiddenButtons { get; set; }
     }
 }

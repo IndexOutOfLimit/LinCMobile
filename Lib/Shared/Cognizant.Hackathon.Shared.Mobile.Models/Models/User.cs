@@ -2,6 +2,8 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Cognizant.Hackathon.Core.Model;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
 {
@@ -9,10 +11,10 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     public class LinCUser : MemberBase
     {
         [JsonProperty(PropertyName = "usrId")]
-        public string UserId { get; set; }
+        public int? UserId { get; set; }
 
         [JsonProperty(PropertyName = "usrTypeMasterId")]
-        public string UserTypeId { get; set; }
+        public int UserTypeId { get; set; }
 
         //[JsonProperty(PropertyName = "CompanyCode")]
         //public string CompanyCode { get; set; }
@@ -38,11 +40,13 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "phoneNum")]
         public string Phone { get; set; }
 
+        [JsonConverter(typeof(JsonExponentialConverter))]
         [JsonProperty(PropertyName = "latitude")]
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
 
+        [JsonConverter(typeof(JsonExponentialConverter))]
         [JsonProperty(PropertyName = "longitude")]
-        public string Longitude { get; set; }
+        public double Longitude { get; set; }
 
         [JsonProperty(PropertyName = "addr1")]
         public string AddressLine1 { get; set; }
@@ -51,13 +55,13 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         public string AddressLine2 { get; set; }
 
         [JsonProperty(PropertyName = "pin")]
-        public string Pin { get; set; }
+        public int Pin { get; set; }
 
         [JsonProperty(PropertyName = "stateId")]
-        public string StateId { get; set; }
+        public int StateId { get; set; }
 
         [JsonProperty(PropertyName = "countryId")]
-        public string CountryId { get; set; }
+        public int CountryId { get; set; }
 
         [JsonIgnore]
         [JsonProperty(PropertyName = "UseCurrentLocation")]
@@ -74,7 +78,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         //public string Organization { get; set; }
 
         [JsonProperty(PropertyName = "productTypeId")]
-        public string ProductTypeIds { get; set; }
+        public List<int> ProductTypeIds { get; set; }
 
         [JsonIgnore]
         public string Area
@@ -88,6 +92,31 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         public LinCUser ShallowCopy()
         {
             return (LinCUser)this.MemberwiseClone();
+        }
+    }
+
+
+    public class JsonExponentialConverter : JsonConverter
+    {
+        public override bool CanRead { get { return true; } }
+        public override bool CanConvert(Type objectType)
+        {
+            return true;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            serializer.Serialize(writer, value);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            double amount = 0;
+            if (double.TryParse(reader.Value.ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out amount))
+            {
+                return amount;
+            }
+            return amount;
         }
     }
 }

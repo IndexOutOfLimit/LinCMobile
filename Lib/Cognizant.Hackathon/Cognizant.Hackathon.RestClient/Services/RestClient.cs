@@ -502,7 +502,16 @@ namespace Cognizant.Hackathon.RestClient.Services
                 string data2 = JsonConvert.SerializeObject(requestBody, SerializationSettings);
                 request.Content = new StringContent(data2, Encoding.UTF8, MIME_JSON);
             }
+
+            if(requestVerb == HttpVerb.POST)
+            {
+                request.Content.Headers.Remove("Content-Type");
+                request.Content.Headers.Add("Content-Type", "text/plain;charset=UTF-8");
+            }
+
             
+            //{ "Accept","text/plain;charset=UTF-8" }
+
             return (request, client);
         }
       

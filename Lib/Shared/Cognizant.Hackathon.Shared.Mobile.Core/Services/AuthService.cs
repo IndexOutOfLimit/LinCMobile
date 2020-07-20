@@ -56,7 +56,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
         public async Task<ServiceResponse<UserReqBody>> Login(string userId, string pwd)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
-            LinCUser newUser = new LinCUser() { UserId = userId, UserSecret = pwd };
+            LinCUser newUser = new LinCUser() { Email = userId, UserSecret = pwd };
             var reqObject = new RequestInfo<UserReqBody>
             {
                 Message = new RequestMessege<UserReqBody>

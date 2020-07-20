@@ -273,7 +273,7 @@ namespace LinC.ViewModels
             var productItems = GetProductTypes();
 
             productObj.ProductType = productItems.Item1.DefaultItem.Name;
-            productObj.ProductTypeId = productItems.Item1.DefaultItem.ItemId;
+            productObj.ProductTypeId = int.Parse(productItems.Item1.DefaultItem.ItemId);
 
             //productObj.ProductName = productItems.Item2?[0].DefaultItem.Name;
             //productObj.ProductNameId = productItems.Item2?[0].DefaultItem.ItemId;

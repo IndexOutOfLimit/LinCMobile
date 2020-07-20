@@ -52,8 +52,8 @@ namespace LinC.ViewModels
             PickerCellCommand = new CustomDelegateTimerCommand<object>((item) => PickerTapped(item), item => true);
 
             UserDetails = new LinCUser();
-            UserDetails.UserTypeId = string.Empty;
-            UserDetails.ProductTypeIds = string.Empty;
+            UserDetails.UserTypeId = 0;
+            UserDetails.ProductTypeIds = new List<int>();
             IsOrgVisible = true;
 
             NextButtonTappedCommand = new CustomDelegateTimerCommand(async () => await NextButtonTapped(), () => true);            
@@ -120,24 +120,24 @@ namespace LinC.ViewModels
             {
                 //LinCServiceType type = (LinCServiceType)selectionType;
                 ProductType type = (ProductType)selectionType;
-                string itemToAdd = type.ProductTypeId.ToString();
+                int itemIdToAdd = type.ProductTypeId;
 
-                var lstServiceTypes = UserDetails.ProductTypeIds.Split(',').ToList();
-                if(lstServiceTypes.Contains(itemToAdd))
+                //var lstServiceTypes = UserDetails.ProductTypeIds.Split(',').ToList();
+                if(UserDetails.ProductTypeIds.Contains(itemIdToAdd))
                 {
-                    lstServiceTypes.Remove(type.ProductTypeId.ToString());
+                    UserDetails.ProductTypeIds.Remove(itemIdToAdd);
                 }
                 else
                 {
-                    lstServiceTypes.Add(type.ProductTypeId.ToString());
+                    UserDetails.ProductTypeIds.Add(itemIdToAdd);
                 }
-                lstServiceTypes = lstServiceTypes.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
-                UserDetails.ProductTypeIds = string.Join(",", lstServiceTypes);
+                //lstServiceTypes = lstServiceTypes.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+                //UserDetails.ProductTypeIds = string.Join(",", lstServiceTypes);
 
             }
             catch (Exception)
             {
-                UserDetails.ProductTypeIds = string.Empty;
+                UserDetails.ProductTypeIds = null;
             }
         }
 
@@ -177,17 +177,17 @@ namespace LinC.ViewModels
             {
                 UserType usrType = userType as UserType;
                 
-                UserDetails.UserTypeId = usrType.UserTypeId.ToString();
+                UserDetails.UserTypeId = usrType.UserTypeId;
                 switch (UserDetails.UserTypeId)
                 {
-                    case "2": //LinCUserType.Consumer:
+                    case 2: //LinCUserType.Consumer:
                         IsOtherSectionVisible = false;
                         break;
-                    case "1":// LinCUserType.Supplier:
+                    case 1:// LinCUserType.Supplier:
                         IsOtherSectionVisible = true;
                         RegisterTypeText = "Supplier Type";
                         break;
-                    case "3":// LinCUserType.Volunteer:
+                    case 3:// LinCUserType.Volunteer:
                         IsOtherSectionVisible = true;
                         RegisterTypeText = "Volunteer Type";
                         break;
@@ -240,29 +240,29 @@ namespace LinC.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(UserDetails.Pin) && !ShouldUseCurrentLocation)
+            if (UserDetails.Pin== 0 && !ShouldUseCurrentLocation)
             {
                 await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please enter pin code", "OK");
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(UserDetails.StateId) && !ShouldUseCurrentLocation)
+            if (UserDetails.StateId == 0 && !ShouldUseCurrentLocation)
             {
                 await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select state", "OK");
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(UserDetails.CountryId) && !ShouldUseCurrentLocation)
+            if (UserDetails.CountryId == 0 && !ShouldUseCurrentLocation)
             {
                 await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select country", "OK");
                 return false;
             }
 
-            if (!UserDetails.UserTypeId.Equals("2") && string.IsNullOrEmpty(UserDetails.ProductTypeIds))
-            {
-                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select one service type", "OK");
-                return false;
-            }
+            //if (!UserDetails.UserTypeId.Equals("2") && UserDetails.ProductTypeIds.Count == 0)
+            //{
+            //    await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select one service type", "OK");
+            //    return false;
+            //}
 
             return true;
         }
@@ -271,10 +271,10 @@ namespace LinC.ViewModels
         {
             try
             {
-                //if(!await ValidateFields())
-                //{
-                //    return;
-                //}
+                if (!await ValidateFields())
+                {
+                    return;
+                }
 
                 //if (!IsOrgVisible)
                 //{
@@ -301,17 +301,17 @@ namespace LinC.ViewModels
                         var location = await GetUserLocation();
                         if(location != null)
                         {
-                            UserDetails.Latitude = location.Latitude.ToString();
-                            UserDetails.Longitude = location.Longitude.ToString();
+                            UserDetails.Latitude = location.Latitude;
+                            UserDetails.Longitude = location.Longitude;
                             var placemark = await GetUserAddressFromLatLong(location.Latitude, location.Longitude);
 
                             if(placemark != null)
                             {
-                                UserDetails.Pin = placemark.PostalCode;
+                                UserDetails.Pin = string.IsNullOrEmpty(placemark.PostalCode) ? 0 : int.Parse(placemark.PostalCode);
                                 UserDetails.AddressLine1 = $"{placemark.FeatureName}, {placemark.SubLocality}, {placemark.Locality}";
                                 UserDetails.AddressLine2 = string.Empty;
-                                UserDetails.CountryId = CountryMasterData.Where(l => l.CountryCode.Equals(placemark.CountryCode)).FirstOrDefault()?.CountryId;
-                                UserDetails.StateId = StateMasterData.Where(l => l.StateName.Contains(placemark.AdminArea)).FirstOrDefault()?.StateId;
+                                UserDetails.CountryId = CountryMasterData.Where(l => l.CountryCode.Equals(placemark.CountryCode)).FirstOrDefault().CountryId;
+                                UserDetails.StateId = StateMasterData.Where(l => l.StateName.Contains(placemark.AdminArea)).FirstOrDefault().StateId;
                             }                            
                         }                        
                     }
@@ -326,8 +326,8 @@ namespace LinC.ViewModels
                     var location = await GetUserLocationFromAddress(address);
                     if (location != null)
                     {
-                        UserDetails.Latitude = location.Latitude.ToString();
-                        UserDetails.Longitude = location.Longitude.ToString();
+                        UserDetails.Latitude = location.Latitude;
+                        UserDetails.Longitude = location.Longitude;
 
                         //var placemark = await GetUserAddressFromLatLong(location.Latitude, location.Longitude);
 
@@ -336,36 +336,36 @@ namespace LinC.ViewModels
 
                 if(!UserDetails.UserTypeId.Equals("2"))
                 {
-                    if(!string.IsNullOrEmpty(UserDetails.ProductTypeIds))
+                    if(UserDetails.ProductTypeIds.Count > 0)
                     {
-                        UserDetails.ProductTypeIds = "[" + UserDetails.ProductTypeIds + "]";
+                        UserDetails.ProductTypeIds =  UserDetails.ProductTypeIds;
                     }
                 }
                 else
                 {
-                    UserDetails.ProductTypeIds = string.Empty;
+                    UserDetails.ProductTypeIds = null;
                 }
 
 
 
                 // Create User
-                string userTypeId = UserDetails.UserTypeId; //remove later
-
+                //string userTypeId = UserDetails.UserTypeId; //remove later
+                UserDetails.UserId = null;
                 var response = await _services.UserService.CreateUserAsync(null, null, UserDetails);
 
-                response.ServiceErrorCode = LinCTrasactionStatus.Success.ToString(); // remove later
+                //response.ServiceErrorCode = LinCTrasactionStatus.Success.ToString(); // remove later
 
                 if (response.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                 {
                     UserDetails = response.Data;
 
-                    UserDetails = new LinCUser(); //remove later
-                    UserDetails.UserTypeId = userTypeId;
-                    UserDetails.UserId = "4"; //remove later
+                    //UserDetails = new LinCUser(); //remove later
+                    //UserDetails.UserTypeId = userTypeId;
+                    //UserDetails.UserId = "4"; //remove later
                     App.UserDetails = UserDetails;
 
                     // get product category list
-                    var responsePrdCategory = await _services.MasterDataService.GetProductCategoryByUser(UserDetails.UserId);
+                    var responsePrdCategory = await _services.MasterDataService.GetProductCategoryByUser(UserDetails.UserId.ToString());
 
                     if(responsePrdCategory.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                     {
@@ -399,7 +399,7 @@ namespace LinC.ViewModels
                     else
                     {
                         AppErrorService.AddError(response);
-                    }                    
+                    }
                 }
                 else
                 {

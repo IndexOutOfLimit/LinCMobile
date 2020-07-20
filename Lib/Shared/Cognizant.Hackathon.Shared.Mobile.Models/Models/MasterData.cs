@@ -33,7 +33,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     public class UserType
     {
         [JsonProperty(PropertyName = "usrTypeMasterId")]
-        public string UserTypeId { get; set; }
+        public int UserTypeId { get; set; }
 
         [JsonProperty(PropertyName = "usrTypeName")]
         public string UserTypeName { get; set; }
@@ -47,7 +47,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     public class ProductCategory
     {
         [JsonProperty(PropertyName = "prdctTypeId")]
-        public string ProductTypeId { get; set; }
+        public int ProductTypeId { get; set; }
 
         [JsonProperty(PropertyName = "prdctTypeCode")]
         public string ProductTypeCode { get; set; }
@@ -59,7 +59,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         public int ProducyTypeDisplaySeq { get; set; }
 
         [JsonProperty(PropertyName = "prdctCatId")]
-        public string ProductCategoryId { get; set; }
+        public int ProductCategoryId { get; set; }
 
         [JsonProperty(PropertyName = "prdctCatName")]
         public string ProductCategoryName { get; set; }
@@ -74,7 +74,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     public class ProductType
     {
         [JsonProperty(PropertyName = "productTypeMasterId")]
-        public string ProductTypeId { get; set; }
+        public int ProductTypeId { get; set; }
 
         [JsonProperty(PropertyName = "productCode")]
         public string ProductTypeCode { get; set; }
@@ -107,7 +107,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     public class Country
     {
         [JsonProperty(PropertyName = "countryId")]
-        public string CountryId { get; set; }
+        public int CountryId { get; set; }
 
         [JsonProperty(PropertyName = "countryName")]
         public string CountryName { get; set; }
@@ -122,10 +122,10 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
     public class Store
     {
         [JsonProperty(PropertyName = "storeId")]
-        public string StoreId { get; set; }
+        public int StoreId { get; set; }
 
         [JsonProperty(PropertyName = "orgId")]
-        public string OrgId { get; set; }
+        public int OrgId { get; set; }
 
         [JsonProperty(PropertyName = "storeCode")]
         public string StoreCode { get; set; }

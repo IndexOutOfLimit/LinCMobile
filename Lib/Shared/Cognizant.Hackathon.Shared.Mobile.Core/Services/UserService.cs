@@ -47,24 +47,23 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                    action: "/user/registration",
                    paramMode: HttpParamMode.BODY,
                    requestBody: newUser,
+
                    headers: headers,
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
             if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
                 return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null,errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "User data not saved.");
-            var jSonResponse = response.StringData.Substring(1, response.StringData.Length - 2);
-            jSonResponse = jSonResponse.Replace(@"\", string.Empty);
 
-            ResponseInfo<Error> errorResponse = JsonConvert.DeserializeObject<ResponseInfo<Error>>(jSonResponse);
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
 
-            var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<LinCUser>>(jSonResponse);
-
-            if (UserResponse.Message.Body.UserCode.Equals("Error:0000"))
+            if(jSonResponse.Contains("errorMessage"))
             {
-                return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null, message: "Error:0000", errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "User data not saved.");
+                return new ServiceResponse<LinCUser>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "User data not saved.");
             }
 
-            return new ServiceResponse<LinCUser>(ServiceStatus.Success, data: UserResponse.Message.Body, errorCode: LinCTrasactionStatus.Success.ToString());
+            var userResponse = JsonConvert.DeserializeObject<LinCUser>(jSonResponse);            
+
+            return new ServiceResponse<LinCUser>(ServiceStatus.Success, data: userResponse, errorCode: LinCTrasactionStatus.Success.ToString());
 
         }
 
@@ -74,45 +73,62 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
 
             LinCUser newUser = new LinCUser
             {
-                UserCode = UserCode,
-                UserId = userId
+                UserSecret = UserCode,
+                Email = userId
             };
-            var reqObject = new RequestInfo<UserReqBody>
-            {
-                Message = new RequestMessege<UserReqBody>
-                {
-                    Header = RequestHeaderCreator.GetRequestHeader(deviceDensity, deviceType, companyCode, UserCode, userId),
-                    Body = new UserReqBody
-                    {
-                        UserInfo = newUser
-                    }
-                }
-            };
+           
             var response = await _restClient
-               .ExecuteAsync<string, RequestInfo<UserReqBody>>(
+               .ExecuteAsync<string, LinCUser>(
                    HttpVerb.POST,
                    action: "GetUserInfo",
                    paramMode: HttpParamMode.BODY,
-                   requestBody: reqObject,
+                   requestBody: newUser,
                    headers: headers,
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
             if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
-                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorMessage: "Problem in retrieving user data");
+                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in retrieving user data");
 
-            var jSonResponse = response.StringData.Substring(1, response.StringData.Length - 2);
-            jSonResponse = jSonResponse.Replace(@"\", string.Empty);
-            if (jSonResponse.Contains("AppVersionError"))
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
+            if (jSonResponse.Contains("errorMessage"))
             {
-                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (null, true), errorMessage: "AppVersionError");
+                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Please enter valid credential.");
             }
 
-            // var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<UserResponse>>(jSonResponse);
+            var userResponse = JsonConvert.DeserializeObject<LinCUser>(jSonResponse);
+            return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (userResponse, true));
+        }
 
-            var UserResponse = JsonConvert.DeserializeObject<ResponseInfo<LinCUser>>(jSonResponse);
-            var serviceresponse = new ServiceResponse<LinCUser>(ServiceStatus.Success, data: UserResponse.Message.Body);
-            return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (UserResponse.Message.Body, false));
-            // return new ServiceResponse<User>(ServiceStatus.Error);//, data: null, errorMessage: "No Data");
+        public async Task<ServiceResponse<(LinCUser, bool)>> GetUserProducts(string userId, string UserCode)
+        {
+            var headers = RequestHeaderCreator.GetWebApiClientHeader();
+
+            LinCUser newUser = new LinCUser
+            {
+                UserSecret = UserCode,
+                Email = userId
+            };
+
+            var response = await _restClient
+               .ExecuteAsync<string, LinCUser>(
+                   HttpVerb.POST,
+                   action: "/product/searchStoreOrProduct",
+                   paramMode: HttpParamMode.BODY,
+                   requestBody: newUser,
+                   headers: headers,
+                   apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
+                   );
+            if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
+                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in retrieving user data");
+
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
+            if (jSonResponse.Contains("errorMessage"))
+            {
+                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Please enter valid credential.");
+            }
+
+            var userResponse = JsonConvert.DeserializeObject<LinCUser>(jSonResponse);
+            return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (userResponse, true));
         }
     }
 }

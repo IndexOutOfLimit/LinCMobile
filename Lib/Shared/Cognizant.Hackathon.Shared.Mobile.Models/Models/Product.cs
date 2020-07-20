@@ -11,16 +11,16 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         private int _quantity;
 
         [JsonProperty(PropertyName = "ProductId")]
-        public string ProductId { get; set; }
+        public int ProductId { get; set; }
 
         [JsonProperty(PropertyName = "ProductTypeId")]
-        public string ProductTypeId { get; set; }
+        public int ProductTypeId { get; set; }
 
         [JsonProperty(PropertyName = "ProductType")]
         public string ProductType { get; set; }
 
         [JsonProperty(PropertyName = "ProductCategoryId")]
-        public string ProductCategoryId { get; set; }        
+        public int ProductCategoryId { get; set; }        
 
         [JsonProperty(PropertyName = "ProductCategory")]
         public string ProductCategory { get; set; }

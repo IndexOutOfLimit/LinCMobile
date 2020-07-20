@@ -9,6 +9,7 @@ using Cognizant.Hackathon.Shared.Mobile.Core.Enums;
 using Cognizant.Hackathon.Shared.Mobile.Core.Helpers;
 using Cognizant.Hackathon.Shared.Mobile.Core.Services.Infrastructure;
 using Cognizant.Hackathon.Shared.Mobile.Core.Services.Interfaces;
+using Cognizant.Hackathon.Shared.Mobile.Core.Services.Request;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 
 namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
@@ -26,26 +27,26 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
-            var deserializationSettings = new Newtonsoft.Json.JsonSerializerSettings
-            {
-                DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
-                DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
-                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
-                ContractResolver = new RestClient.Helpers.ReadOnlyJsonContractResolver(),
-                Converters = new List<Newtonsoft.Json.JsonConverter>
-                {
-                    new RestClient.Helpers.XmlTimeSpanConverter()
-                }
-            };
-            string masterDataJson = GetMasterDataJson();
+            //var deserializationSettings = new Newtonsoft.Json.JsonSerializerSettings
+            //{
+            //    DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
+            //    DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
+            //    NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+            //    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+            //    ContractResolver = new RestClient.Helpers.ReadOnlyJsonContractResolver(),
+            //    Converters = new List<Newtonsoft.Json.JsonConverter>
+            //    {
+            //        new RestClient.Helpers.XmlTimeSpanConverter()
+            //    }
+            //};
+            //string masterDataJson = GetMasterDataJson();
 
-            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<MasterData>(masterDataJson, deserializationSettings)
-                                .AsServiceResponse();
-            data.ServiceErrorCode = LinCTrasactionStatus.Success.ToString();
-            return data;
+            //var data = Newtonsoft.Json.JsonConvert.DeserializeObject<MasterData>(masterDataJson, deserializationSettings)
+            //                    .AsServiceResponse();
+            //data.ServiceErrorCode = LinCTrasactionStatus.Success.ToString();
+            //return data;
 
-            /*var qryParams = new Dictionary<string, object>();
+            var qryParams = new Dictionary<string, object>();
             qryParams.Add("requestType", "ALL");
 
             var response = await _restClient
@@ -53,7 +54,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                     HttpVerb.GET,
                     "product/lookupdata",
                     parameters: qryParams,
-                    //headers: headers,
+                    headers: headers,
                     paramMode: HttpParamMode.QUERYSTRING,
                     apiRoutePrefix: $"{AppSettings.ApiEndpoint}");
 
@@ -61,14 +62,14 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                 return new ServiceResponse<MasterData>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Master data not found.");
                         
             return new ServiceResponse<MasterData>(ServiceStatus.Success, data: response.Data, errorMessage: "Success", errorCode: LinCTrasactionStatus.Success.ToString());            
-            */
+            
 
         }
 
         public async Task<ServiceResponse<MasterData>> GetProductCategoryByUser(string userId)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
-
+            //=====
             var deserializationSettings = new Newtonsoft.Json.JsonSerializerSettings
             {
                 DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
@@ -87,24 +88,23 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                                 .AsServiceResponse();
             data.ServiceErrorCode = LinCTrasactionStatus.Success.ToString();
             return data;
-            //, errorCode: LinCTrasactionStatus.Success.ToString()
-            /*var qryParams = new Dictionary<string, object>();
-            qryParams.Add("usrId", userId);
+            // ======
+            var reqBody = new ProdCategoryReq() { UserId = int.Parse(userId) };
 
-            var response = await _restClient
-                .ExecuteAsync<MasterData>(
-                    HttpVerb.GET,
+        var response = await _restClient
+                .ExecuteAsync<MasterData, ProdCategoryReq>(
+                    HttpVerb.POST,
                     "/product/getProdCat",
-                    parameters: qryParams,
-                    //headers: headers,
-                    paramMode: HttpParamMode.QUERYSTRING,
+                    headers: headers,
+                    paramMode: HttpParamMode.BODY,
+                    requestBody: reqBody,
                     apiRoutePrefix: $"{AppSettings.ApiEndpoint}");
 
             if (!response.IsOK() || (response.Data == null))
                 return new ServiceResponse<MasterData>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Master data not found.");
                         
             return new ServiceResponse<MasterData>(ServiceStatus.Success, data: response.Data, errorMessage: "Success", errorCode: LinCTrasactionStatus.Success.ToString());            
-            */
+            
 
         }
 

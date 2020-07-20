@@ -11,7 +11,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         public string StateCode { get; set; }
 
         [JsonProperty(PropertyName = "stateId")]
-        public string StateId { get; set; }
+        public int StateId { get; set; }
 
         [JsonProperty(PropertyName = "stateName")]
         public string StateName
