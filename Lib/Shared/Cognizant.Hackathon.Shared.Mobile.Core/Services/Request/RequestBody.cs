@@ -11,6 +11,15 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         public LinCUser UserInfo;
     }
 
+    public class UserLoginReqBody
+    {
+        [JsonProperty(PropertyName = "usrName")]
+        public string UserName { get; set; }
+
+        [JsonProperty(PropertyName = "usrPass")]
+        public string UserSecret { get; set; }
+    }
+
     public class ProdCategoryReq
     {
         [JsonProperty(PropertyName = "usrId")]

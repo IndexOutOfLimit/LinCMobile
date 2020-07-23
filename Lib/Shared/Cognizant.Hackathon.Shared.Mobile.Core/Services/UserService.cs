@@ -71,18 +71,18 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
-            LinCUser newUser = new LinCUser
+            UserLoginReqBody userReq = new UserLoginReqBody
             {
                 UserSecret = UserCode,
-                Email = userId
+                UserName = userId
             };
            
             var response = await _restClient
-               .ExecuteAsync<string, LinCUser>(
+               .ExecuteAsync<string, UserLoginReqBody>(
                    HttpVerb.POST,
-                   action: "GetUserInfo",
+                   action: "/user/login",
                    paramMode: HttpParamMode.BODY,
-                   requestBody: newUser,
+                   requestBody: userReq,
                    headers: headers,
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
@@ -98,6 +98,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             var userResponse = JsonConvert.DeserializeObject<LinCUser>(jSonResponse);
             return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (userResponse, true));
         }
+
 
         public async Task<ServiceResponse<(LinCUser, bool)>> GetUserProducts(string userId, string UserCode)
         {

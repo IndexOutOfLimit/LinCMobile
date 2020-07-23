@@ -87,8 +87,8 @@ namespace LinC.ViewModels
 
                 //Get Products & orders
                 
-                //if (response.Data.Item1 != null)
-                //{
+                if (response.Data.Item1 != null)
+                {
                     App.UserDetails = response.Data.Item1;
                     App.UserDetails = new LinCUser(); // remove later
                     App.UserDetails.UserId = 2; //remove later
@@ -103,7 +103,11 @@ namespace LinC.ViewModels
                                //vm.Orders = Orders.Where(o => o.IsSubmitted).ToList();
                            })
                          );
-                //}
+                }
+                else
+                {
+                    AppErrorService.AddError(response);
+                }
 
                 AppSpinner.HideLoading();
                 AppErrorService.ProcessErrors();
@@ -112,11 +116,7 @@ namespace LinC.ViewModels
             catch (Exception ex)
             {
                 HandleUIError(ex);
-            }
-            finally
-            {
-                LoginCommand.ResetTimer();
-            }
+            }            
         }        
     }
 }
