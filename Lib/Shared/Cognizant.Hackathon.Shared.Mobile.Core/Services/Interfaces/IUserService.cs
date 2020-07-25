@@ -13,6 +13,8 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Interfaces
     {
         Task<ServiceResponse<LinCUser>> GetOrCreateUser(Guid userId, string accessToken = null);
         Task<ServiceResponse<LinCUser>> CreateUserAsync(string deviceDensity, string deviceType, LinCUser newUser);
-        Task<ServiceResponse<(LinCUser, bool)>> GetUserAsync(string deviceDensity, string deviceType, string companyCode, string userId, string UserCode);        
+        Task<ServiceResponse<(LinCUser, bool)>> GetUserAsync(string deviceDensity, string deviceType, string companyCode, string userId, string UserCode);
+        Task<ServiceResponse<MasterData>> GetProductCategoryByUser(int userId);
+        Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int userId, int supplierId, int productTypeMasterId);
     }
 }

@@ -100,36 +100,87 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
         }
 
 
-        public async Task<ServiceResponse<(LinCUser, bool)>> GetUserProducts(string userId, string UserCode)
+        public async Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int userId, int supplierId, int productTypeMasterId)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
-            LinCUser newUser = new LinCUser
+            GetProductsReqBody getProdsReq = new GetProductsReqBody
             {
-                UserSecret = UserCode,
-                Email = userId
+                UsrId = userId,
+                SupplierId = supplierId,
+                ProductTypeMasterId = productTypeMasterId
             };
 
             var response = await _restClient
-               .ExecuteAsync<string, LinCUser>(
+               .ExecuteAsync<string, GetProductsReqBody>(
                    HttpVerb.POST,
-                   action: "/product/searchStoreOrProduct",
+                   action: "/product/getSupplierProducts",
                    paramMode: HttpParamMode.BODY,
-                   requestBody: newUser,
+                   requestBody: getProdsReq,
                    headers: headers,
                    apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
                    );
+
             if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
-                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in retrieving user data");
+                return new ServiceResponse<(List<Product>, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in retrieving user data");
 
             var jSonResponse = response.StringData.Replace(@"\", string.Empty);
             if (jSonResponse.Contains("errorMessage"))
             {
-                return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Please enter valid credential.");
+                return new ServiceResponse<(List<Product>, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Please enter valid credential.");
             }
 
-            var userResponse = JsonConvert.DeserializeObject<LinCUser>(jSonResponse);
-            return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (userResponse, true));
+            var prodsResponse = JsonConvert.DeserializeObject<ProductsResponse>(jSonResponse);
+
+            //convert response....
+            List<Product> products = ProductDataHelper.ConvertResponseProducts(prodsResponse);
+
+            return new ServiceResponse<(List<Product>, bool)>(ServiceStatus.Success, data: (products, true));
         }
+
+
+        public async Task<ServiceResponse<MasterData>> GetProductCategoryByUser(int userId)
+        {
+            var headers = RequestHeaderCreator.GetWebApiClientHeader();
+            //=====
+            /*
+            var deserializationSettings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
+                DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc,
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+                ContractResolver = new RestClient.Helpers.ReadOnlyJsonContractResolver(),
+                Converters = new List<Newtonsoft.Json.JsonConverter>
+                {
+                    new RestClient.Helpers.XmlTimeSpanConverter()
+                }
+            };
+            string masterDataJson = GetProductCategoryDataJson();
+
+            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<MasterData>(masterDataJson, deserializationSettings)
+                                .AsServiceResponse();
+            data.ServiceErrorCode = LinCTrasactionStatus.Success.ToString();
+            return data;
+            */
+            // ======
+            var reqBody = new ProdCategoryReq() { UserId = userId };
+
+            var response = await _restClient
+                    .ExecuteAsync<MasterData, ProdCategoryReq>(
+                        HttpVerb.POST,
+                        "/product/getProdCat",
+                        headers: headers,
+                        paramMode: HttpParamMode.BODY,
+                        requestBody: reqBody,
+                        apiRoutePrefix: $"{AppSettings.ApiEndpoint}");
+
+            if (!response.IsOK() || (response.Data == null))
+                return new ServiceResponse<MasterData>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Master data not found.");
+
+            return new ServiceResponse<MasterData>(ServiceStatus.Success, data: response.Data, errorMessage: "Success", errorCode: LinCTrasactionStatus.Success.ToString());
+
+        }
+
     }
 }

@@ -90,11 +90,34 @@ namespace LinC.ViewModels
                 if (response.Data.Item1 != null)
                 {
                     App.UserDetails = response.Data.Item1;
-                    App.UserDetails = new LinCUser(); // remove later
-                    App.UserDetails.UserId = 2; //remove later
-                    App.UserDetails.UserTypeId = 1; //remove later
+                    var responseProdCat = await _services.UserService.GetProductCategoryByUser(App.UserDetails.UserId.Value);
+                    App.MasterData.ProductCategoryList = responseProdCat.Data.ProductCategoryList;
 
-                ThreadingHelpers.InvokeOnMainThread(async () =>
+
+                    //App.UserDetails = new LinCUser(); // remove later
+                    //App.UserDetails.UserId = 2; //remove later
+                    //App.UserDetails.UserTypeId = 1; //remove later
+                    int? supplierId = null;
+
+                    switch (App.UserDetails.UserTypeId)
+                    {
+                        case 1: // SUPPLIER
+                            supplierId = UserDetails.UserId.Value;
+                            break;
+                        case 2: //CONSUMER
+                            break;
+                        case 3: // VOLUNTEER
+                            break;
+                        default:
+                            break;
+                    }
+
+                    var products = _services.UserService.GetUserProducts(App.UserDetails.UserId.Value,
+                                               supplierId.Value, App.UserDetails.ProductTypeIds[0]);
+
+                    // get orders
+
+                    ThreadingHelpers.InvokeOnMainThread(async () =>
                         await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),
                            (UserDashboardPageViewModel vm) =>
                            {

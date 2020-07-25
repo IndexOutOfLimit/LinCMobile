@@ -20,6 +20,18 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         public string UserSecret { get; set; }
     }
 
+    public class GetProductsReqBody
+    {
+        [JsonProperty(PropertyName = "usrId")]
+        public int UsrId { get; set; }
+
+        [JsonProperty(PropertyName = "supplierId")]
+        public int SupplierId { get; set; }
+
+        [JsonProperty(PropertyName = "productTypeMasterId")]
+        public int ProductTypeMasterId { get; set; }
+    }
+
     public class ProdCategoryReq
     {
         [JsonProperty(PropertyName = "usrId")]

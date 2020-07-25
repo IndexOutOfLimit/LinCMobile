@@ -365,7 +365,7 @@ namespace LinC.ViewModels
                     App.UserDetails = UserDetails;
 
                     // get product category list
-                    var responsePrdCategory = await _services.MasterDataService.GetProductCategoryByUser(UserDetails.UserId.ToString());
+                    var responsePrdCategory = await _services.UserService.GetProductCategoryByUser(UserDetails.UserId.Value);
 
                     if(responsePrdCategory.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                     {

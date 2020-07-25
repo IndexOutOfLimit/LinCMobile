@@ -13,6 +13,12 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "ProductId")]
         public int ProductId { get; set; }
 
+        [JsonProperty(PropertyName = "ProductName")]
+        public string ProductName { get; set; }
+
+        [JsonProperty(PropertyName = "UsrProductInventoryTrxId")]
+        public int UsrProductInventoryTrxId { get; set; }
+        
         [JsonProperty(PropertyName = "ProductTypeId")]
         public int ProductTypeId { get; set; }
 
