@@ -142,19 +142,34 @@ namespace LinC.ViewModels
 
         private void PlaceOrderAction()
         {
-            ThreadingHelpers.InvokeOnMainThread(async () =>
+            try
             {
-                AppInitialiserService.SetInitialiser<ProductCataloguePageViewModel>((ProductCataloguePageViewModel vm) =>
+                /*ThreadingHelpers.InvokeOnMainThread(async () =>
                 {
-                    vm.UserDetails = UserDetails;
-                    vm.ProductTypes = App.MasterData.ProductTypeMaster;
-                    //vm.ProductList = Products;
-                    //vm.Product = new Product();
-                    //vm.ProductTypes = App.MasterData.ProductTypeMaster;
-                });
+                    AppInitialiserService.SetInitialiser<ProductCataloguePageViewModel>((ProductCataloguePageViewModel vm) =>
+                    {
+                        vm.UserDetails = UserDetails;
+                        vm.ProductTypes = App.MasterData.ProductTypeMaster;                       
+                    });
 
-                await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower());
-            });
+                    await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower());
+                });*/
+
+
+                ThreadingHelpers.InvokeOnMainThread(async () =>
+                    await AppNavigationService.GoToAsync(nameof(SupplierCataloguePage).ToLower(),
+                        (SupplierCataloguePageViewModel vm) =>
+                        {
+                            vm.UserDetails = UserDetails;
+                            vm.ProductTypes = App.MasterData.ProductTypeMaster;
+                        })
+                    );
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
         }
 
     }

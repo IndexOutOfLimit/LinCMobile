@@ -27,6 +27,7 @@ namespace LinC.ViewModels
         public CustomDelegateCommand<Product> ProductSelectionCommand { get; }
 
         public string SearchTextProductName { get; set; }
+        public bool IsSupplierSearched { get; set; }
 
         public ProductCataloguePageViewModel(ILinCApiServices services)
         {
@@ -37,16 +38,17 @@ namespace LinC.ViewModels
             //PickerCellCommand = new CustomDelegateTimerCommand<ProductType>((item) => PickerTapped(item), item => true);
             AddToCartCommand = new CustomDelegateCommand(async () => await AddToCartAction(), () => true);
             ProductSelectionCommand = new CustomDelegateCommand<Product>((item) => ProductSelectionAction(item), (item) => true);
+            IsSupplierSearched = false;
         }
 
         protected override async Task OnShellNavigatingIn(string sender, ShellNavigatingEventArgs args)
         {
             await base.OnShellNavigatingIn(sender, args);
 
-            Products = new List<Product>();
-            Products.Add(new Product());
-            Products.Add(new Product());
-            Products.Add(new Product());
+            //Products = new List<Product>();
+            //Products.Add(new Product());
+            //Products.Add(new Product());
+            //Products.Add(new Product());
         }
 
 

@@ -31,7 +31,7 @@
                     <!--<RowDefinition  Height="Auto" />-->
                     <RowDefinition  Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="LblHeader" Grid.Row="0" Text="Your selected products" FontFamily="{StaticResource NunitoExtraBold}" FontSize="16" TextColor="{StaticResource BlackColor}"
+                <Label x:Name="LblHeader" Grid.Row="0" Text="Available products" FontFamily="{StaticResource NunitoExtraBold}" FontSize="16" TextColor="{StaticResource BlackColor}"
                        VerticalOptions="StartAndExpand" HorizontalOptions="Center"/>
                 <!--<SearchBar x:Name="filterText" Grid.Row="1" Placeholder="Search Product" Text="{Binding SearchText}">
                 </SearchBar>-->

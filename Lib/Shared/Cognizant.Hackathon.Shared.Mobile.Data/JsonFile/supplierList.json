@@ -1,0 +1,38 @@
+{
+  "supplierList": [
+    {
+      "usrId": 4,
+      "fisrtName": "Benny",
+      "middleName": null,
+      "lastName": "Oswal",
+      "email": "email10@mail.com",
+      "phoneNum": "9998887779",
+      "latitude": 37.848732,
+      "longitude": 27.839056,
+      "addr1": "Salt Lake, Sector V",
+      "addr2": null,
+      "pin": 700091,
+      "state": "West Bengal",
+      "country": "India",
+      "fullAddress": "Salt Lake, Sector V, 700091, West Bengal, India",
+      "distance": 0.028451847
+    },
+    {
+      "usrId": 5,
+      "fisrtName": "Jagan",
+      "middleName": null,
+      "lastName": "Sharma",
+      "email": "email11@mail.com",
+      "phoneNum": "9998887780",
+      "latitude": 37.848732,
+      "longitude": 27.839056,
+      "addr1": "Cognizant, Sector V",
+      "addr2": null,
+      "pin": 700091,
+      "state": "West Bengal",
+      "country": "India",
+      "fullAddress": "Cognizant, Sector V, 700091, West Bengal, India",
+      "distance": 0.028451847
+    }
+  ]
+}

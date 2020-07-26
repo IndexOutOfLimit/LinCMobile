@@ -1,0 +1,109 @@
+﻿{
+  "orderList": [
+    {
+      "orderId": 1,
+      "orderStatus": "Order Placed",
+      "consumerId": 6,
+      "consumer": "Karishma Agarwal",
+      "supplierId": 4,
+      "supplier": "Benny Oswal",
+      "isSelfPickup": 0,
+      "isVolunteered": 0,
+      "volunteerId": null,
+      "volunteer": null,
+      "orderTotal": 400.00,
+      "products": [
+        {
+          "orderDetailId": 1,
+          "productId": 1,
+          "usrProductInventoryTrxId": 1,
+          "productName": "Wheat Atta",
+          "productDescription": "Ganesh Atta Whole Wheat 5kg",
+          "quantityOrdered": 1,
+          "productRate": 200.00,
+          "totalPrice": 200.00
+        },
+        {
+          "orderDetailId": 2,
+          "productId": 4,
+          "usrProductInventoryTrxId": 3,
+          "productName": "Brown Rice",
+          "productDescription": "Organic Tattva Sona Msr Rice Brown 1kg",
+          "quantityOrdered": 2,
+          "productRate": 100.00,
+          "totalPrice": 200.00
+        }
+      ]
+    },
+    {
+      "orderId": 3,
+      "orderStatus": "Order Placed",
+      "consumerId": 6,
+      "consumer": "Karishma Agarwal",
+      "supplierId": 4,
+      "supplier": "Benny Oswal",
+      "isSelfPickup": 0,
+      "isVolunteered": 0,
+      "volunteerId": null,
+      "volunteer": null,
+      "orderTotal": 670.00,
+      "products": [
+        {
+          "orderDetailId": 6,
+          "productId": 3,
+          "usrProductInventoryTrxId": 2,
+          "productName": "Basmati Rice",
+          "productDescription": "Kohinoor Dubar Basmati Rice 5kg",
+          "quantityOrdered": 1,
+          "productRate": 670.00,
+          "totalPrice": 670.00
+        }
+      ]
+    },
+    {
+      "orderId": 6,
+      "orderStatus": "Order Placed",
+      "consumerId": 7,
+      "consumer": "Debdutta Chatterjee",
+      "supplierId": 4,
+      "supplier": "Benny Oswal",
+      "isSelfPickup": 0,
+      "isVolunteered": 0,
+      "volunteerId": null,
+      "volunteer": null,
+      "orderTotal": 1170.00,
+      "products": [
+        {
+          "orderDetailId": 7,
+          "productId": 1,
+          "usrProductInventoryTrxId": 1,
+          "productName": "Wheat Atta",
+          "productDescription": "Ganesh Atta Whole Wheat 5kg",
+          "quantityOrdered": 2,
+          "productRate": 200.00,
+          "totalPrice": 400.00
+        },
+        {
+          "orderDetailId": 8,
+          "productId": 4,
+          "usrProductInventoryTrxId": 3,
+          "productName": "Brown Rice",
+          "productDescription": "Organic Tattva Sona Msr Rice Brown 1kg",
+          "quantityOrdered": 1,
+          "productRate": 100.00,
+          "totalPrice": 100.00
+        },
+        {
+          "orderDetailId": 9,
+          "productId": 3,
+          "usrProductInventoryTrxId": 2,
+          "productName": "Basmati Rice",
+          "productDescription": "Kohinoor Dubar Basmati Rice 5kg",
+          "quantityOrdered": 1,
+          "productRate": 670.00,
+          "totalPrice": 670.00
+        }
+      ]
+    }
+  ]
+}

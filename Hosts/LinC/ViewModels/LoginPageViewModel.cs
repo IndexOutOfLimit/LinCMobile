@@ -12,6 +12,8 @@ using Xamarin.Essentials;
 using LinC.Platforms;
 using Cognizant.Hackathon.Shared.Mobile.Core.Interfaces;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LinC.ViewModels
 {
@@ -93,11 +95,13 @@ namespace LinC.ViewModels
                     var responseProdCat = await _services.UserService.GetProductCategoryByUser(App.UserDetails.UserId.Value);
                     App.MasterData.ProductCategoryList = responseProdCat.Data.ProductCategoryList;
 
+                    //var productTypes = from l in responseProdCat.Data.ProductCategoryList 
+                    //                   select l.ProductTypeId
 
-                    //App.UserDetails = new LinCUser(); // remove later
-                    //App.UserDetails.UserId = 2; //remove later
-                    //App.UserDetails.UserTypeId = 1; //remove later
-                    int? supplierId = null;
+                    var productTypes = responseProdCat.Data.ProductCategoryList.Select(l => l.ProductTypeId).Distinct();
+                                       
+
+                    int ? supplierId = null;
 
                     switch (App.UserDetails.UserTypeId)
                     {
@@ -112,10 +116,21 @@ namespace LinC.ViewModels
                             break;
                     }
 
-                    var products = _services.UserService.GetUserProducts(App.UserDetails.UserId.Value,
-                                               supplierId.Value, App.UserDetails.ProductTypeIds[0]);
+                    List<Product> prdList = new List<Product>();
 
-                    // get orders
+                    foreach (var item in productTypes)
+                    {
+                        var products = await _services.UserService.GetUserProducts(App.UserDetails.UserId.Value,
+                                               supplierId, item);
+
+                        if(products.Data.Item1 != null && products.Data.Item1.Count > 0)
+                        {
+                            prdList.AddRange(products.Data.Item1);
+                        }
+                    }
+                    
+                    // get orders for the user
+
 
                     ThreadingHelpers.InvokeOnMainThread(async () =>
                         await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),

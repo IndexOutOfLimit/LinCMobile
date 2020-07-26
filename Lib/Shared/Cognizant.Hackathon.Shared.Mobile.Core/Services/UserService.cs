@@ -14,6 +14,7 @@ using Cognizant.Hackathon.Shared.Mobile.Core.Services.Response;
 using Cognizant.Hackathon.Shared.Mobile.Models;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
 using Cognizant.Hackathon.Shared.Mobile.Core.Enums;
+using Cognizant.Hackathon.RestClient.Helpers;
 
 namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
 {
@@ -100,7 +101,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
         }
 
 
-        public async Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int userId, int supplierId, int productTypeMasterId)
+        public async Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int? userId, int? supplierId, int productTypeMasterId)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
@@ -138,12 +139,47 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             return new ServiceResponse<(List<Product>, bool)>(ServiceStatus.Success, data: (products, true));
         }
 
+        public async Task<ServiceResponse<(List<LinCUser>, bool)>> GetSuppliers(int userId, int prdTypeId, int searchWithin)
+        {
+            var headers = RequestHeaderCreator.GetWebApiClientHeader();
+
+            SuppliersReqBody userReq = new SuppliersReqBody
+            {
+                UserId = userId,
+                ProductTypeMasterId = prdTypeId,
+                SearchWithin = searchWithin
+            };
+
+            var response = await _restClient
+               .ExecuteAsync<string, SuppliersReqBody>(
+                   HttpVerb.POST,
+                   action: "/product/getSupplier",
+                   paramMode: HttpParamMode.BODY,
+                   requestBody: userReq,
+                   headers: headers,
+                   apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
+                   );
+            if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
+                return new ServiceResponse<(List<LinCUser>, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in retrieving user data");
+
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
+            if (jSonResponse.Contains("errorMessage"))
+            {
+                return new ServiceResponse<(List<LinCUser>, bool)>(ServiceStatus.Error, data: (null, false), errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Please enter valid credential.");
+            }
+
+            var userResponse = JsonConvert.DeserializeObject<SuppliersResponse>(jSonResponse);
+            //convert supplier list response
+            var supplierList = ProductDataHelper.ConvertSuppliersResponse(userResponse);
+
+            return new ServiceResponse<(List<LinCUser>, bool)>(ServiceStatus.Success, data: (supplierList, true));
+        }
 
         public async Task<ServiceResponse<MasterData>> GetProductCategoryByUser(int userId)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
             //=====
-            /*
+            
             var deserializationSettings = new Newtonsoft.Json.JsonSerializerSettings
             {
                 DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
@@ -162,9 +198,9 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                                 .AsServiceResponse();
             data.ServiceErrorCode = LinCTrasactionStatus.Success.ToString();
             return data;
-            */
+            
             // ======
-            var reqBody = new ProdCategoryReq() { UserId = userId };
+            /*var reqBody = new ProdCategoryReq() { UserId = userId };
 
             var response = await _restClient
                     .ExecuteAsync<MasterData, ProdCategoryReq>(
@@ -179,7 +215,12 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                 return new ServiceResponse<MasterData>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Master data not found.");
 
             return new ServiceResponse<MasterData>(ServiceStatus.Success, data: response.Data, errorMessage: "Success", errorCode: LinCTrasactionStatus.Success.ToString());
+            */
+        }
 
+        private string GetProductCategoryDataJson()
+        {
+            return "{\"productCategories\":[{\"prdctTypeId\":1,\"prdctTypeCode\":\"GRCSTP\",\"prdctTypeName\":\"Groceries&Staples\",\"prdctTypeDispSeq\":1,\"prdctCatId\":1,\"prdctCatCode\":\"FLRATA\",\"prdctCatName\":\"Flour|Atta\",\"prdctCatDispSeq\":1},{\"prdctTypeId\":1,\"prdctTypeCode\":\"GRCSTP\",\"prdctTypeName\":\"Groceries&Staples\",\"prdctTypeDispSeq\":1,\"prdctCatId\":2,\"prdctCatCode\":\"RCCRLS\",\"prdctCatName\":\"Rice&Cereals\",\"prdctCatDispSeq\":2},{\"prdctTypeId\":2,\"prdctTypeCode\":\"FRTVEG\",\"prdctTypeName\":\"Fruits&Vegetables\",\"prdctTypeDispSeq\":2,\"prdctCatId\":3,\"prdctCatCode\":\"FRFRTS\",\"prdctCatName\":\"FreshFruits\",\"prdctCatDispSeq\":1},{\"prdctTypeId\":2,\"prdctTypeCode\":\"FRTVEG\",\"prdctTypeName\":\"Fruits&Vegetables\",\"prdctTypeDispSeq\":2,\"prdctCatId\":4,\"prdctCatCode\":\"FRVEGS\",\"prdctCatName\":\"FreshVegetables\",\"prdctCatDispSeq\":2}]}";
         }
 
     }

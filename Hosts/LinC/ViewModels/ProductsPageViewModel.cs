@@ -56,13 +56,13 @@ namespace LinC.ViewModels
             await Task.Delay(10);
             ThreadingHelpers.InvokeOnMainThread(async () =>
                 {
-                    AppInitialiserService.SetInitialiser<AddProductPageViewModel>((AddProductPageViewModel vm) =>
-                    {
-                        vm.UserDetails = UserDetails;
-                        vm.ProductList = Products;
-                        vm.Product = item;
-                        vm.IsAddProduct = false;
-                    });
+                //    AppInitialiserService.SetInitialiser<AddProductPageViewModel>((AddProductPageViewModel vm) =>
+                //    {
+                //        vm.UserDetails = UserDetails;
+                //        vm.ProductList = Products;
+                //        vm.Product = item;
+                //        vm.IsAddProduct = false;
+                //    });
 
                     await AppNavigationService.GoBackAsync();
                 }
@@ -84,18 +84,17 @@ namespace LinC.ViewModels
         {
             ThreadingHelpers.InvokeOnMainThread(async () =>
             {
-                AppInitialiserService.SetInitialiser<AddProductPageViewModel>((AddProductPageViewModel vm) =>
-                {
-                    vm.UserDetails = UserDetails;
-                    vm.ProductList = Products;
-                    vm.Product = new Product();
-                    vm.ProductTypes = App.MasterData.ProductTypeMaster;
-                    vm.IsAddProduct = true;
-                });
+                //    AppInitialiserService.SetInitialiser<AddProductPageViewModel>((AddProductPageViewModel vm) =>
+                //    {
+                //        vm.UserDetails = UserDetails;
+                //        vm.ProductList = Products;
+                //        vm.Product = new Product();
+                //        vm.ProductTypes = App.MasterData.ProductTypeMaster;
+                //        vm.IsAddProduct = true;
+                //    });
 
                 await AppNavigationService.GoBackAsync();
-            }
-            );
+            });
         }
     }
 }

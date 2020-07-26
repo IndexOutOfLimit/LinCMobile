@@ -1,0 +1,50 @@
+{
+  "productCategoryList": [
+    {
+      "productCategoryMasterId": 1,
+      "productCategoryName": "Flour | Atta",
+      "productCategoryCode": "FLRATA",
+      "products": [
+        {
+          "productId": 1,
+          "usrProductInventoryTrxId": 1,
+          "productName": "Wheat Atta",
+          "productDescription": "Ganesh Atta Whole Wheat 5kg",
+          "productRate": 200,
+          "availableQuantity": 25
+        },
+        {
+          "productId": 11,
+          "usrProductInventoryTrxId": 7,
+          "productName": "Wheat Atta",
+          "productDescription": "Fortune Atta Whole Wheat 5kg",
+          "productRate": 200,
+          "availableQuantity": 10
+        }
+      ]
+    },
+    {
+      "productCategoryMasterId": 2,
+      "productCategoryName": "Rice & Cereals",
+      "productCategoryCode": "RCCRLS",
+      "products": [
+        {
+          "productId": 3,
+          "usrProductInventoryTrxId": 2,
+          "productName": "Basmati Rice",
+          "productDescription": "Kohinoor Dubar Basmati Rice 5kg",
+          "productRate": 670,
+          "availableQuantity": 50
+        },
+        {
+          "productId": 4,
+          "usrProductInventoryTrxId": 3,
+          "productName": "Brown Rice",
+          "productDescription": "Organic Tattva Sona Msr Rice Brown 1kg",
+          "productRate": 100,
+          "availableQuantity": 10
+        }
+      ]
+    }
+  ]
+}

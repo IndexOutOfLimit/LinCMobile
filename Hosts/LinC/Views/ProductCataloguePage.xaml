@@ -11,7 +11,15 @@
     BindingContext="{Binding ProductCataloguePage, Source={StaticResource Locator}}"
     xmlns:localBehaviors="clr-namespace:LinC.Behaviors"
     xmlns:template="clr-namespace:LinC.Template"
+    xmlns:localConverter="clr-namespace:LinC.Converters"
     xmlns:controls="clr-namespace:LinC.Controls;assembly=LinC">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <localConverter:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <Grid Padding="0,0,0,20">
              <Grid.RowDefinitions>
@@ -39,8 +47,8 @@
                     <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <!--<RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>-->
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
                             <controls:CustomPicker x:Name="PickerPrdType" ItemsSource="{Binding ProductTypes}"
@@ -51,28 +59,26 @@
                                                     BackgroundColor="Transparent" TextColor="Transparent"
                                                     HorizontalOptions="FillAndExpand" Visual="Material">
                                 <controls:CustomPicker.Behaviors>
-                                    <!--<localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                    <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
                                         Command="{Binding BindingContext.PickerCellCommand,Source={x:Reference PickerPrdType}}"
                                         CommandParameter="{Binding SelectedItem,Source={x:Reference PickerPrdType}}" 
                                         Converter="{StaticResource SelectedItemConverter}"                 
-                                        />-->
+                                        />
                                 </controls:CustomPicker.Behaviors>
                             </controls:CustomPicker>
                         </Frame>
-                        <SearchBar Grid.Row="1" Placeholder="Search product"  Text="{Binding SearchTextProductName}"/>
+                        <!--<SearchBar Grid.Row="1" Placeholder="Search product"  Text="{Binding SearchTextProductName}"/>
                        
                         <StackLayout Grid.Row="2" HorizontalOptions="EndAndExpand" Orientation="Horizontal" Padding="0,5,5,5">
-                            <!--<Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
-                                Text="RESET" TextColor="{StaticResource WhiteColor}" Margin="0" 
-                                Command="{Binding Path=ResetButtonTappedCommand}"/>-->
+                           
                             <Button FontFamily="{StaticResource NunitoBold}" BackgroundColor="{StaticResource BlueContentColor}" CornerRadius="10"
                                 Text="SEARCH" Margin="0" TextColor="{StaticResource WhiteColor}"
                                 Command="{Binding Path=SearchButtonTappedCommand}" />
-                        </StackLayout>
+                        </StackLayout>-->
                     </Grid>
                 </Frame>
-                <ListView Grid.Row="1" x:Name="listView"  ItemsSource ="{Binding Products}" CachingStrategy="RecycleElement"
-                            HasUnevenRows="True" SelectionMode="None" Margin="0,10,0,5" SeparatorVisibility="Default">                    
+                <ListView Grid.Row="1" x:Name="listView" IsVisible="{Binding IsSupplierSearched}"  ItemsSource ="{Binding Products}" CachingStrategy="RecycleElement"
+                             HasUnevenRows="True" Header="Supplier List" SelectionMode="None" Margin="0,10,0,5" SeparatorVisibility="Default">                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

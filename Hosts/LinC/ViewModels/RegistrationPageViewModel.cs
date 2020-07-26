@@ -258,11 +258,11 @@ namespace LinC.ViewModels
                 return false;
             }
 
-            //if (!UserDetails.UserTypeId.Equals("2") && UserDetails.ProductTypeIds.Count == 0)
-            //{
-            //    await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select one service type", "OK");
-            //    return false;
-            //}
+            if (!UserDetails.UserTypeId.Equals(2) && UserDetails.ProductTypeIds.Count == 0)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("User Registration", "Please select one service type", "OK");
+                return false;
+            }
 
             return true;
         }
@@ -334,7 +334,7 @@ namespace LinC.ViewModels
                     }
                 }
 
-                if(!UserDetails.UserTypeId.Equals("2"))
+                if(!UserDetails.UserTypeId.Equals(2))
                 {
                     if(UserDetails.ProductTypeIds.Count > 0)
                     {
@@ -357,11 +357,7 @@ namespace LinC.ViewModels
 
                 if (response.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                 {
-                    UserDetails = response.Data;
-
-                    //UserDetails = new LinCUser(); //remove later
-                    //UserDetails.UserTypeId = userTypeId;
-                    //UserDetails.UserId = "4"; //remove later
+                    UserDetails = response.Data;                    
                     App.UserDetails = UserDetails;
 
                     // get product category list
@@ -370,6 +366,8 @@ namespace LinC.ViewModels
                     if(responsePrdCategory.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                     {
                         App.MasterData.ProductCategoryList = responsePrdCategory.Data.ProductCategoryList;
+                        // get orders
+
 
                         ThreadingHelpers.InvokeOnMainThread(async () =>
                             await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),

@@ -54,6 +54,11 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
         [JsonProperty(PropertyName = "addr2")]
         public string AddressLine2 { get; set; }
 
+        public string FullAddress { get; set; }
+        public string StateName { get; set; }
+        public string CountryName { get; set; }
+        public double Distance { get; set; }
+
         [JsonProperty(PropertyName = "pin")]
         public int Pin { get; set; }
 

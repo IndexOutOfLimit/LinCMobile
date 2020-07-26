@@ -20,13 +20,26 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         public string UserSecret { get; set; }
     }
 
+    public class SuppliersReqBody
+    {
+        [JsonProperty(PropertyName = "usrId")]
+        public int UserId { get; set; }
+
+        [JsonProperty(PropertyName = "productTypeMasterId")]
+        public int ProductTypeMasterId { get; set; }
+
+        [JsonProperty(PropertyName = "searchWithin")]
+        public int SearchWithin { get; set; }
+
+    }
+
     public class GetProductsReqBody
     {
         [JsonProperty(PropertyName = "usrId")]
-        public int UsrId { get; set; }
+        public int? UsrId { get; set; }
 
         [JsonProperty(PropertyName = "supplierId")]
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
 
         [JsonProperty(PropertyName = "productTypeMasterId")]
         public int ProductTypeMasterId { get; set; }
@@ -37,6 +50,34 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         [JsonProperty(PropertyName = "usrId")]
         public int? UserId { get; set; }
     }
+
+    public class AddProductRequest
+    {
+        [JsonProperty(PropertyName = "addNewProduct")]
+        public List<ProductReq> Products { get; set; }
+
+        [JsonProperty(PropertyName = "usrId")]
+        public int UserId { get; set; }
+    }
+
+    public class ProductReq
+    {
+        [JsonProperty(PropertyName = "prdctCatId")]
+        public int ProductCatId { get; set; }
+
+        [JsonProperty(PropertyName = "prdctName")]
+        public string ProductName { get; set; }
+
+        [JsonProperty(PropertyName = "prdctDesc")]
+        public string ProductDesc { get; set; }
+
+        [JsonProperty(PropertyName = "prdctDesc")]
+        public int ProductRate { get; set; }
+
+        [JsonProperty(PropertyName = "prdctQty")]
+        public int ProductQty { get; set; }
+    }
+
 
     public class DocumentMailDataReq
     {

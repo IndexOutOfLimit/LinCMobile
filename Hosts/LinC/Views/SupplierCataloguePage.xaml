@@ -8,7 +8,17 @@
     BackgroundColor="{StaticResource ScreenBackgroundColor}"
     x:Class="LinC.Views.SupplierCataloguePage"
     x:Name="SupplierCataloguePageRef"
-    BindingContext="{Binding SupplierCataloguePage, Source={StaticResource Locator}}">
+    BindingContext="{Binding SupplierCataloguePage, Source={StaticResource Locator}}"
+    xmlns:localBehaviors="clr-namespace:LinC.Behaviors"
+    xmlns:localConverter="clr-namespace:LinC.Converters"
+    xmlns:controls="clr-namespace:LinC.Controls;assembly=LinC">
+
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <localConverter:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <Grid Padding="0,0,0,20">
              <Grid.RowDefinitions>
@@ -23,7 +33,33 @@
                     <RowDefinition  Height="Auto" />
                     <RowDefinition  Height="*" />
                 </Grid.RowDefinitions>
+
                 <Frame Grid.Row="0" Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                       Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                    <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>                           
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0" Padding="0" Margin="0,1,0,1" BorderColor="Transparent" CornerRadius="8" Visual="Material" HasShadow="True">
+                            <controls:CustomPicker x:Name="PickerPrdType" ItemsSource="{Binding ProductTypes}"
+                                                    ItemDisplayBinding="{Binding ProductTypeName}" SelectedItem="{Binding SelectedProductType}"
+                                                    Title="Product Type" CenterTitle="Product Type" FinishTitle="Done" 
+                                                    TitleColor="{StaticResource BlackColor}" FontSize="16"
+                                                    FontFamily="{StaticResource NunitoBold}"
+                                                    BackgroundColor="Transparent" TextColor="Transparent"
+                                                    HorizontalOptions="FillAndExpand" Visual="Material">
+                                <controls:CustomPicker.Behaviors>
+                                    <localBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                        Command="{Binding BindingContext.PickerCellCommand,Source={x:Reference PickerPrdType}}"
+                                        CommandParameter="{Binding SelectedItem,Source={x:Reference PickerPrdType}}" 
+                                        Converter="{StaticResource SelectedItemConverter}" />
+                                </controls:CustomPicker.Behaviors>
+                            </controls:CustomPicker>
+                        </Frame>                        
+                    </Grid>
+                </Frame>
+
+                <!--<Frame Grid.Row="0" Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                        Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
                     <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
                         <Grid.RowDefinitions>
@@ -50,32 +86,62 @@
                                 Command="{Binding Path=SearchButtonTappedCommand}" />
                         </StackLayout>
                     </Grid>
-                </Frame>
-                <ListView Grid.Row="1" x:Name="listView"  ItemsSource ="{Binding Suppliers}" CachingStrategy="RecycleElement"
-                            HasUnevenRows="True" SelectionMode="None" Margin="0,0,0,5" SeparatorVisibility="Default">                    
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout>
-                                    <Frame Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                                                Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
-                                        <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="100"/>
-                                            </Grid.RowDefinitions>                                            
-                                            <StackLayout Margin="5,0,0,0" Padding="0" Spacing="0" HorizontalOptions="FillAndExpand">
-                                                <Label Text="{Binding Name, StringFormat='Store Name: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
-                                                <Label Text="{Binding ServiceType, StringFormat='Product Type: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
-                                                <Label Text="{Binding Area, StringFormat='Area: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
-                                            </StackLayout>                                            
-                                        </Grid>
-                                    </Frame>
-                                    <BoxView HeightRequest="2" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                </Frame>-->
+                <StackLayout  Grid.Row="1" IsVisible="{Binding IsSupplierSearched}" >
+                    <Label Text="Supplier List" TextColor="{StaticResource TextDefaultColor}"
+                           FontFamily="{StaticResource NunitoExtraBold}" FontSize="18"/>
+
+                    <ListView x:Name="listView"  ItemsSource ="{Binding Suppliers}" CachingStrategy="RecycleElement"
+                       HasUnevenRows="True" SelectionMode="None" Margin="0,0,0,5" SeparatorVisibility="Default">                    
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Frame Visual="Material" HasShadow="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                                    Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
+                                            <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="140"/>
+                                                </Grid.RowDefinitions>                                            
+                                                <StackLayout Margin="5,0,0,0" Padding="0" Spacing="0" HorizontalOptions="FillAndExpand">
+                                                    <Label Text="{Binding FullName, StringFormat='Name: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
+                                                    <Label Text="{Binding Email, StringFormat='Email: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                    <Label Text="{Binding Phone, StringFormat='Phone: {0}'}" FontFamily="{StaticResource NunitoExtraBold}" />
+                                                    <Label Text="{Binding Email, StringFormat='Email: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                    <Label Text="{Binding Distance, StringFormat='Distance: {0}'}" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                
+                                                    <Label Text="{Binding Area, StringFormat='Area: {0}'}" LineBreakMode="CharacterWrap" FontFamily="{StaticResource NunitoExtraBold}"/>
+                                                </StackLayout>                                            
+                                            </Grid>
+                                        </Frame>
+                                        <BoxView HeightRequest="2" />
+                                         <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding BindingContext.SupplierSelectCommand,Source={x:Reference listView}}"
+                                            CommandParameter="{Binding .}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <!--<StackLayout.Behaviors>
+                                            <localBehaviors:EventToCommandBehavior
+                                            Command="{Binding BindingContext.SupplierSelectCommand,Source={x:Reference listView}}"
+                                            CommandParameter="{Binding .}"
+                                            EventName="Tapped" Converter="{StaticResource SelectedItemConverter}" />
+                                        </StackLayout.Behaviors>-->
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <!--<ListView.Behaviors>
+                            <localBehaviors:EventToCommandBehavior
+                            Command="{Binding BindingContext.SupplierSelectCommand,Source={x:Reference listView}}"
+                            CommandParameter="{Binding .}"
+                            EventName="ItemSelected" Converter="{StaticResource SelectedItemConverter}" />
+                        </ListView.Behaviors>-->
+                    </ListView>
+                    
+                </StackLayout>
+
+                
             </Grid>
         </Grid>
     </ContentPage.Content>

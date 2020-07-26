@@ -10,5 +10,9 @@ namespace LinC.Views
         {
             InitializeComponent();
         }
+
+        void listView_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+        }
     }
 }

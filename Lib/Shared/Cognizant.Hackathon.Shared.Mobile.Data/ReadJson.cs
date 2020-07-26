@@ -8,16 +8,14 @@ namespace Cognizant.Hackathon.Shared.Mobile.Data
     {
         public ReadJson()
         {
-
         }
 
-        public static string ReadJsonFile()
+        public static string ReadSupplierProductsJsonFile()
         {
             try
             {
-
                 var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ReadJson)).Assembly;
-                Stream stream = assembly.GetManifestResourceStream("Cognizant.Hackathon.Shared.Mobile.Data.JsonFile.json");
+                Stream stream = assembly.GetManifestResourceStream("Cognizant.Hackathon.Shared.Mobile.Data.JsonFile.supplierProducts.json");
                 string json;
 
                 using (var reader = new System.IO.StreamReader(stream))
