@@ -99,12 +99,43 @@ namespace LinC.ViewModels
 
                 if (response.Data)
                 {
+
+                    var productTypes = App.MasterData.ProductCategoryList.Select(l => l.ProductTypeId).Distinct();
+
+                    int? supplierId = null;
+
+                    switch (App.UserDetails.UserTypeId)
+                    {
+                        case 1: // SUPPLIER
+                            supplierId = App.UserDetails.UserId.Value;
+                            break;
+                        case 2: //CONSUMER
+                            break;
+                        case 3: // VOLUNTEER
+                            break;
+                        default:
+                            break;
+                    }
+
+                    List<Product> prdList = new List<Product>();
+
+                    foreach (var item in productTypes)
+                    {
+                        var products = await _services.UserService.GetUserProducts(App.UserDetails.UserId.Value,
+                                               supplierId, item);
+
+                        if (products.Data.Item1 != null && products.Data.Item1.Count > 0)
+                        {
+                            prdList.AddRange(products.Data.Item1);
+                        }
+                    }
+
                     ThreadingHelpers.InvokeOnMainThread(async () =>
                         await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),
                             (UserDashboardPageViewModel vm) =>
                             {
                                 vm.UserDetails = App.UserDetails;
-                                vm.Products = this.Products;
+                                vm.Products = prdList;
                             })
                         );
                 }
