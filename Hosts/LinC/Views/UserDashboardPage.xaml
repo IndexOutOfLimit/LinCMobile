@@ -68,12 +68,13 @@
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="End" BackgroundColor="White" 
                                                          VerticalOptions="StartAndExpand" Padding="0" Spacing="0" Margin="0,0,0,0"
                                                          Grid.Row="0" Grid.Column="1">
-                                                    <Button  WidthRequest="20" BackgroundColor="White" Padding="0" Margin="0" BorderWidth="0" BorderColor="White"
-                                                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="35"
-                                                        Text="{x:Static template:FontAwesomeIcons.Edit}"
+                                                    <Button  BackgroundColor="White" BorderWidth="0" BorderColor="White" Margin="-1,2,5,-2"
+                                                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"
+                                                        Text="{x:Static template:FontAwesomeIcons.Edit}" HeightRequest="45"  WidthRequest="45" CornerRadius="22"
                                                         Command="{Binding BindingContext.EditProductCommand, Source={x:Reference UserDashboardPageRef}}" CommandParameter="{Binding .}"/>
-                                                    <Button  BackgroundColor="White" BorderWidth="0"  BorderColor="Transparent" 
-                                                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="35"
+                                                    <Button  BackgroundColor="White" BorderWidth="0"  BorderColor="Transparent" Margin="0,8,5,2"
+                                                             HeightRequest="45"  WidthRequest="45" CornerRadius="22"
+                                                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"
                                                         Text="{x:Static template:FontAwesomeIcons.Trash}"
                                                         Command="{Binding BindingContext.DeleteProductCommand, Source={x:Reference UserDashboardPageRef}}" CommandParameter="{Binding .}"/>
 

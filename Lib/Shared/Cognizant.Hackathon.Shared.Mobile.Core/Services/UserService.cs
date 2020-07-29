@@ -100,6 +100,51 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             return new ServiceResponse<(LinCUser, bool)>(ServiceStatus.Success, data: (userResponse, true));
         }
 
+        public async Task<ServiceResponse<bool>> SaveProduct(List<Product> productsToAdd , int? userId)
+        {
+            var headers = RequestHeaderCreator.GetWebApiClientHeader();
+
+            List<ProductReq> prdsReq = new List<ProductReq>();
+
+            foreach (var item in productsToAdd)
+            {
+                ProductReq prdReq = new ProductReq();
+                prdReq.ProductCatId = item.ProductCategoryId;
+                prdReq.ProductDesc = item.Description;
+                prdReq.ProductName = item.ProductCategory;
+                prdReq.ProductQty = item.Quantity;
+                prdReq.ProductRate = item.UnitPrice;
+
+                prdsReq.Add(prdReq);
+            }
+
+            AddProductRequest addProdsReq = new AddProductRequest
+            {
+                UserId = userId.Value,
+                Products = prdsReq
+            };
+
+            var response = await _restClient
+               .ExecuteAsync<string, AddProductRequest>(
+                   HttpVerb.POST,
+                   action: "/product/saveProductForSupplier",
+                   paramMode: HttpParamMode.BODY,
+                   requestBody: addProdsReq,
+                   headers: headers,
+                   apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
+                   );
+
+            if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
+                return new ServiceResponse<bool>(ServiceStatus.Error, data: false, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
+
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
+            if (jSonResponse.Contains("errorMessage"))
+            {
+                return new ServiceResponse<bool>(ServiceStatus.Error, data: false, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
+            }           
+
+            return new ServiceResponse<bool>(ServiceStatus.Success, data: true);
+        }
 
         public async Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int? userId, int? supplierId, int productTypeMasterId)
         {
@@ -179,7 +224,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
             //=====
-            
+            /*
             var deserializationSettings = new Newtonsoft.Json.JsonSerializerSettings
             {
                 DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat,
@@ -198,9 +243,9 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                                 .AsServiceResponse();
             data.ServiceErrorCode = LinCTrasactionStatus.Success.ToString();
             return data;
-            
+            */
             // ======
-            /*var reqBody = new ProdCategoryReq() { UserId = userId };
+            var reqBody = new ProdCategoryReq() { UserId = userId };
 
             var response = await _restClient
                     .ExecuteAsync<MasterData, ProdCategoryReq>(
@@ -215,7 +260,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                 return new ServiceResponse<MasterData>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Master data not found.");
 
             return new ServiceResponse<MasterData>(ServiceStatus.Success, data: response.Data, errorMessage: "Success", errorCode: LinCTrasactionStatus.Success.ToString());
-            */
+            
         }
 
         private string GetProductCategoryDataJson()

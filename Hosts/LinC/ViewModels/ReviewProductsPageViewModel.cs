@@ -88,16 +88,35 @@ namespace LinC.ViewModels
                 return;
             }
 
-            // Save to backend DB
+            try
+            {
+                AppSpinner.ShowLoading();
 
-            ThreadingHelpers.InvokeOnMainThread(async () =>
-                await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),
-                    (UserDashboardPageViewModel vm) =>
-                    {
-                        vm.UserDetails = App.UserDetails;
-                        vm.Products = this.Products;
-                    })
-                );
+                // Save to backend DB
+                var response = await _services.UserService.SaveProduct(Products, UserDetails.UserId);
+
+                AppSpinner.HideLoading();
+
+                if (response.Data)
+                {
+                    ThreadingHelpers.InvokeOnMainThread(async () =>
+                        await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),
+                            (UserDashboardPageViewModel vm) =>
+                            {
+                                vm.UserDetails = App.UserDetails;
+                                vm.Products = this.Products;
+                            })
+                        );
+                }
+                else
+                {
+                    await AppPopupInputService.ShowMessageOkAlertPopup("Submit Product", response.ErrorMessage, "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void AddProductAction()

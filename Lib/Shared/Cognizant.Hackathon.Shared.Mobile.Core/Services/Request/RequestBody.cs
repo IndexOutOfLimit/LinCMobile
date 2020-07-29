@@ -72,7 +72,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         public string ProductDesc { get; set; }
 
         [JsonProperty(PropertyName = "prdctDesc")]
-        public int ProductRate { get; set; }
+        public double ProductRate { get; set; }
 
         [JsonProperty(PropertyName = "prdctQty")]
         public int ProductQty { get; set; }

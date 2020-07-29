@@ -99,7 +99,7 @@
                         </StackLayout>-->
                         <StackLayout  Grid.Row="2" Orientation="Horizontal" Padding="0,0,0,0" Spacing="0" Margin="0" HorizontalOptions="FillAndExpand">
                             <Frame Padding="0" Margin="0" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True" >
-                                <commonControls:BorderlessMaterialEntry  WidthRequest="180" FontSize="16" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
+                                <commonControls:BorderlessMaterialEntry  WidthRequest="130" FontSize="16" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
                                                                 Placeholder="Quantity" FontAttributes="Bold"
                                                                 Text="{Binding Product.Quantity}" Keyboard="Numeric"
                                                                 IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
@@ -117,8 +117,8 @@
 
                          <Frame Grid.Row="3" Padding="1" BorderColor="Transparent" Visual="Material" CornerRadius="8" HasShadow="True">
                                 <commonControls:BorderlessMaterialEntry WidthRequest="80" FontSize="16" Visual="Material" FontFamily="{StaticResource NunitoBold}" ReturnType="Done"  PlaceholderColor="{StaticResource TextDefaultColor}"
-                                                                Placeholder="Price" FontAttributes="Bold"
-                                                                Text="{Binding Product.Price}" Keyboard="Numeric"
+                                                                Placeholder="Unit Price" FontAttributes="Bold"
+                                                                Text="{Binding Product.UnitPrice}" Keyboard="Numeric"
                                                                 IsNumericKeyboard="True" HorizontalOptions="FillAndExpand" Margin="0,0,0,0">
                                     <commonControls:BorderlessMaterialEntry.TextColor>
                                         <OnPlatform x:TypeArguments="Color" Android="Transparent" iOS="Black"></OnPlatform>

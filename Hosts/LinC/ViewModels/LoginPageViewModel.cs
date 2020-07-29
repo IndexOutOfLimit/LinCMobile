@@ -85,7 +85,7 @@ namespace LinC.ViewModels
             {
                //if(UserDetails.Email)
                 AppSpinner.ShowLoading();
-                var response = await _services.UserService.GetUserAsync(null, null, null, UserDetails.Email, UserDetails.UserSecret);
+                var response = await _services.UserService.GetUserAsync(null, null, null, UserDetails.UserName, UserDetails.UserSecret);
 
                 //Get Products & orders
                 
@@ -95,18 +95,14 @@ namespace LinC.ViewModels
                     var responseProdCat = await _services.UserService.GetProductCategoryByUser(App.UserDetails.UserId.Value);
                     App.MasterData.ProductCategoryList = responseProdCat.Data.ProductCategoryList;
 
-                    //var productTypes = from l in responseProdCat.Data.ProductCategoryList 
-                    //                   select l.ProductTypeId
-
                     var productTypes = responseProdCat.Data.ProductCategoryList.Select(l => l.ProductTypeId).Distinct();
-                                       
-
+                    
                     int ? supplierId = null;
 
                     switch (App.UserDetails.UserTypeId)
                     {
                         case 1: // SUPPLIER
-                            supplierId = UserDetails.UserId.Value;
+                            supplierId = App.UserDetails.UserId.Value;
                             break;
                         case 2: //CONSUMER
                             break;
@@ -137,7 +133,7 @@ namespace LinC.ViewModels
                            (UserDashboardPageViewModel vm) =>
                            {
                                vm.UserDetails = App.UserDetails;
-                               //vm.Products = this.Products;
+                               vm.Products = prdList;
                                //vm.Orders = Orders.Where(o => o.IsSubmitted).ToList();
                            })
                          );

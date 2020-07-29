@@ -130,10 +130,12 @@ namespace LinC.ViewModels
                 AppInitialiserService.SetInitialiser<AddProductPageViewModel>((AddProductPageViewModel vm) =>
                 {
                     vm.UserDetails = UserDetails;
-                    vm.ProductList = Products;
+                    vm.ProductList = null;// Products;
                     vm.Product = new Product();
                     vm.ProductTypes = App.MasterData.ProductTypeMaster;
+                    vm.ProductCategories = App.MasterData.ProductCategoryList;
                     vm.IsAddProduct = true;
+                    vm.Product.Quantity = 1;
                 });
 
                 await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower());

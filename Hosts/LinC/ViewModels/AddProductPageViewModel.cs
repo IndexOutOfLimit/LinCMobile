@@ -65,8 +65,8 @@ namespace LinC.ViewModels
             else
             {
                 HeaderText = "Add Product";
-                SelectedProductCategory = null;
-                SelectedProductType = ProductTypes[0];
+                //SelectedProductCategory = null;
+                //SelectedProductType = ProductTypes[0];
                 //ProductCategories = null;
             }
             /*if(Product != null)
@@ -132,9 +132,9 @@ namespace LinC.ViewModels
                 qty += 1;
             }
 
-            if (qty < 0)
+            if (qty <= 0)
             {
-                qty = 0;
+                qty = 1;
             }
             ThreadingHelpers.InvokeOnMainThread(() =>
             {
@@ -176,6 +176,41 @@ namespace LinC.ViewModels
 
         private async Task NextButtonTapped()
         {
+            if(SelectedProductType != null)
+            {
+                if(Product.ProductTypeId == 0)
+                {
+                    Product.ProductTypeId = SelectedProductType.ProductTypeId;
+                    Product.ProductType = SelectedProductType.ProductTypeName;
+                }
+            }
+
+            if (SelectedProductCategory != null)
+            {
+                if (Product.ProductCategoryId == 0)
+                {
+                    Product.ProductCategoryId = SelectedProductCategory.ProductCategoryId;
+                    Product.ProductCategory = SelectedProductCategory.ProductCategoryName;
+                }
+            }
+
+            if (Product.Quantity == 0)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("Add Product", "Quantity cannot be zero.", "OK");
+                return; ;
+            }
+
+            if (Product.ProductTypeId == 0)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("Add Product", "Please select product type.", "OK");
+                return; ;
+            }
+
+            if (Product.ProductCategoryId == 0)
+            {
+                await AppPopupInputService.ShowMessageOkAlertPopup("Add Product", "Please select product category.", "OK");
+                return; ;
+            }
             //ThreadingHelpers.InvokeOnMainThread(async () =>
             //    await AppNavigationService.GoToAsync(nameof(ChatPage).ToLower(),
             //        (ChatPageViewModel vm) =>
@@ -184,24 +219,31 @@ namespace LinC.ViewModels
             //        })
             //    );
 
-            if (ProductList == null)
-            {
-                ProductList = new List<Product>();
-            }
+            try
+            {                
+                if (ProductList == null)
+                {
+                    ProductList = new List<Product>();
+                }
 
-            if(IsAddProduct)
-            {
-                ProductList.Add(Product);
+                if (IsAddProduct)
+                {
+                    ProductList.Add(Product);
+                }
+
+                ThreadingHelpers.InvokeOnMainThread(async () =>
+                    await AppNavigationService.GoToAsync(nameof(ReviewProductsPage).ToLower(),
+                        (ReviewProductsPageViewModel vm) =>
+                        {
+                            vm.UserDetails = UserDetails;
+                            vm.Products = ProductList;
+                        })
+                    );
             }
-            
-            ThreadingHelpers.InvokeOnMainThread(async () =>
-                await AppNavigationService.GoToAsync(nameof(ReviewProductsPage).ToLower(),
-                    (ReviewProductsPageViewModel vm) =>
-                    {
-                        vm.UserDetails = UserDetails;
-                        vm.Products = ProductList;
-                    })
-                );
+            catch (Exception ex)
+            {
+
+            }            
         }
 
         private void PickerTapped(object item)
