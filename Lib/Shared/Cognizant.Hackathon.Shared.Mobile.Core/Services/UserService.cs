@@ -146,6 +146,124 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             return new ServiceResponse<bool>(ServiceStatus.Success, data: true);
         }
 
+        public async Task<ServiceResponse<List<Order>>> GetOrders(LinCUser user, int? orderId = null)
+        {
+            var headers = RequestHeaderCreator.GetWebApiClientHeader();
+
+            GetOrderReq getOrdReq = new GetOrderReq();
+
+            switch (user.UserTypeId)
+            {
+                case 2: //LinCUserType.Consumer:    
+                    getOrdReq.ConsumerId = user.UserId;
+                    getOrdReq.SearchType = "CONSUMER";
+                    break;
+                case 1:// LinCUserType.Supplier:
+                    getOrdReq.SupplierId = user.UserId;
+                    getOrdReq.SearchType = "SUPPLIER";
+                    break;
+                case 3:// LinCUserType.Volunteer:
+                    getOrdReq.SupplierId = user.UserId;
+                    getOrdReq.SearchType = "VOLUNTEER";
+                    break;
+                default:
+                    break;
+            }
+
+            getOrdReq.OrderId = orderId;
+
+            var response = await _restClient
+             .ExecuteAsync<string, GetOrderReq>(
+                HttpVerb.POST,
+                action: "/product/getOrder",
+                paramMode: HttpParamMode.BODY,
+                requestBody: getOrdReq,
+                headers: headers,
+                apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
+            );
+
+            if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
+                return new ServiceResponse<List<Order>>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
+
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
+            if (jSonResponse.Contains("errorMessage"))
+            {
+                return new ServiceResponse<List<Order>>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
+            }
+
+            var ordersResponse = JsonConvert.DeserializeObject<GetOrderResponse>(jSonResponse);
+
+            return new ServiceResponse<List<Order>>(ServiceStatus.Success, data: ordersResponse.Orders);
+        }
+
+        public async Task<ServiceResponse<List<Order>>> SaveOrders(List<Product> ordersToAdd, LinCUser user)
+        {
+            var headers = RequestHeaderCreator.GetWebApiClientHeader();
+
+            List<OrderProductReq> ordsReq = new List<OrderProductReq>();
+
+            foreach (var item in ordersToAdd)
+            {
+                OrderProductReq ordReq = new OrderProductReq();
+                ordReq.ProductId = item.ProductId;
+                ordReq.ProductDescription = item.Description;
+                ordReq.ProductName = item.ProductName;
+                ordReq.ProductRate = item.UnitPrice;
+                ordReq.QuantityOrdered = item.Quantity;
+                ordReq.TotalPrice = item.Price;
+                ordReq.UserProductInventoryTrxId = item.UsrProductInventoryTrxId;
+
+                ordsReq.Add(ordReq);
+            }
+
+            SaveOrderReq saveOrdReq = new SaveOrderReq();
+
+            switch (user.UserTypeId)
+            {
+                case 2: //LinCUserType.Consumer:
+                    saveOrdReq.Consumer = user.FullName;
+                    saveOrdReq.ConsumerId = user.UserId;                    
+                    break;
+                case 1:// LinCUserType.Supplier:
+                    saveOrdReq.Supplier = user.FullName;
+                    saveOrdReq.supplierId = user.UserId;
+                    break;
+                case 3:// LinCUserType.Volunteer:
+                    saveOrdReq.Volunteer = user.FullName;
+                    saveOrdReq.VolunteerId = user.UserId;
+                    saveOrdReq.isVolunteered = true;
+                    break;
+                default:
+                    break;
+            }
+            saveOrdReq.Products = ordsReq;
+            saveOrdReq.OrderTotal = ordersToAdd.Count;
+            saveOrdReq.OrderStatus = "ORDPLCD";
+            
+            var response = await _restClient
+             .ExecuteAsync<string, SaveOrderReq>(
+                HttpVerb.POST,
+                action: "/product/saveOrder",
+                paramMode: HttpParamMode.BODY,
+                requestBody: saveOrdReq,
+                headers: headers,
+                apiRoutePrefix: $"{AppSettings.ApiEndpoint}"
+            );
+
+            if (!response.IsOK() || string.IsNullOrEmpty(response.StringData))
+                return new ServiceResponse<List<Order>>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
+
+            var jSonResponse = response.StringData.Replace(@"\", string.Empty);
+            if (jSonResponse.Contains("errorMessage") || jSonResponse.Contains("BUSINESS ERROR"))
+            {
+                return new ServiceResponse<List<Order>>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
+            }
+            
+            var ordersResponse = JsonConvert.DeserializeObject<GetOrderResponse>(jSonResponse);
+
+            return new ServiceResponse<List<Order>>(ServiceStatus.Success, data: ordersResponse.Orders);
+        }
+
         public async Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int? userId, int? supplierId, int productTypeMasterId)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();

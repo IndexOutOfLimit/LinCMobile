@@ -123,6 +123,12 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Response
         public List<ProductTypeResponse> ProductTypes { get; set; }
     }
 
+    public class GetOrderResponse
+    {
+        [JsonProperty(PropertyName = "orderList")]
+        public List<Order> Orders { get; set; }
+    }
+
     public class SuppliersResponse
     {
         [JsonProperty(PropertyName = "supplierList")]

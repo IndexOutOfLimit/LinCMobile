@@ -172,17 +172,14 @@
                                                         <ColumnDefinition Width="0.1*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <StackLayout Margin="5,0,0,0" VerticalOptions="Start" Padding="0" Spacing="0" Grid.Row="0" Grid.Column="0">
-                                                        <Label Text="{Binding ProductCategory, StringFormat='Product Name: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
-                                                        <Label Text="{Binding ProductType, StringFormat='Product Type: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
-                                                        <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
-                                                        <Label Text="{Binding Price, StringFormat='Price: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
-                                                        <Label Text="{Binding Price, StringFormat='Status: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
-                                                        <Label Text="{Binding Description}" LineBreakMode="WordWrap" FontFamily="{StaticResource NunitoBold}"/>
-
+                                                        <Label Text="{Binding Supplier, StringFormat='Supplier Name: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
+                                                        <Label Text="{Binding OrderTotal, StringFormat='Order Total: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
+                                                        <Label Text="{Binding OrderStatus, StringFormat='OrderStatus: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
+                                                        <Label Text="{Binding Description, StringFormat='Product Ordered: {0}'}" LineBreakMode="WordWrap" FontFamily="{StaticResource NunitoBold}"/>
                                                     </StackLayout>
-                                                    <!--<StackLayout Orientation="Vertical" HorizontalOptions="End" BackgroundColor="White" 
+                                                    <StackLayout Orientation="Vertical" HorizontalOptions="End" BackgroundColor="White" 
                                                          VerticalOptions="StartAndExpand" Padding="0" Spacing="0" Margin="0,0,0,0"
-                                                         Grid.Row="0" Grid.Column="1">
+                                                         Grid.Row="0" Grid.Column="1" IsVisible="{Binding IsConsumer}">
                                                         <Button  WidthRequest="20" BackgroundColor="White" Padding="0" Margin="0" BorderWidth="0" BorderColor="White"
                                                             FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="35"
                                                             Text="{x:Static template:FontAwesomeIcons.UserCheck}"
@@ -193,9 +190,8 @@
                                                             Text="{x:Static template:FontAwesomeIcons.ThumbsUp}"
                                                             IsVisible="{Binding IsProductApproved}"
                                                             Command="{Binding BindingContext.DeleteProductCommand, Source={x:Reference UserDashboardPageRef}}" CommandParameter="{Binding .}"/>
-
-                                                    </StackLayout>-->
-                                                    <CheckBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" HeightRequest="25" WidthRequest="25"
+                                                    </StackLayout>
+                                                    <!--<CheckBox Grid.Row="0" Grid.Column="1" Margin="0,5,0,0" HeightRequest="25" WidthRequest="25"
                                                          Color="{StaticResource BlueContentColor}" VerticalOptions="StartAndExpand">
                                                         <CheckBox.Behaviors>
                                                             <localBehaviors:EventToCommandBehavior
@@ -203,7 +199,7 @@
                                                         CommandParameter="{Binding .}"
                                                         EventName="CheckedChanged" />
                                                         </CheckBox.Behaviors>
-                                                    </CheckBox>
+                                                    </CheckBox>-->
                                                 </Grid>
                                             </Frame>
                                             <BoxView HeightRequest="2" />

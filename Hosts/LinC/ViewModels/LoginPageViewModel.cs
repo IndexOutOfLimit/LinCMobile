@@ -92,17 +92,29 @@ namespace LinC.ViewModels
                 if (response.Data.Item1 != null)
                 {
                     App.UserDetails = response.Data.Item1;
-                    var responseProdCat = await _services.UserService.GetProductCategoryByUser(App.UserDetails.UserId.Value);
-                    App.MasterData.ProductCategoryList = responseProdCat.Data.ProductCategoryList;
-
-                    var productTypes = responseProdCat.Data.ProductCategoryList.Select(l => l.ProductTypeId).Distinct();
                     
                     int ? supplierId = null;
+                    List<Product> prdList = new List<Product>();
 
                     switch (App.UserDetails.UserTypeId)
                     {
                         case 1: // SUPPLIER
+                            var responseProdCat = await _services.UserService.GetProductCategoryByUser(App.UserDetails.UserId.Value);
+                            App.MasterData.ProductCategoryList = responseProdCat.Data.ProductCategoryList;
+
+                            var productTypes = responseProdCat.Data.ProductCategoryList.Select(l => l.ProductTypeId).Distinct();
+
                             supplierId = App.UserDetails.UserId.Value;
+                            foreach (var item in productTypes)
+                            {
+                                var products = await _services.UserService.GetUserProducts(App.UserDetails.UserId.Value,
+                                                       supplierId, item);
+
+                                if (products.Data.Item1 != null && products.Data.Item1.Count > 0)
+                                {
+                                    prdList.AddRange(products.Data.Item1);
+                                }
+                            }
                             break;
                         case 2: //CONSUMER
                             break;
@@ -112,19 +124,6 @@ namespace LinC.ViewModels
                             break;
                     }
 
-                    List<Product> prdList = new List<Product>();
-
-                    foreach (var item in productTypes)
-                    {
-                        var products = await _services.UserService.GetUserProducts(App.UserDetails.UserId.Value,
-                                               supplierId, item);
-
-                        if(products.Data.Item1 != null && products.Data.Item1.Count > 0)
-                        {
-                            prdList.AddRange(products.Data.Item1);
-                        }
-                    }
-                    
                     // get orders for the user
 
 

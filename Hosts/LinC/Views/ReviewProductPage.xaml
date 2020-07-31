@@ -47,7 +47,7 @@
                                                 Padding="0" BackgroundColor="White"  CornerRadius="12"  BorderColor="Transparent">
                                         <Grid ColumnSpacing="0" BackgroundColor="Transparent" Padding="0" Margin="10,1,0,0">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="100"/>
+                                                <RowDefinition Height="110"/>
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0.8*"/>
@@ -57,8 +57,8 @@
                                                 <Label Text="{Binding ProductCategory, StringFormat='Product Name: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
                                                 <Label Text="{Binding ProductType, StringFormat='Product Type: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
                                                 <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}" FontFamily="{StaticResource NunitoBold}"/>
-                                                <Label Text="{Binding Price, StringFormat='Price: {0}'}" FontFamily="{StaticResource NunitoBold}"/>                                                
-                                                <Label Text="{Binding Description}" LineBreakMode="WordWrap" FontFamily="{StaticResource NunitoBold}"/>
+                                                <Label Text="{Binding UnitPrice, StringFormat='Unit Price: {0}'}" FontFamily="{StaticResource NunitoBold}"/>                                                
+                                                <Label Text="{Binding Description, StringFormat='Desc: {0}'}" LineBreakMode="WordWrap" FontFamily="{StaticResource NunitoBold}"/>
                                             </StackLayout>
                                             <StackLayout Orientation="Vertical" HorizontalOptions="End" BackgroundColor="White" 
                                                      VerticalOptions="StartAndExpand" Padding="0" Spacing="0" Margin="0,0,0,0"
@@ -70,7 +70,7 @@
                                                 <Button  BackgroundColor="White" BorderWidth="0"  BorderColor="Transparent" 
                                                     FontFamily="{StaticResource FontAwesomeSolid}" TextColor="{StaticResource BlueContentColor}" FontSize="20"
                                                     Text="{x:Static template:FontAwesomeIcons.Trash}"
-                                                         Margin="0,8,5,2" HeightRequest="45"  WidthRequest="45" CornerRadius="22"
+                                                         Margin="0,15,5,0" HeightRequest="45"  WidthRequest="45" CornerRadius="22"
                                                     Command="{Binding BindingContext.DeleteProductCommand, Source={x:Reference ReviewProductsPageRef}}" CommandParameter="{Binding .}"/>
 
                                             </StackLayout>

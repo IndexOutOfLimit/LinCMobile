@@ -18,5 +18,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Interfaces
         Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int? userId, int? supplierId, int productTypeMasterId);
         Task<ServiceResponse<(List<LinCUser>, bool)>> GetSuppliers(int userId, int prdTypeId, int searchWithin);
         Task<ServiceResponse<bool>> SaveProduct(List<Product> productsToAdd, int? userId);
+        Task<ServiceResponse<List<Order>>> GetOrders(LinCUser user, int? orderId = null);
+        Task<ServiceResponse<List<Order>>> SaveOrders(List<Product> ordersToAdd, LinCUser user);
     }
 }

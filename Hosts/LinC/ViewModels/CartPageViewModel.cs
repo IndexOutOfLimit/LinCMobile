@@ -189,7 +189,7 @@ namespace LinC.ViewModels
                        {
                            vm.UserDetails = App.UserDetails;
                            vm.Products = this.Products;
-                           vm.Orders = Orders.Where(o => o.IsSubmitted).ToList();
+                           //vm.Orders = Orders.Where(o => o.IsSubmitted).ToList();
                        })
                 );                
             }

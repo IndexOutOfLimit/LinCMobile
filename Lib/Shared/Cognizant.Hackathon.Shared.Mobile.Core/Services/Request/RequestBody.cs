@@ -71,19 +71,101 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         [JsonProperty(PropertyName = "prdctDesc")]
         public string ProductDesc { get; set; }
 
-        [JsonProperty(PropertyName = "prdctDesc")]
+        [JsonProperty(PropertyName = "prdctRate")]
         public double ProductRate { get; set; }
 
         [JsonProperty(PropertyName = "prdctQty")]
         public int ProductQty { get; set; }
     }
 
+    public class SaveOrderReq
+    {
+        [JsonProperty(PropertyName = "orderId")]
+        public int? OrderId { get; set; }
+
+        [JsonProperty(PropertyName = "orderStatus")]
+        public string OrderStatus { get; set; }
+
+        [JsonProperty(PropertyName = "consumerId")]
+        public int? ConsumerId { get; set; }
+
+        [JsonProperty(PropertyName = "consumer")]
+        public string Consumer { get; set; }
+
+        [JsonProperty(PropertyName = "supplierId")]
+        public int? supplierId { get; set; }
+
+        [JsonProperty(PropertyName = "supplier")]
+        public string Supplier { get; set; }
+
+        [JsonProperty(PropertyName = "isSelfPickup")]
+        public bool isSelfPickup { get; set; }
+
+        [JsonProperty(PropertyName = "isVolunteered")]
+        public bool isVolunteered { get; set; }
+
+        [JsonProperty(PropertyName = "volunteerId")]
+        public int? VolunteerId { get; set; }
+
+        [JsonProperty(PropertyName = "volunteer")]
+        public string Volunteer { get; set; }
+
+        [JsonProperty(PropertyName = "orderTotal")]
+        public int? OrderTotal { get; set; }
+
+        [JsonProperty(PropertyName = "products")]
+        public List<OrderProductReq> Products { get; set; }
+    }
+
+    public class OrderProductReq
+    {
+        [JsonProperty(PropertyName = "orderDetailId")]
+        public int? OrderDetailId { get; set; }
+
+        [JsonProperty(PropertyName = "productId")]
+        public int ProductId { get; set; }
+
+        [JsonProperty(PropertyName = "usrProductInventoryTrxId")]
+        public int UserProductInventoryTrxId { get; set; }
+
+        [JsonProperty(PropertyName = "productName")]
+        public string ProductName { get; set; }
+
+        [JsonProperty(PropertyName = "productDescription")]
+        public string ProductDescription { get; set; }
+
+        [JsonProperty(PropertyName = "quantityOrdered")]
+        public int QuantityOrdered { get; set; }
+
+        [JsonProperty(PropertyName = "productRate")]
+        public double ProductRate { get; set; }
+
+        [JsonProperty(PropertyName = "totalPrice")]
+        public double TotalPrice { get; set; }
+    }
+
+    public class GetOrderReq
+    {
+        [JsonProperty(PropertyName = "consumerId")]
+        public int? ConsumerId { get; set; }
+
+        [JsonProperty(PropertyName = "supplierId")]
+        public int? SupplierId { get; set; }
+
+        [JsonProperty(PropertyName = "volunteerId")]
+        public int? VolunteerId { get; set; }
+
+        [JsonProperty(PropertyName = "orderId")]
+        public int? OrderId { get; set; }
+
+        [JsonProperty(PropertyName = "searchType")]
+        public string SearchType { get; set; } //CONSUMER  SUPPLIER VOLUNTEER
+    }
 
     public class DocumentMailDataReq
     {
         public string OperationName { get; set; }
     }
-
 
     public class EmailInput
     {

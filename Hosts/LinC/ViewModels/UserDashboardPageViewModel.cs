@@ -15,7 +15,7 @@ namespace LinC.ViewModels
     {
         private readonly ILinCApiServices _services;
 
-        public List<Product> Orders { get; set; }
+        public List<Order> Orders { get; set; }
         public List<Product> Products { get; set; }
         public string OrdersHeadingText { get; set; }
         public string ProductsHeadingText { get; set; }
