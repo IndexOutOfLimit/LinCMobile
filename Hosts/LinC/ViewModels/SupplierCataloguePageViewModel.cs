@@ -59,6 +59,7 @@ namespace LinC.ViewModels
                           {
                               vm.UserDetails = App.UserDetails;
                               vm.Products = response.Data.Item1;
+                              vm.SupplierId = item.UserId;
                           })
                       );
                 }

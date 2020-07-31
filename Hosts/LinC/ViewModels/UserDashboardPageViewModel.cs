@@ -20,9 +20,13 @@ namespace LinC.ViewModels
         public string OrdersHeadingText { get; set; }
         public string ProductsHeadingText { get; set; }
         public bool IsConsumerUser { get; set; }
+        public bool IsSupplierUser { get; set; }
+        public bool IsVolunteerUser { get; set; }
 
         public CustomDelegateTimerCommand<Product> EditProductCommand { get; set; }
         public CustomDelegateTimerCommand<Product> DeleteProductCommand { get; set; }
+        public CustomDelegateTimerCommand<Order> EditOrderCommand { get; set; }
+        public CustomDelegateTimerCommand<Order> DeleteOrderCommand { get; set; }
         public CustomDelegateTimerCommand AddProductCommand { get; set; }
         public CustomDelegateTimerCommand PlaceOrderCommand { get; set; }
         public CustomDelegateCommand<Product> ProductSelectionCommand { get; }
@@ -36,6 +40,9 @@ namespace LinC.ViewModels
             AddProductCommand = new CustomDelegateTimerCommand(() => AddProductAction(), () => true);
             PlaceOrderCommand = new CustomDelegateTimerCommand(() => PlaceOrderAction(), () => true);
             ProductSelectionCommand = new CustomDelegateCommand<Product>((item) => ProductSelectionAction(item), (item) => true);
+
+            EditOrderCommand = new CustomDelegateTimerCommand<Order>(async (item) => await EditOrderAction(item), (item) => true);
+            DeleteOrderCommand = new CustomDelegateTimerCommand<Order>(async (item) => await DeleteOrderAction(item), (item) => true);
 
             ProductsHeadingText = "Your products";
             OrdersHeadingText = "Orders";
@@ -55,9 +62,19 @@ namespace LinC.ViewModels
                 OrdersHeadingText = "No order has been placed.";
             }
 
-            if(UserDetails.UserTypeId.Equals(2))
+            if (UserDetails.UserTypeId.Equals(3))
+            {
+                IsVolunteerUser = true;
+            }
+
+            if (UserDetails.UserTypeId.Equals(2))
             {
                 IsConsumerUser = true;
+            }
+
+            if (UserDetails.UserTypeId.Equals(1))
+            {
+                IsSupplierUser = true;
             }
         }
 
@@ -75,6 +92,18 @@ namespace LinC.ViewModels
             {
                 return Orders != null && Orders.Count > 0;
             }
+        }
+
+        private async Task DeleteOrderAction(Order item)
+        {
+            await Task.Delay(10);
+            //throw new NotImplementedException();
+        }
+
+        private async Task EditOrderAction(Order item)
+        {
+            await Task.Delay(10);
+            //throw new NotImplementedException();
         }
 
         private void ProductSelectionAction(Product item)

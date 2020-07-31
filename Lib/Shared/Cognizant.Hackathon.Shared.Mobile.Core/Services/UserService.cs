@@ -163,7 +163,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                     getOrdReq.SearchType = "SUPPLIER";
                     break;
                 case 3:// LinCUserType.Volunteer:
-                    getOrdReq.SupplierId = user.UserId;
+                    getOrdReq.VolunteerId = user.UserId;
                     getOrdReq.SearchType = "VOLUNTEER";
                     break;
                 default:
@@ -196,7 +196,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             return new ServiceResponse<List<Order>>(ServiceStatus.Success, data: ordersResponse.Orders);
         }
 
-        public async Task<ServiceResponse<List<Order>>> SaveOrders(List<Product> ordersToAdd, LinCUser user)
+        public async Task<ServiceResponse<List<Order>>> SaveOrders(List<Product> ordersToAdd, LinCUser user, int? supplierId)
         {
             var headers = RequestHeaderCreator.GetWebApiClientHeader();
 
@@ -208,7 +208,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
                 ordReq.ProductId = item.ProductId;
                 ordReq.ProductDescription = item.Description;
                 ordReq.ProductName = item.ProductName;
-                ordReq.ProductRate = item.UnitPrice;
+                ordReq.ProductRate = item.Price;
                 ordReq.QuantityOrdered = item.Quantity;
                 ordReq.TotalPrice = item.Price;
                 ordReq.UserProductInventoryTrxId = item.UsrProductInventoryTrxId;
@@ -222,24 +222,27 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             {
                 case 2: //LinCUserType.Consumer:
                     saveOrdReq.Consumer = user.FullName;
-                    saveOrdReq.ConsumerId = user.UserId;                    
+                    saveOrdReq.ConsumerId = user.UserId;
+                    saveOrdReq.SupplierId = supplierId;
                     break;
                 case 1:// LinCUserType.Supplier:
                     saveOrdReq.Supplier = user.FullName;
-                    saveOrdReq.supplierId = user.UserId;
+                    saveOrdReq.SupplierId = user.UserId;
+                    //saveOrdReq.SupplierId = supplierId;
                     break;
                 case 3:// LinCUserType.Volunteer:
                     saveOrdReq.Volunteer = user.FullName;
                     saveOrdReq.VolunteerId = user.UserId;
-                    saveOrdReq.isVolunteered = true;
+                    saveOrdReq.IsVolunteered = 1;
+                    saveOrdReq.SupplierId = supplierId;
                     break;
                 default:
                     break;
             }
             saveOrdReq.Products = ordsReq;
             saveOrdReq.OrderTotal = ordersToAdd.Count;
-            saveOrdReq.OrderStatus = "ORDPLCD";
-            
+            saveOrdReq.OrderStatus = "ORDPLCD";            
+
             var response = await _restClient
              .ExecuteAsync<string, SaveOrderReq>(
                 HttpVerb.POST,
@@ -258,10 +261,11 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services
             {
                 return new ServiceResponse<List<Order>>(ServiceStatus.Error, data: null, errorCode: LinCTrasactionStatus.Failure.ToString(), errorMessage: "Problem in saving product.");
             }
-            
-            var ordersResponse = JsonConvert.DeserializeObject<GetOrderResponse>(jSonResponse);
+            var ordersResponse = await GetOrders(user);
+            //var ordersResponse = JsonConvert.DeserializeObject<GetOrderResponse>(jSonResponse);
 
-            return new ServiceResponse<List<Order>>(ServiceStatus.Success, data: ordersResponse.Orders);
+            //return new ServiceResponse<List<Order>>(ServiceStatus.Success, data: ordersResponse.Orders);
+            return new ServiceResponse<List<Order>>(ServiceStatus.Success, data: ordersResponse.Data);
         }
 
         public async Task<ServiceResponse<(List<Product>, bool)>> GetUserProducts(int? userId, int? supplierId, int productTypeMasterId)

@@ -163,7 +163,7 @@
                                Margin="0,5,0,0"/>
                             <Label FontFamily="{StaticResource FontAwesomeSolid}"
                                TextColor="{StaticResource BlueContentColor}" FontSize="35" VerticalOptions="Center"
-                               Text="{x:Static template:FontAwesomeIcons.Phone}" />
+                               Text="{x:Static template:FontAwesomeIcons.CommentDots}" />
 
                               <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallCommand}"/>

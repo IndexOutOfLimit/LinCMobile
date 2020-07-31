@@ -56,7 +56,7 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Response
         public int AvailableQuantity { get; set; }
 
         [JsonProperty(PropertyName = "quantityOrdered")]
-        public int Q { get; set; }
+        public int QuantityOrdered { get; set; }
 
     }
 

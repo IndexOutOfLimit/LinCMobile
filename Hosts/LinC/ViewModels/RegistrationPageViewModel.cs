@@ -357,7 +357,9 @@ namespace LinC.ViewModels
 
                 if (response.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                 {
-                    UserDetails = response.Data;                    
+                    ThreadingHelpers.InvokeOnMainThread(async () => await AppNavigationService.GoBackAsync() );
+
+                    /*UserDetails = response.Data;                    
                     App.UserDetails = UserDetails;
 
                     // get product category list
@@ -366,9 +368,7 @@ namespace LinC.ViewModels
                     if(responsePrdCategory.ServiceErrorCode.Equals(LinCTrasactionStatus.Success.ToString()))
                     {
                         App.MasterData.ProductCategoryList = responsePrdCategory.Data.ProductCategoryList;
-                        // get orders
-
-
+                        
                         ThreadingHelpers.InvokeOnMainThread(async () =>
                             await AppNavigationService.GoToAsync(nameof(AddProductPage).ToLower(),
                                 (AddProductPageViewModel vm) =>
@@ -378,26 +378,11 @@ namespace LinC.ViewModels
                                     vm.ProductTypes = App.MasterData.ProductTypeMaster;
                                 })
                             );
-
-                        //ThreadingHelpers.InvokeOnMainThread(async () =>
-                        //    await AppNavigationService.GoToAsync(nameof(SupplierCataloguePage).ToLower(),
-                        //        (SupplierCataloguePageViewModel vm) =>
-                        //        {
-                        //            vm.UserDetails = UserDetails;
-                        //        })
-                        //    );
-                        //ThreadingHelpers.InvokeOnMainThread(async () =>
-                        //    await AppNavigationService.GoToAsync(nameof(ProductCataloguePage).ToLower(),
-                        //        (ProductCataloguePageViewModel vm) =>
-                        //        {
-                        //            vm.UserDetails = UserDetails;
-                        //        })
-                        //    );
                     }
                     else
                     {
                         AppErrorService.AddError(response);
-                    }
+                    }*/
                 }
                 else
                 {

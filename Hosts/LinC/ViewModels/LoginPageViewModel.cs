@@ -125,7 +125,7 @@ namespace LinC.ViewModels
                     }
 
                     // get orders for the user
-
+                    var orders = _services.UserService.GetOrders(App.UserDetails);
 
                     ThreadingHelpers.InvokeOnMainThread(async () =>
                         await AppNavigationService.GoToAsync(nameof(UserDashboardPage).ToLower(),
@@ -133,7 +133,7 @@ namespace LinC.ViewModels
                            {
                                vm.UserDetails = App.UserDetails;
                                vm.Products = prdList;
-                               //vm.Orders = Orders.Where(o => o.IsSubmitted).ToList();
+                               vm.Orders = orders.Result.Data;
                            })
                          );
                 }

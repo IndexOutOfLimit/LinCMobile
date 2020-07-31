@@ -42,7 +42,6 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <AndroidKeyStore>True</AndroidKeyStore>
     <AndroidSigningKeyStore>/Users/admin/Desktop/hackathon/MobileApp/Xamarin/LinCMobile/LinC/Hosts/LinC.Android/AndroidKeystore/AndroidKeystore.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>password</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>AndroidKeystore</AndroidSigningKeyAlias>

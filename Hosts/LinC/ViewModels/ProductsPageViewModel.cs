@@ -18,6 +18,7 @@ namespace LinC.ViewModels
 
         public List<Product> Products { get; set; }
         public bool ShouldModify { get; set; }
+        public int? SupplierId { get; set; }
 
         public CustomDelegateTimerCommand<Product> EditProductCommand { get; set; }
         public CustomDelegateTimerCommand<Product> DeleteProductCommand { get; set; }
@@ -119,7 +120,7 @@ namespace LinC.ViewModels
             {
                 AppSpinner.ShowLoading();
 
-                var response = await _services.UserService.SaveOrders(Products, UserDetails);
+                var response = await _services.UserService.SaveOrders(Products, UserDetails, SupplierId);
                 AppSpinner.HideLoading();
 
                 if (response.Data != null)
@@ -170,7 +171,7 @@ namespace LinC.ViewModels
             ThreadingHelpers.InvokeOnMainThread(() =>
             {
                 item.Quantity = qty;
-                item.Price = item.UnitPrice * qty;
+                item.Price = (item.UnitPrice == 0 ? 10:item.UnitPrice) * qty;
             });
         }
         private void DecreaseQuantityAction(Product item)
@@ -186,7 +187,7 @@ namespace LinC.ViewModels
             ThreadingHelpers.InvokeOnMainThread(() =>
             {
                 item.Quantity = qty;
-                item.Price = item.UnitPrice * qty;
+                item.Price = (item.UnitPrice == 0 ? 10 : item.UnitPrice) * qty;
             });
         }
     }

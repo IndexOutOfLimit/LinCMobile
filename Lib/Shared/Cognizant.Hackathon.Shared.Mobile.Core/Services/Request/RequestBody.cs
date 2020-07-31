@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cognizant.Hackathon.Shared.Mobile.Core.Services.Response;
 using Cognizant.Hackathon.Shared.Mobile.Models;
 using Cognizant.Hackathon.Shared.Mobile.Models.Models;
@@ -93,16 +94,16 @@ namespace Cognizant.Hackathon.Shared.Mobile.Core.Services.Request
         public string Consumer { get; set; }
 
         [JsonProperty(PropertyName = "supplierId")]
-        public int? supplierId { get; set; }
+        public int? SupplierId { get; set; }
 
         [JsonProperty(PropertyName = "supplier")]
         public string Supplier { get; set; }
 
         [JsonProperty(PropertyName = "isSelfPickup")]
-        public bool isSelfPickup { get; set; }
+        public short IsSelfPickup { get; set; }
 
         [JsonProperty(PropertyName = "isVolunteered")]
-        public bool isVolunteered { get; set; }
+        public short IsVolunteered { get; set; }
 
         [JsonProperty(PropertyName = "volunteerId")]
         public int? VolunteerId { get; set; }

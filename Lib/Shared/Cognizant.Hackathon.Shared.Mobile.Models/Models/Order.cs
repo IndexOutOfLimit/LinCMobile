@@ -52,10 +52,25 @@ namespace Cognizant.Hackathon.Shared.Mobile.Models.Models
                     foreach (var item in Products)
                     {
                         prdDesc += item.Description +";";
-                    }
-                    
+                    }                    
                 }
                 return prdDesc;
+            }
+        }
+
+        public int TotalQuantity
+        {
+            get
+            {
+                int prdQ = 0;
+                if (Products != null && Products.Count > 0)
+                {
+                    foreach (var item in Products)
+                    {
+                        prdQ += item.Quantity;
+                    }
+                }
+                return prdQ;
             }
         }
     }
